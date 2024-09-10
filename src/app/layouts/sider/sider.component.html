@@ -3,7 +3,7 @@
     <h5 nz-typography class="underline decoration-sky-500">人生纪要</h5>
     <div #log class="flex-1 p-4 border-gray-300 border rounded overflow-auto">
       <nz-timeline>
-        @for (log of logList; track $index) {
+        @for (log of logList; track log) {
         <nz-timeline-item>{{ log }}</nz-timeline-item>
         }
       </nz-timeline>

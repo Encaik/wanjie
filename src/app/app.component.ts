@@ -7,6 +7,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { SiderComponent } from './layouts/sider/sider.component';
 import { EnvService } from './services/env.service';
 import { EnvType } from './model';
+import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { CharacterModalComponent } from './components/character-modal/character-modal.component';
 
 const layouts = [
   HeaderComponent,
@@ -18,16 +20,30 @@ const layouts = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NzLayoutModule, ...layouts],
+  imports: [RouterOutlet, NzLayoutModule, NzModalModule, ...layouts],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
 export class AppComponent {
   private envSrv = inject(EnvService);
+  private modal = inject(NzModalService);
   title = 'wanjie';
 
   ngOnInit() {
-    this.initEnv();
+    this.initCharacter().afterClose.subscribe(() => {
+      this.initEnv();
+    });
+  }
+
+  initCharacter(): NzModalRef<CharacterModalComponent, any> {
+    return this.modal.create({
+      nzContent: CharacterModalComponent,
+      nzFooter: null,
+      nzClosable: false,
+      nzMaskClosable: false,
+      nzTitle: '初始化角色',
+      nzWidth: '800px',
+    });
   }
 
   initEnv() {

@@ -5,11 +5,11 @@ import { Env, EnvType } from '../model';
   providedIn: 'root',
 })
 export class EnvService {
-  name: string = '';
-  type: EnvType = EnvType.Base;
+  name: string = '未知世界';
+  type: EnvType | null = null;
   levelMap: Record<number, string> = {};
   maxEnergy: number = 0;
-  weight: number = 0;
+  weight: number = 1;
 
   setEnv(env: Env) {
     this.name = env.name;
@@ -19,7 +19,7 @@ export class EnvService {
     this.weight = env.weight;
   }
 
-  getEnvType(type: EnvType) {
+  getEnvType(type: EnvType | null) {
     switch (type) {
       case EnvType.Base:
         return '新手世界';

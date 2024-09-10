@@ -22,7 +22,7 @@ export class HeaderComponent {
     return this.envSrv;
   }
 
-  getEnvType(type: EnvType) {
+  getEnvType(type: EnvType | null) {
     return this.envSrv.getEnvType(type);
   }
 
