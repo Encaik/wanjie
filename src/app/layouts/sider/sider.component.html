@@ -1,3 +1,12 @@
 <div class="h-full p-2 bg-white rounded shadow-md shadow-gray-200">
-  <h5 nz-typography class="underline decoration-sky-500">人生纪要</h5>
+  <div class="flex flex-col h-full">
+    <h5 nz-typography class="underline decoration-sky-500">人生纪要</h5>
+    <div class="flex-1 p-4 border-gray-300 border rounded overflow-auto">
+      <nz-timeline>
+        @for (log of logList; track $index) {
+        <nz-timeline-item>{{ log }}</nz-timeline-item>
+        }
+      </nz-timeline>
+    </div>
+  </div>
 </div>

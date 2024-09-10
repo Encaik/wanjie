@@ -14,7 +14,9 @@
         <nz-descriptions-item nzTitle="等级体系">
           <div class="flex flex-wrap gap-y-2">
             @for (item of env.levelMap | keyvalue:sort; track $index) {
-            <nz-tag>{{ item.value }}</nz-tag>
+            <nz-tag [nzColor]="getHightLightLevel(item.key)">{{
+              item.value
+            }}</nz-tag>
             }
           </div>
         </nz-descriptions-item>

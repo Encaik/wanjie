@@ -17,6 +17,7 @@ export interface BaseInfo {
 
 export interface SkillInfo {
   energy: number; // 能量
+  level: number; // 境界（根据当前世界等级动态调整）
 }
 
 export interface BattleInfo {

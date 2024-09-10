@@ -15,12 +15,28 @@
     <nz-descriptions-item nzTitle="特质">{{
       character.baseInfo.ability
     }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="血量"
-      >{{ character.baseInfo.hp }}/{{
-        character.baseInfo.totalHp
-      }}</nz-descriptions-item
-    >
-    <nz-descriptions-item nzTitle="灵力"
+    <nz-descriptions-item nzTitle="血量">
+      <nz-progress
+        class="flex-1"
+        nzStrokeColor="#52c41a"
+        [nzPercent]="
+          getPercent(character.baseInfo.hp, character.baseInfo.totalHp)
+        "
+        nzSize="small"
+        [nzShowInfo]="false"
+      ></nz-progress
+      >{{ character.baseInfo.hp }}/{{ character.baseInfo.totalHp }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="灵力">
+      <nz-progress
+        class="flex-1"
+        nzStrokeColor="#1890ff"
+        [nzPercent]="
+          getPercent(character.baseInfo.mp, character.baseInfo.totalMp)
+        "
+        nzSize="small"
+        [nzShowInfo]="false"
+      ></nz-progress
       >{{ character.baseInfo.mp }}/{{
         character.baseInfo.totalMp
       }}</nz-descriptions-item

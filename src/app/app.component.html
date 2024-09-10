@@ -1,11 +1,11 @@
-<nz-layout class="overflow-auto">
-  <nz-content class="grid-content">
+<nz-layout class="h-screen w-screen overflow-hidden">
+  <nz-content class="h-full w-full grid-content">
     <app-header class="env" />
-    <app-character class="character" />
+    <app-character class="character overflow-auto" />
     <div class="main p-2 bg-white rounded shadow-md shadow-gray-200">
       <app-home />
     </div>
-    <app-sider class="sider" />
+    <app-sider class="info overflow-auto" />
     <div class="mobile-banner p-2 bg-white rounded shadow-md shadow-gray-200">
       窄屏幕页面切换
     </div>

@@ -17,6 +17,7 @@ export class CharacterService {
   };
   skillInfo: SkillInfo = {
     energy: 0,
+    level: 0,
   };
   battleInfo: BattleInfo = {
     attack: 10,
@@ -33,20 +34,20 @@ export class CharacterService {
   }
 
   setCharacter(character: Character) {
-    this.baseInfo = { ...this.baseInfo, ...character.baseInfo };
-    this.skillInfo = { ...this.skillInfo, ...character.skillInfo };
-    this.battleInfo = { ...this.battleInfo, ...character.battleInfo };
+    this.setBaseInfo(character.baseInfo);
+    this.setSkillInfo(character.skillInfo);
+    this.setBattleInfo(character.battleInfo);
   }
 
-  setBaseInfo(baseInfo: BaseInfo) {
+  setBaseInfo(baseInfo: Partial<BaseInfo>) {
     this.baseInfo = { ...this.baseInfo, ...baseInfo };
   }
 
-  setSkillInfo(skillInfo: SkillInfo) {
+  setSkillInfo(skillInfo: Partial<SkillInfo>) {
     this.skillInfo = { ...this.skillInfo, ...skillInfo };
   }
 
-  setBattleInfo(battleInfo: BattleInfo) {
+  setBattleInfo(battleInfo: Partial<BattleInfo>) {
     this.battleInfo = { ...this.battleInfo, ...battleInfo };
   }
 }

@@ -5,6 +5,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { KeyValuePipe } from '@angular/common';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { EnvType } from '../../model';
+import { CharacterService } from '../../services/character.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import { EnvType } from '../../model';
 })
 export class HeaderComponent {
   private envSrv = inject(EnvService);
+  private characterSrv = inject(CharacterService);
 
   get env() {
     return this.envSrv.env;
@@ -22,6 +24,12 @@ export class HeaderComponent {
 
   getEnvType(type: EnvType) {
     return this.envSrv.getEnvType(type);
+  }
+
+  getHightLightLevel(level: string) {
+    return this.characterSrv.skillInfo.level === Number(level)
+      ? 'blue'
+      : 'default';
   }
 
   sort() {
