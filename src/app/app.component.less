@@ -1,0 +1,67 @@
+:host {
+  .container {
+    padding: 12px;
+    display: grid;
+  }
+  @media screen and (min-width: 768px) {
+    .container {
+      grid-template-columns: 0.5fr 1.9fr 0.6fr;
+      grid-template-rows: 64px 1fr;
+      gap: 8px 8px;
+      grid-template-areas:
+        "env env env"
+        "character main info";
+    }
+    .mobile-banner,
+    .mobile-main {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .container {
+      grid-template-columns: 1fr;
+      grid-template-rows: 64px 1fr 32px;
+      gap: 8px 8px;
+      grid-auto-flow: row;
+      grid-template-areas:
+        "env"
+        "mobile-main"
+        "mobile-banner";
+    }
+    .character,
+    .main,
+    .info {
+      display: none;
+    }
+  }
+
+  .env {
+    grid-area: env;
+    border: 1px solid #222;
+  }
+
+  .character {
+    grid-area: character;
+    border: 1px solid #222;
+  }
+
+  .main {
+    grid-area: main;
+    border: 1px solid #222;
+  }
+
+  .info {
+    grid-area: info;
+    border: 1px solid #222;
+  }
+
+  .mobile-banner {
+    grid-area: mobile-banner;
+    border: 1px solid #222;
+  }
+
+  .mobile-main {
+    grid-area: mobile-main;
+    border: 1px solid #222;
+  }
+}
