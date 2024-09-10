@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { HeaderComponent } from './layouts/header/header.component';
 import { CharacterComponent } from './layouts/character/character.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SiderComponent } from './layouts/sider/sider.component';
+import { EnvService } from './services/env.service';
+import { EnvType } from './model';
 
 const layouts = [
   HeaderComponent,
@@ -21,5 +23,32 @@ const layouts = [
   styleUrl: './app.component.less',
 })
 export class AppComponent {
+  private envSrv = inject(EnvService);
   title = 'wanjie';
+
+  ngOnInit() {
+    this.initEnv();
+  }
+
+  initEnv() {
+    this.envSrv.setEnv({
+      name: '新手世界',
+      type: EnvType.Base,
+      levelMap: {
+        0: '新手',
+        1: '初级',
+        2: '中级',
+        3: '高级',
+        4: '专家',
+        5: '王者',
+        6: '宗师',
+        7: '至尊',
+        8: '无尽',
+        9: '终极',
+        10: '传说',
+      },
+      maxEnergy: 10000,
+      weight: 1,
+    });
+  }
 }

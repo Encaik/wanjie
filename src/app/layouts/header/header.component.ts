@@ -19,7 +19,7 @@ export class HeaderComponent {
   private characterSrv = inject(CharacterService);
 
   get env() {
-    return this.envSrv.env;
+    return this.envSrv;
   }
 
   getEnvType(type: EnvType) {

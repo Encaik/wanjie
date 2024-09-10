@@ -20,10 +20,8 @@ export class CharacterComponent {
     return this.characterSrv.getCharacter();
   }
 
-  getLevelByEnergy(energy: number) {
-    return this.envSrv.env.levelMap[
-      Math.floor(energy / (1000 * this.envSrv.env.weight))
-    ];
+  getLevelByEnergy() {
+    return this.envSrv.levelMap[this.character.skillInfo.level];
   }
 
   getPercent(current: number, total: number) {

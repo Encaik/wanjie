@@ -5,25 +5,19 @@ import { Env, EnvType } from '../model';
   providedIn: 'root',
 })
 export class EnvService {
-  env: Env = {
-    name: '新手村',
-    type: EnvType.Base,
-    levelMap: {
-      0: '新手',
-      1: '初级',
-      2: '中级',
-      3: '高级',
-      4: '专家',
-      5: '王者',
-      6: '宗师',
-      7: '至尊',
-      8: '无尽',
-      9: '终极',
-      10: '传说',
-    },
-    maxEnergy: 10000,
-    weight: 1,
-  };
+  name: string = '';
+  type: EnvType = EnvType.Base;
+  levelMap: Record<number, string> = {};
+  maxEnergy: number = 0;
+  weight: number = 0;
+
+  setEnv(env: Env) {
+    this.name = env.name;
+    this.type = env.type;
+    this.levelMap = env.levelMap;
+    this.maxEnergy = env.maxEnergy;
+    this.weight = env.weight;
+  }
 
   getEnvType(type: EnvType) {
     switch (type) {
