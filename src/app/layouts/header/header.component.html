@@ -1,3 +1,24 @@
 <div class="h-full p-2 bg-white rounded shadow-md shadow-gray-200">
-  <h1 class="text-3xl font-bold underline">环境信息</h1>
+  <div nz-row>
+    <div nz-col nzXs="24" nzLg="12">
+      <nz-descriptions nzSize="small" [nzColumn]="3">
+        <nz-descriptions-item nzTitle="世界名称">{{
+          env.name
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="世界类型">{{
+          getEnvType(env.type)
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="修炼倍数">{{
+          env.weight
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="等级体系">
+          <div class="flex flex-wrap gap-y-2">
+            @for (item of env.levelMap | keyvalue:sort; track $index) {
+            <nz-tag>{{ item.value }}</nz-tag>
+            }
+          </div>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
 </div>

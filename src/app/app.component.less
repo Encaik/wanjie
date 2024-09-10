@@ -5,8 +5,8 @@
   }
   @media screen and (min-width: 768px) {
     .grid-content {
-      grid-template-columns: 200px 1fr 200px;
-      grid-template-rows: 64px 1fr;
+      grid-template-columns: 200px 1fr 400px;
+      grid-template-rows: minmax(64px, max-content) 1fr;
       gap: 8px 8px;
       grid-template-areas:
         "env env env"
@@ -20,7 +20,7 @@
   @media screen and (max-width: 768px) {
     .grid-content {
       grid-template-columns: 1fr;
-      grid-template-rows: 64px 1fr 48px;
+      grid-template-rows: minmax(64px, max-content) 1fr 48px;
       gap: 8px 8px;
       grid-auto-flow: row;
       grid-template-areas:
