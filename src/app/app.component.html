@@ -1,13 +1,18 @@
-<nz-layout>
-  <nz-header>Header</nz-header>
-  <nz-content class="container">
-    <div class="env">
-      <h1 class="text-3xl font-bold underline">环境信息</h1>
+<nz-layout class="overflow-auto">
+  <nz-content class="grid-content">
+    <app-header class="env" />
+    <app-character class="character" />
+    <div class="main p-2 bg-white rounded shadow-md shadow-gray-200">
+      主界面
     </div>
-    <div class="character">人物信息</div>
-    <div class="main">主界面</div>
-    <div class="info">辅助信息</div>
-    <div class="mobile-banner">窄屏幕页面切换</div>
-    <div class="mobile-main">窄屏幕主界面</div>
+    <div class="info p-2 bg-white rounded shadow-md shadow-gray-200">
+      辅助信息
+    </div>
+    <div class="mobile-banner p-2 bg-white rounded shadow-md shadow-gray-200">
+      窄屏幕页面切换
+    </div>
+    <div class="mobile-main p-2 bg-white rounded shadow-md shadow-gray-200">
+      窄屏幕主界面
+    </div>
   </nz-content>
 </nz-layout>
