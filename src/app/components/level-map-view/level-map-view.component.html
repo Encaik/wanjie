@@ -1,8 +1,5 @@
 <div class="flex flex-wrap gap-y-2">
   @for (level of levelMap | keyvalue:sort; track level.value) {
-  <nz-tag
-    [nzColor]="currentLevel ? getHightLightLevel(level.value) : 'default'"
-    >{{ level.value }}</nz-tag
-  >
+  <nz-tag [nzColor]="getHightLightLevel(level.key)">{{ level.value }}</nz-tag>
   }
 </div>

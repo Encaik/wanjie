@@ -18,6 +18,6 @@ export class LevelMapViewComponent {
   }
 
   getHightLightLevel(level: string) {
-    return this.currentLevel === Number(level) ? 'blue' : 'default';
+    return Number(this.currentLevel) === Number(level) ? 'blue' : 'default';
   }
 }
