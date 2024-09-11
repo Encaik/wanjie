@@ -6,9 +6,8 @@ import { CharacterComponent } from './layouts/character/character.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SiderComponent } from './layouts/sider/sider.component';
 import { EnvService } from './services/env.service';
-import { EnvType } from './model';
 import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
-import { CharacterModalComponent } from './components/character-modal/character-modal.component';
+import { InitModalComponent } from './components/init-modal/init-modal.component';
 
 const layouts = [
   HeaderComponent,
@@ -30,41 +29,17 @@ export class AppComponent {
   title = 'wanjie';
 
   ngOnInit() {
-    this.initCharacter().afterClose.subscribe(() => {
-      this.initEnv();
-    });
+    this.init();
   }
 
-  initCharacter(): NzModalRef<CharacterModalComponent, any> {
+  init(): NzModalRef<InitModalComponent, any> {
     return this.modal.create({
-      nzContent: CharacterModalComponent,
+      nzContent: InitModalComponent,
       nzFooter: null,
       nzClosable: false,
       nzMaskClosable: false,
       nzTitle: '初始化角色',
       nzWidth: '800px',
-    });
-  }
-
-  initEnv() {
-    this.envSrv.setEnv({
-      name: '新手世界',
-      type: EnvType.Base,
-      levelMap: {
-        0: '新手',
-        1: '初级',
-        2: '中级',
-        3: '高级',
-        4: '专家',
-        5: '王者',
-        6: '宗师',
-        7: '至尊',
-        8: '无尽',
-        9: '终极',
-        10: '传说',
-      },
-      maxEnergy: 10000,
-      weight: 1,
     });
   }
 }

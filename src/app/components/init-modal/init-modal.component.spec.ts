@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CharacterModalComponent } from './character-modal.component';
+import { InitModalComponent } from './init-modal.component';
 
-describe('CharacterModalComponent', () => {
-  let component: CharacterModalComponent;
-  let fixture: ComponentFixture<CharacterModalComponent>;
+describe('InitModalComponent', () => {
+  let component: InitModalComponent;
+  let fixture: ComponentFixture<InitModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CharacterModalComponent]
+      imports: [InitModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CharacterModalComponent);
+    fixture = TestBed.createComponent(InitModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -6,10 +6,10 @@ import { BaseInfo, BattleInfo, Character, SkillInfo } from '../model';
 })
 export class CharacterService {
   baseInfo: BaseInfo = {
-    name: '小明',
-    gender: '男',
-    age: 18,
-    ability: '智慧',
+    name: '',
+    gender: '',
+    age: 0,
+    ability: '',
     hp: 100,
     mp: 100,
     totalHp: 100,

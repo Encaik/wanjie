@@ -1,0 +1,69 @@
+<nz-steps [nzCurrent]="current">
+  <nz-step nzTitle="选择人物"></nz-step>
+  <nz-step nzTitle="选择世界"></nz-step>
+</nz-steps>
+
+<div class="my-4">
+  @if(current===0){
+  <nz-card
+    class="h-full overflow-auto"
+    [nzBodyStyle]="{ height: '100%', padding: '1rem' }"
+  >
+    @for (item of characters; track item.name) {
+    <div
+      nz-card-grid
+      class="flex flex-col justify-center items-center grid-card"
+      (click)="onCharacterClick(item)"
+    >
+      <nz-descriptions [nzColumn]="1">
+        <nz-descriptions-item nzTitle="姓名">{{
+          item.name
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="性别">{{
+          item.gender
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="年龄">{{
+          item.age
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="特质">{{
+          item.ability
+        }}</nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+    }
+  </nz-card>
+  } @if(current===1){
+  <nz-card
+    class="h-full overflow-auto"
+    [nzBodyStyle]="{ height: '100%', padding: '1rem' }"
+  >
+    @for (item of envs; track item.name) {
+    <div
+      nz-card-grid
+      class="flex flex-col justify-center items-center"
+      style="width: 100%; text-align: center"
+      (click)="onEnvClick(item)"
+    >
+      <nz-descriptions [nzColumn]="1">
+        <nz-descriptions-item nzTitle="名称">{{
+          item.name
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="修炼速度">{{
+          item.weight
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="最大能量">{{
+          item.maxEnergy
+        }}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle="等级体系">
+          <div class="flex flex-wrap gap-y-2">
+            @for (item of item.levelMap | keyvalue:sort; track item.value) {
+            <nz-tag>{{ item.value }}</nz-tag>
+            }
+          </div>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+    }
+  </nz-card>
+  }
+</div>
