@@ -5,7 +5,6 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { CharacterComponent } from './layouts/character/character.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SiderComponent } from './layouts/sider/sider.component';
-import { EnvService } from './services/env.service';
 import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { InitModalComponent } from './components/init-modal/init-modal.component';
 
@@ -24,16 +23,17 @@ const layouts = [
   styleUrl: './app.component.less',
 })
 export class AppComponent {
-  private envSrv = inject(EnvService);
   private modal = inject(NzModalService);
   title = 'wanjie';
 
   ngOnInit() {
-    this.init();
+    setTimeout(() => {
+      this.init();
+    });
   }
 
-  init(): NzModalRef<InitModalComponent, any> {
-    return this.modal.create({
+  init() {
+    this.modal.create({
       nzContent: InitModalComponent,
       nzFooter: null,
       nzClosable: false,
