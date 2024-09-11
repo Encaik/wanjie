@@ -8,6 +8,8 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { KeyValuePipe } from '@angular/common';
+import { Generate } from '../../utils/generate';
+import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
 
 @Component({
   selector: 'app-init-modal',
@@ -18,6 +20,7 @@ import { KeyValuePipe } from '@angular/common';
     NzStepsModule,
     NzTagModule,
     KeyValuePipe,
+    LevelMapViewComponent,
   ],
   templateUrl: './init-modal.component.html',
   styleUrl: './init-modal.component.less',
@@ -31,42 +34,8 @@ export class InitModalComponent {
   envs: Pick<Env, 'name' | 'levelMap' | 'weight' | 'maxEnergy'>[] = [];
 
   ngOnInit() {
-    this.generateCharacter();
-    this.generateEnv();
-  }
-
-  sort() {
-    return 0;
-  }
-
-  generateCharacter() {
-    this.characters = Array.from({ length: 8 }, (_, i) => ({
-      name: `姓名${i + 1}`,
-      gender: Math.random() > 0.5 ? '男' : '女',
-      age: Math.floor(Math.random() * 100),
-      ability: '特质' + Math.floor(Math.random() * 100),
-    }));
-  }
-
-  generateEnv() {
-    this.envs = Array.from({ length: 8 }, (_, i) => ({
-      name: `世界${i + 1}`,
-      levelMap: {
-        0: '新手',
-        1: '初级',
-        2: '中级',
-        3: '高级',
-        4: '专家',
-        5: '王者',
-        6: '宗师',
-        7: '至尊',
-        8: '无尽',
-        9: '终极',
-        10: '传说',
-      },
-      weight: 1,
-      maxEnergy: 10000,
-    }));
+    this.characters = Generate.characters(8);
+    this.envs = Generate.envs(8);
   }
 
   onCharacterClick(

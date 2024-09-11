@@ -12,13 +12,10 @@
           env.weight
         }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="等级体系">
-          <div class="flex flex-wrap gap-y-2">
-            @for (item of env.levelMap | keyvalue:sort; track item.value) {
-            <nz-tag [nzColor]="getHightLightLevel(item.key)">{{
-              item.value
-            }}</nz-tag>
-            }
-          </div>
+          <app-level-map-view
+            [levelMap]="env.levelMap"
+            [currentLevel]="currentLevel"
+          />
         </nz-descriptions-item>
       </nz-descriptions>
     </div>

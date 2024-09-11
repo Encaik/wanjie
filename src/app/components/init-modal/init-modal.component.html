@@ -55,11 +55,7 @@
           item.maxEnergy
         }}</nz-descriptions-item>
         <nz-descriptions-item nzTitle="等级体系">
-          <div class="flex flex-wrap gap-y-2">
-            @for (item of item.levelMap | keyvalue:sort; track item.value) {
-            <nz-tag>{{ item.value }}</nz-tag>
-            }
-          </div>
+          <app-level-map-view [levelMap]="item.levelMap" />
         </nz-descriptions-item>
       </nz-descriptions>
     </div>

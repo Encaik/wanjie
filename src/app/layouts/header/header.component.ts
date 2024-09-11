@@ -6,11 +6,18 @@ import { KeyValuePipe } from '@angular/common';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { EnvType } from '../../model';
 import { CharacterService } from '../../services/character.service';
+import { LevelMapViewComponent } from '../../components/level-map-view/level-map-view.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NzDescriptionsModule, NzGridModule, KeyValuePipe, NzTagModule],
+  imports: [
+    NzDescriptionsModule,
+    NzGridModule,
+    KeyValuePipe,
+    NzTagModule,
+    LevelMapViewComponent,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.less',
 })
@@ -22,17 +29,11 @@ export class HeaderComponent {
     return this.envSrv;
   }
 
+  get currentLevel() {
+    return this.characterSrv.skillInfo.level;
+  }
+
   getEnvType(type: EnvType | null) {
     return this.envSrv.getEnvType(type);
-  }
-
-  getHightLightLevel(level: string) {
-    return this.characterSrv.skillInfo.level === Number(level)
-      ? 'blue'
-      : 'default';
-  }
-
-  sort() {
-    return 0;
   }
 }
