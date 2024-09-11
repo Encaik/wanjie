@@ -27,9 +27,7 @@ export class AppComponent {
   title = 'wanjie';
 
   ngOnInit() {
-    setTimeout(() => {
-      this.init();
-    });
+    this.init();
   }
 
   init() {
