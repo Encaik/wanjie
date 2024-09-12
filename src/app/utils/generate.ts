@@ -1,10 +1,12 @@
 import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
 import WORLDS from '../assets/data/worlds.json';
+import TRAITS from '../assets/data/traits.json';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
 const WORLDS_LEN = WORLDS.length;
+const TRAITS_LEN = TRAITS.length;
 
 /**
  * 生成相关数据的静态类
@@ -22,7 +24,7 @@ export class Generate {
       name: getCharacterName(),
       gender: Math.random() > 0.5 ? '男' : '女',
       age: Math.floor(Math.random() * 20) * 2,
-      ability: `特质${Math.floor(Math.random() * 100)}`
+      ability: getCharacterTrait()
     }));
   }
 
@@ -75,4 +77,15 @@ function getCharacterName() {
     name += NAMES[Math.floor(Math.random() * NAMES_LEN)];
   }
   return name;
+}
+
+/**
+ * 获取一个随机的角色特质
+ * @returns {string} 随机生成的角色特质
+ */
+function getCharacterTrait() {
+  let trait = '';
+  // 随机选择一个特质
+  trait = TRAITS[Math.floor(Math.random() * TRAITS_LEN)].trait;
+  return trait;
 }
