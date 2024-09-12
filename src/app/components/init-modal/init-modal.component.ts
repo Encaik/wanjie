@@ -8,6 +8,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { BaseInfo, Env, EnvType } from '../../models';
 import { Generate } from '../../utils/generate';
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-init-modal',
@@ -16,10 +17,11 @@ import { LevelMapViewComponent } from '../level-map-view/level-map-view.componen
   templateUrl: './init-modal.component.html'
 })
 export class InitModalComponent implements OnInit {
+  public envSrv = inject(EnvService);
   private ref = inject(NzModalRef);
   current: number = 0;
   characters: Array<Pick<BaseInfo, 'name' | 'gender' | 'age' | 'ability'>> = [];
-  envs: Array<Pick<Env, 'name' | 'levelMap' | 'weight' | 'maxEnergy'>> = [];
+  envs: Env[] = [];
   selectCharacter: BaseInfo | undefined;
   selectEnv: Env | undefined;
 
@@ -37,11 +39,8 @@ export class InitModalComponent implements OnInit {
     };
   }
 
-  onEnvClick(item: Pick<Env, 'name' | 'levelMap' | 'weight' | 'maxEnergy'>) {
-    this.selectEnv = {
-      type: EnvType.Base,
-      ...item
-    };
+  onEnvClick(item: Env) {
+    this.selectEnv = item;
     this.ref.destroy({
       character: this.selectCharacter,
       env: this.selectEnv

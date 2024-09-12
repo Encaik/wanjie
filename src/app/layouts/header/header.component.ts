@@ -18,7 +18,7 @@ import { RuntimeService } from '../../services/runtime.service';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  private envSrv = inject(EnvService);
+  public envSrv = inject(EnvService);
   private characterSrv = inject(CharacterService);
   private rtSrv = inject(RuntimeService);
 
@@ -28,10 +28,6 @@ export class HeaderComponent {
 
   get currentLevel() {
     return this.characterSrv.skillInfo.level;
-  }
-
-  getEnvType(type: EnvType | null) {
-    return this.envSrv.getEnvType(type);
   }
 
   onSaveClick() {

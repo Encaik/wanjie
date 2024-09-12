@@ -2,6 +2,8 @@ import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
 import WORLDS from '../assets/data/worlds.json';
 import TRAITS from '../assets/data/traits.json';
+import LEVELMAP from '../assets/data/level-map.json';
+import { EnvType } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
@@ -38,21 +40,11 @@ export class Generate {
     // TODO: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
     return Array.from({ length }, (_, i) => {
       const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
+      const type: EnvType = Object.values(EnvType)[Math.floor(Math.random() * Object.keys(EnvType).length)];
       return {
         name: WORLDS[Math.floor(Math.random() * WORLDS_LEN)],
-        levelMap: {
-          0: '新手',
-          1: '初级',
-          2: '中级',
-          3: '高级',
-          4: '专家',
-          5: '王者',
-          6: '宗师',
-          7: '至尊',
-          8: '无尽',
-          9: '终极',
-          10: '传说'
-        },
+        type,
+        levelMap: LEVELMAP[type][0],
         weight,
         maxEnergy: Math.floor(9000 + 1000 * Math.random() * weight)
       };

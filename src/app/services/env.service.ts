@@ -32,8 +32,6 @@ export class EnvService {
 
   getEnvType(type: EnvType | null) {
     switch (type) {
-      case EnvType.Base:
-        return '新手世界';
       case EnvType.XianXia:
         return '仙侠世界';
       case EnvType.Magic:
@@ -42,6 +40,12 @@ export class EnvService {
         return '幻想世界';
       case EnvType.Technology:
         return '科技世界';
+      case EnvType.Modern:
+        return '现代世界';
+      case EnvType.Imperial:
+        return '帝国世界';
+      case EnvType.Adventure:
+        return '冒险世界';
       default:
         return '未知世界';
     }

@@ -2,7 +2,7 @@
   <div class="w-full sm:w-1/2">
     <nz-descriptions nzSize="small" [nzColumn]="3">
       <nz-descriptions-item nzTitle="世界名称">{{ env.name }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="世界类型">{{ getEnvType(env.type) }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="世界类型">{{ envSrv.getEnvType(env.type) }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="修炼倍数">{{ env.weight }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="等级体系">
         <app-level-map-view [levelMap]="env.levelMap" [currentLevel]="currentLevel" />

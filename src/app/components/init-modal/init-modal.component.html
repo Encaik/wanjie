@@ -33,6 +33,7 @@
             <nz-descriptions-item nzTitle="名称">{{ item.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="修炼速度">{{ item.weight }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="最大能量">{{ item.maxEnergy }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="世界类型">{{ envSrv.getEnvType(item.type) }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="等级体系">
               <app-level-map-view [levelMap]="item.levelMap" />
             </nz-descriptions-item>
