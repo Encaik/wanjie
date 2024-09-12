@@ -1,27 +1,40 @@
 # Wanjie
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+## 项目运行
 
-## Development server
+### 环境准备
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+确保已安装 Node.js (推荐版本 v20 或以上)。
 
-## Code scaffolding
+### 安装依赖
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+``` bash
+yarn install
+```
 
-## Build
+### 启动项目
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+```bash
+yarn run dev
+```
 
-## Running unit tests
+### 常见问题
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+如果遇到依赖包版本冲突，请尝试清除缓存后重新安装依赖: npm cache clean --force && npm install
+构建失败时检查tsconfig.json配置是否正确。
 
-## Running end-to-end tests
+## 目录结构
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+src/ - 源代码存放目录
 
-## Further help
+  assets/ - 资源文件夹
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+  components/ - 通用组件
+
+  layouts/ - 页面布局
+
+  pages/ - 页面组件
+
+  services/ - 服务相关文件夹
+
+  utils/ - 通用工具类
