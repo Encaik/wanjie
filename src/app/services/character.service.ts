@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 
-import { BaseInfo, BattleInfo, Character, LogLevel, LogType, SkillInfo } from '../models';
+import { BaseInfo, BattleInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo } from '../models';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
 
@@ -17,9 +17,11 @@ export class CharacterService {
     age: 0,
     ability: '',
     hp: 100,
-    mp: 100,
-    totalHp: 100,
-    totalMp: 100
+    mp: 100
+  };
+  statusInfo: StatusInfo = {
+    hp: 100,
+    mp: 100
   };
   skillInfo: SkillInfo = {
     energy: 0,
@@ -62,6 +64,7 @@ export class CharacterService {
   getCharacter() {
     return {
       baseInfo: this.baseInfo,
+      statusInfo: this.statusInfo,
       skillInfo: this.skillInfo,
       battleInfo: this.battleInfo
     };
@@ -69,12 +72,23 @@ export class CharacterService {
 
   setCharacter(character: Character) {
     this.setBaseInfo(character.baseInfo);
+    this.setStatusInfo(character.statusInfo);
     this.setSkillInfo(character.skillInfo);
     this.setBattleInfo(character.battleInfo);
   }
 
   setBaseInfo(baseInfo: Partial<BaseInfo>) {
     this.baseInfo = { ...this.baseInfo, ...baseInfo };
+    if ('hp' in baseInfo && baseInfo.hp) {
+      this.statusInfo.hp = baseInfo.hp;
+    }
+    if ('mp' in baseInfo && baseInfo.mp) {
+      this.statusInfo.mp = baseInfo.mp;
+    }
+  }
+
+  setStatusInfo(statusInfo: Partial<StatusInfo>) {
+    this.statusInfo = { ...this.statusInfo, ...statusInfo };
   }
 
   setSkillInfo(skillInfo: Partial<SkillInfo>) {

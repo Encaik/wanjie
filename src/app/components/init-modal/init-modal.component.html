@@ -7,7 +7,12 @@
   @if (current === 0) {
     <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
       @for (item of characters; track $index) {
-        <div nz-card-grid class="flex flex-col justify-center items-center grid-card" (click)="onCharacterClick(item)">
+        <div
+          nz-card-grid
+          [ngClass]="[item.gender === '男' ? ' bg-blue-100' : ' bg-red-100']"
+          class="flex flex-col justify-center items-center text-center w-full md:w-1/2 lg:w-1/4"
+          (click)="onCharacterClick(item)"
+        >
           <nz-descriptions [nzColumn]="1">
             <nz-descriptions-item nzTitle="姓名">{{ item.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="性别">{{ item.gender }}</nz-descriptions-item>
@@ -21,12 +26,7 @@
   @if (current === 1) {
     <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
       @for (item of envs; track $index) {
-        <div
-          nz-card-grid
-          class="flex flex-col justify-center items-center"
-          style="width: 100%; text-align: center"
-          (click)="onEnvClick(item)"
-        >
+        <div nz-card-grid class="flex flex-col justify-center items-center text-center w-full" (click)="onEnvClick(item)">
           <nz-descriptions [nzColumn]="1">
             <nz-descriptions-item nzTitle="名称">{{ item.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="修炼速度">{{ item.weight }}</nz-descriptions-item>

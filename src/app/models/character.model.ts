@@ -1,5 +1,6 @@
 export interface Character {
   baseInfo: BaseInfo;
+  statusInfo: StatusInfo;
   skillInfo: SkillInfo;
   battleInfo: BattleInfo;
 }
@@ -9,10 +10,13 @@ export interface BaseInfo {
   gender: string; // 性别
   age: number; // 年龄
   ability: string; // 特质
-  hp: number; // 血量
-  mp: number; // 灵力
-  totalHp: number; // 总血量
-  totalMp: number; // 总灵力
+  hp: number; // 总血量
+  mp: number; // 总灵力
+}
+
+export interface StatusInfo {
+  hp: number; // 当前血量
+  mp: number; // 当前灵力
 }
 
 export interface SkillInfo {

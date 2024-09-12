@@ -9,13 +9,12 @@ import { LogService } from '../../services/log.service';
 import { LogType, LogLevel } from '../../models';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzTabsModule } from 'ng-zorro-antd/tabs';
-import { NzCardModule } from 'ng-zorro-antd/card';
+import { BackpackComponent } from './components/backpack/backpack.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NzButtonModule, NzSpaceModule, NzTypographyModule, NzDividerModule, NzTabsModule, NzCardModule],
+  imports: [NzButtonModule, NzSpaceModule, NzTypographyModule, NzDividerModule, BackpackComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
@@ -27,7 +26,6 @@ export class HomeComponent {
   isAutoCultivate = false;
   isUpgrade = false;
   autoCultivateSub: Subscription | null = null;
-  bagTabs: string[] = ['全部', '道具', '装备', '材料'];
 
   onCultivationClick() {
     this.characterSrv.cultivation().then(isUpgrade => {
@@ -89,13 +87,7 @@ export class HomeComponent {
     });
     this.characterSrv.setBaseInfo({
       hp: this.characterSrv.baseInfo.hp + addHp,
-      mp: this.characterSrv.baseInfo.mp + addMp,
-      totalHp: this.characterSrv.baseInfo.totalHp + addHp,
-      totalMp: this.characterSrv.baseInfo.totalMp + addMp
+      mp: this.characterSrv.baseInfo.mp + addMp
     });
-  }
-
-  getBagItems(tab: string) {
-    return Array.from({ length: Math.round(Math.random() * 30) + 48 }, (_, i) => `${tab}${i}`);
   }
 }
