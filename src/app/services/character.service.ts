@@ -12,6 +12,7 @@ export class CharacterService {
   private logSrv = inject(LogService);
 
   baseInfo: BaseInfo = {
+    id: '',
     name: '',
     gender: '',
     age: 0,

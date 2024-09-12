@@ -9,6 +9,9 @@
           @case (0) {
             <app-home class="flex-1 h-0 overflow-auto" />
           }
+          @case (1) {
+            <app-universe class="flex-1 h-0" />
+          }
         }
       </div>
     </div>
@@ -20,6 +23,9 @@
       @switch (currentSegmented) {
         @case (0) {
           <app-home class="h-fit overflow-auto" />
+        }
+        @case (1) {
+          <!-- <app-universe class="flex-1 h-0" /> -->
         }
       }
     </div>

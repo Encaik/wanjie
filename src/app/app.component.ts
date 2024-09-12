@@ -10,8 +10,11 @@ import { SiderComponent } from './layouts/sider/sider.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RuntimeService } from './services/runtime.service';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
+import { UniverseComponent } from './pages/universe/universe.component';
+import { EnvService } from './services/env.service';
+import { Generate } from './utils/generate';
 
-const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderComponent];
+const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderComponent, UniverseComponent];
 
 @Component({
   selector: 'app-root',
@@ -23,6 +26,7 @@ const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderCompon
 export class AppComponent implements OnInit {
   private modal = inject(NzModalService);
   private rtSrv = inject(RuntimeService);
+  private envSrv = inject(EnvService);
   title = 'wanjie';
   segmentedList: string[] = ['修炼', '虚空', '副本'];
   currentSegmented = 0;
@@ -54,6 +58,13 @@ export class AppComponent implements OnInit {
           },
           env
         );
+        this.envSrv.addEnvGraph([env]);
+        // 下面为测试逻辑
+        const envs = Generate.envs(8);
+        this.envSrv.addEnvGraph(envs, env.id);
+        envs.forEach(item => {
+          this.envSrv.addEnvGraph(Generate.envs(8), item.id);
+        });
       });
   }
 

@@ -5,7 +5,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { BaseInfo, Env, EnvType } from '../../models';
+import { BaseInfo, Env } from '../../models';
 import { Generate } from '../../utils/generate';
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
 import { EnvService } from '../../services/env.service';
@@ -20,7 +20,7 @@ export class InitModalComponent implements OnInit {
   public envSrv = inject(EnvService);
   private ref = inject(NzModalRef);
   current: number = 0;
-  characters: Array<Pick<BaseInfo, 'name' | 'gender' | 'age' | 'ability'>> = [];
+  characters: Array<Pick<BaseInfo, 'id' | 'name' | 'gender' | 'age' | 'ability'>> = [];
   envs: Env[] = [];
   selectCharacter: BaseInfo | undefined;
   selectEnv: Env | undefined;
@@ -30,7 +30,7 @@ export class InitModalComponent implements OnInit {
     this.envs = Generate.envs(8);
   }
 
-  onCharacterClick(item: Pick<BaseInfo, 'name' | 'gender' | 'age' | 'ability'>) {
+  onCharacterClick(item: Pick<BaseInfo, 'id' | 'name' | 'gender' | 'age' | 'ability'>) {
     this.current = 1;
     this.selectCharacter = {
       ...item,

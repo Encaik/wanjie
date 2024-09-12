@@ -4,6 +4,7 @@ import WORLDS from '../assets/data/worlds.json';
 import TRAITS from '../assets/data/traits.json';
 import LEVELMAP from '../assets/data/level-map.json';
 import { EnvType } from '../models';
+import { v4 as uuidv4 } from 'uuid';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
@@ -23,6 +24,7 @@ export class Generate {
   static characters(length: number) {
     // TODO: 完善特质体系及相关逻辑
     return Array.from({ length }, (_, i) => ({
+      id: `character-${uuidv4()}`,
       name: getCharacterName(),
       gender: Math.random() > 0.5 ? '男' : '女',
       age: Math.floor(Math.random() * 10) * 2 + 12,
@@ -42,6 +44,7 @@ export class Generate {
       const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
       const type: EnvType = Object.values(EnvType)[Math.floor(Math.random() * Object.keys(EnvType).length)];
       return {
+        id: `env-${uuidv4()}`,
         name: WORLDS[Math.floor(Math.random() * WORLDS_LEN)],
         type,
         levelMap: LEVELMAP[type][0],
@@ -81,3 +84,7 @@ function getCharacterTrait() {
   trait = TRAITS[Math.floor(Math.random() * TRAITS_LEN)].trait;
   return trait;
 }
+
+export const generateId = () => {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};

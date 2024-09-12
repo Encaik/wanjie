@@ -6,6 +6,7 @@ export interface Character {
 }
 
 export interface BaseInfo {
+  id: string;
   name: string; // 姓名
   gender: string; // 性别
   age: number; // 年龄

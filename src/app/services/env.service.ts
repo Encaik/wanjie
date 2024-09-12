@@ -11,6 +11,17 @@ export class EnvService {
   levelMap: Record<number, string> = {};
   maxEnergy: number = 0;
   weight: number = 1;
+  envNodes: Env[] = [];
+  envEdges: { source: string; target: string }[] = [];
+
+  addEnvGraph(envList: Env[], source?: string) {
+    envList.forEach((env, index) => {
+      this.envNodes.push(env);
+      if (source !== undefined) {
+        this.envEdges.push({ source, target: env.id });
+      }
+    });
+  }
 
   setEnv(env: Env) {
     this.name = env.name;
