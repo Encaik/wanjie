@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   private rtSrv = inject(RuntimeService);
   title = 'wanjie';
   segmentedList: string[] = ['修炼', '虚空', '副本'];
+  currentSegmented = 0;
 
   ngOnInit() {
     this.rtSrv.load().then(data => {
@@ -44,7 +45,7 @@ export class AppComponent implements OnInit {
         nzClosable: false,
         nzMaskClosable: false,
         nzTitle: '初始化角色',
-        nzWidth: '1000px',
+        nzWidth: '1000px'
       })
       .afterClose.subscribe(({ character, env }) => {
         this.rtSrv.init(
@@ -54,5 +55,9 @@ export class AppComponent implements OnInit {
           env
         );
       });
+  }
+
+  onSegmentedChange(value: number) {
+    this.currentSegmented = value;
   }
 }
