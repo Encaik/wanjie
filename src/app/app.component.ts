@@ -9,13 +9,14 @@ import { HeaderComponent } from './layouts/header/header.component';
 import { SiderComponent } from './layouts/sider/sider.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RuntimeService } from './services/runtime.service';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 
 const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderComponent];
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NzLayoutModule, NzModalModule, ...layouts],
+  imports: [RouterOutlet, NzLayoutModule, NzModalModule, NzSegmentedModule, ...layouts],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less'
 })
@@ -23,6 +24,7 @@ export class AppComponent implements OnInit {
   private modal = inject(NzModalService);
   private rtSrv = inject(RuntimeService);
   title = 'wanjie';
+  segmentedList: string[] = ['修炼', '虚空', '副本'];
 
   ngOnInit() {
     this.init();

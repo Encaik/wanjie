@@ -5,7 +5,7 @@
       <nz-tab [nzTitle]="tab">
         <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem', overflow: 'auto' }">
           @for (item of bagItems; track $index) {
-            <div nz-card-grid class="flex flex-col justify-center items-center w-1/2 lg:w-1/6 2xl:w-1/12 h-16 p-2">
+            <div nz-card-grid class="flex flex-col justify-center items-center w-1/4 lg:w-1/6 2xl:w-1/12 h-16 p-2">
               {{ item }}
             </div>
           }
