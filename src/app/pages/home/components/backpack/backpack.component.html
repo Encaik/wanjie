@@ -1,0 +1,16 @@
+<h5 nz-typography class="underline decoration-sky-500">背包</h5>
+<div class="flex-1">
+  <nz-tabset class="h-full" nzType="card" (nzSelectedIndexChange)="onBagTabChange($event)">
+    @for (tab of bagTabs; track tab) {
+      <nz-tab [nzTitle]="tab">
+        <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem', overflow: 'auto' }">
+          @for (item of bagItems; track $index) {
+            <div nz-card-grid class="flex flex-col justify-center items-center w-1/12 h-1/4 p-2">
+              {{ item }}
+            </div>
+          }
+        </nz-card>
+      </nz-tab>
+    }
+  </nz-tabset>
+</div>
