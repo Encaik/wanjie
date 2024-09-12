@@ -1,12 +1,12 @@
 <nz-layout class="h-screen w-screen overflow-hidden">
-  <nz-content class="h-full w-full grid-content">
+  <nz-content class="w-full grid-content overflow-auto">
     <app-header class="env" />
-    <app-character class="character overflow-auto" />
-    <div class="main p-2 bg-white rounded shadow-md shadow-gray-200">
-      <app-home class="h-full" />
+    <app-character class="character hidden sm:block overflow-auto" />
+    <div class="main min-w-min overflow-auto hidden sm:block p-2 bg-white rounded shadow-md shadow-gray-200">
+      <app-home class="h-full overflow-auto" />
     </div>
-    <app-sider class="info overflow-auto" />
-    <div class="mobile-banner p-2 bg-white rounded shadow-md shadow-gray-200"> 窄屏幕页面切换 </div>
-    <div class="mobile-main p-2 bg-white rounded shadow-md shadow-gray-200"> 窄屏幕主界面 </div>
+    <app-sider class="info hidden sm:block overflow-auto" />
+    <div class="mobile-banner block sm:hidden p-2 bg-white rounded shadow-md shadow-gray-200"> 窄屏幕页面切换 </div>
+    <div class="mobile-main block sm:hidden p-2 bg-white rounded shadow-md shadow-gray-200"> 窄屏幕主界面 </div>
   </nz-content>
 </nz-layout>

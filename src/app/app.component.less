@@ -4,37 +4,20 @@
     flex: 1 1 100vh;
     height: 0;
     padding: 12px;
+    grid-template:
+      'env' auto
+      'mobile-main' 1fr
+      'mobile-banner' 48px / auto;
+    min-width: 300px;
+    gap: 8px;
+
   }
 
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 640px) {
     .grid-content {
       grid-template:
-        'env env env' minmax(64px, max-content)
-        'character main info' 1fr /240px 1fr 400px;
-      gap: 8px;
-    }
-
-    .mobile-banner,
-    .mobile-main {
-      display: none;
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    .grid-content {
-      grid-auto-flow: row;
-      grid-template:
-        'env' minmax(64px, max-content)
-        'mobile-main' 1fr
-        'mobile-banner' 48px / 1fr;
-      gap: 8px;
-      min-width: 300px;
-    }
-
-    .character,
-    .main,
-    .info {
-      display: none;
+        'env env env' auto
+        'character main info' 1fr / 240px 1fr 400px;
     }
   }
 
