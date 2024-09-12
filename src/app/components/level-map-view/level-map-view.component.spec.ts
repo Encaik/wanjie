@@ -9,8 +9,7 @@ describe('LevelMapViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LevelMapViewComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(LevelMapViewComponent);
     component = fixture.componentInstance;

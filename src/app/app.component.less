@@ -1,36 +1,36 @@
 :host {
   .grid-content {
-    height: 0;
-    flex: 1 1 100vh;
-    padding: 12px;
     display: grid;
+    flex: 1 1 100vh;
+    height: 0;
+    padding: 12px;
   }
+
   @media screen and (min-width: 768px) {
     .grid-content {
-      grid-template-columns: 200px 1fr 400px;
-      grid-template-rows: minmax(64px, max-content) 1fr;
-      gap: 8px 8px;
-      grid-template-areas:
-        "env env env"
-        "character main info";
+      grid-template:
+        'env env env' minmax(64px, max-content)
+        'character main info' 1fr /200px 1fr 400px;
+      gap: 8px;
     }
+
     .mobile-banner,
     .mobile-main {
       display: none;
     }
   }
+
   @media screen and (max-width: 768px) {
     .grid-content {
-      grid-template-columns: 1fr;
-      grid-template-rows: minmax(64px, max-content) 1fr 48px;
-      gap: 8px 8px;
       grid-auto-flow: row;
-      grid-template-areas:
-        "env"
-        "mobile-main"
-        "mobile-banner";
+      grid-template:
+        'env' minmax(64px, max-content)
+        'mobile-main' 1fr
+        'mobile-banner' 48px / 1fr;
+      gap: 8px;
       min-width: 300px;
     }
+
     .character,
     .main,
     .info {

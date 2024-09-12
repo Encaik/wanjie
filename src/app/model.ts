@@ -39,5 +39,5 @@ export enum EnvType {
   XianXia,
   Magic,
   Fantasy,
-  Technology,
+  Technology
 }

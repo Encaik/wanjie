@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
+
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
-import { NzProgressModule } from 'ng-zorro-antd/progress';
 
 @Component({
   selector: 'app-character',
   standalone: true,
   imports: [NzTypographyModule, NzDescriptionsModule, NzProgressModule],
-  templateUrl: './character.component.html',
-  styleUrl: './character.component.less',
+  templateUrl: './character.component.html'
 })
 export class CharacterComponent {
   private characterSrv = inject(CharacterService);

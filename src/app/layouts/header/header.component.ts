@@ -1,25 +1,19 @@
+import { KeyValuePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { EnvService } from '../../services/env.service';
 import { NzGridModule } from 'ng-zorro-antd/grid';
-import { KeyValuePipe } from '@angular/common';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+
+import { LevelMapViewComponent } from '../../components/level-map-view/level-map-view.component';
 import { EnvType } from '../../model';
 import { CharacterService } from '../../services/character.service';
-import { LevelMapViewComponent } from '../../components/level-map-view/level-map-view.component';
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [
-    NzDescriptionsModule,
-    NzGridModule,
-    KeyValuePipe,
-    NzTagModule,
-    LevelMapViewComponent,
-  ],
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.less',
+  imports: [NzDescriptionsModule, NzGridModule, KeyValuePipe, NzTagModule, LevelMapViewComponent],
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   private envSrv = inject(EnvService);

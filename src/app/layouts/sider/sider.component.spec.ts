@@ -9,8 +9,7 @@ describe('SiderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SiderComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SiderComponent);
     component = fixture.componentInstance;

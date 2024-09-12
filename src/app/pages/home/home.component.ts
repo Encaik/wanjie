@@ -1,17 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { CharacterService } from '../../services/character.service';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { interval, Subscription } from 'rxjs';
+
+import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { LogService } from '../../services/log.service';
-import { interval, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [NzButtonModule, NzSpaceModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.less',
+  templateUrl: './home.component.html'
 })
 export class HomeComponent {
   private characterSrv = inject(CharacterService);
@@ -34,13 +34,13 @@ export class HomeComponent {
       this.logSrv.log(`能量已满，请升级后再继续修炼\n`);
       this.isUpgrade = true;
       this.characterSrv.setSkillInfo({
-        energy: energy - (energy % (1000 * this.envSrv.weight)),
+        energy: energy - (energy % (1000 * this.envSrv.weight))
       });
       this.onAutoCultivationClick(false);
       return;
     }
     this.characterSrv.setSkillInfo({
-      energy,
+      energy
     });
   }
 
@@ -66,13 +66,9 @@ export class HomeComponent {
     if (!this.isUpgrade) return;
     this.isUpgrade = false;
     const level = this.characterSrv.skillInfo.level;
-    this.logSrv.log(
-      `恭喜你，你从${this.envSrv.levelMap[level]}升到了${
-        this.envSrv.levelMap[level + 1]
-      }\n`
-    );
+    this.logSrv.log(`恭喜你，你从${this.envSrv.levelMap[level]}升到了${this.envSrv.levelMap[level + 1]}\n`);
     this.characterSrv.setSkillInfo({
-      level: level + 1,
+      level: level + 1
     });
     const addHp = 10 * this.envSrv.weight + Math.round(Math.random() * 10);
     const addMp = 10 * this.envSrv.weight + Math.round(Math.random() * 10);
@@ -81,7 +77,7 @@ export class HomeComponent {
       hp: this.characterSrv.baseInfo.hp + addHp,
       mp: this.characterSrv.baseInfo.mp + addMp,
       totalHp: this.characterSrv.baseInfo.totalHp + addHp,
-      totalMp: this.characterSrv.baseInfo.totalMp + addMp,
+      totalMp: this.characterSrv.baseInfo.totalMp + addMp
     });
   }
 }

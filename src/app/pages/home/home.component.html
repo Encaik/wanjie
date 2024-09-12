@@ -1,28 +1,14 @@
 <nz-space>
-  @if(isUpgrade){
-  <button *nzSpaceItem nz-button nzType="primary" (click)="onUpgradeClick()">
-    升级
-  </button>
+  @if (isUpgrade) {
+    <button *nzSpaceItem nz-button nzType="primary" (click)="onUpgradeClick()"> 升级 </button>
   } @else {
-  <button
-    *nzSpaceItem
-    nz-button
-    nzType="primary"
-    (click)="onCultivationClick()"
-  >
-    修炼
-  </button>
-  <button
-    *nzSpaceItem
-    nz-button
-    nzType="primary"
-    (click)="onAutoCultivationClick()"
-  >
-    @if(isAutoCultivate){
-    <span>停止修炼</span>
-    }@else{
-    <span>自动修炼</span>
-    }
-  </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="onCultivationClick()"> 修炼 </button>
+    <button *nzSpaceItem nz-button nzType="primary" (click)="onAutoCultivationClick()">
+      @if (isAutoCultivate) {
+        <span>停止修炼</span>
+      } @else {
+        <span>自动修炼</span>
+      }
+    </button>
   }
 </nz-space>

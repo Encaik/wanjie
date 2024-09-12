@@ -1,5 +1,5 @@
-import SURNAMES from '../assets/data/surnames.json';
 import NAMES from '../assets/data/names.json';
+import SURNAMES from '../assets/data/surnames.json';
 import WORLDS from '../assets/data/worlds.json';
 
 const SURNAMES_LEN = SURNAMES.length;
@@ -12,7 +12,7 @@ export class Generate {
       name: getCharacterName(),
       gender: Math.random() > 0.5 ? '男' : '女',
       age: Math.floor(Math.random() * 20) * 2,
-      ability: '特质' + Math.floor(Math.random() * 100),
+      ability: `特质${Math.floor(Math.random() * 100)}`
     }));
   }
 
@@ -32,10 +32,10 @@ export class Generate {
           7: '至尊',
           8: '无尽',
           9: '终极',
-          10: '传说',
+          10: '传说'
         },
         weight,
-        maxEnergy: Math.floor(9000 + 1000 * Math.random() * weight),
+        maxEnergy: Math.floor(9000 + 1000 * Math.random() * weight)
       };
     });
   }

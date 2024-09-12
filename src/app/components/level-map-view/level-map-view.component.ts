@@ -6,8 +6,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
   selector: 'app-level-map-view',
   standalone: true,
   imports: [NzTagModule, KeyValuePipe],
-  templateUrl: './level-map-view.component.html',
-  styleUrl: './level-map-view.component.less',
+  templateUrl: './level-map-view.component.html'
 })
 export class LevelMapViewComponent {
   @Input() levelMap: Record<number, string> = {};

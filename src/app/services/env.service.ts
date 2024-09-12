@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { Env, EnvType } from '../model';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class EnvService {
   name: string = '未知世界';
