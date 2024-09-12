@@ -37,9 +37,7 @@ export class InitModalComponent implements OnInit {
     this.selectCharacter = {
       ...item,
       hp: 100,
-      mp: 100,
-      totalHp: 100,
-      totalMp: 100
+      mp: 100
     };
   }
 

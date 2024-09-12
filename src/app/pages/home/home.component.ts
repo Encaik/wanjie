@@ -28,6 +28,11 @@ export class HomeComponent {
   isUpgrade = false;
   autoCultivateSub: Subscription | null = null;
   bagTabs: string[] = ['全部', '道具', '装备', '材料'];
+  bagItems: string[] = [];
+
+  ngOnInit() {
+    this.onBagTabChange(0);
+  }
 
   onCultivationClick() {
     this.characterSrv.cultivation().then(isUpgrade => {
@@ -89,10 +94,12 @@ export class HomeComponent {
     });
     this.characterSrv.setBaseInfo({
       hp: this.characterSrv.baseInfo.hp + addHp,
-      mp: this.characterSrv.baseInfo.mp + addMp,
-      totalHp: this.characterSrv.baseInfo.totalHp + addHp,
-      totalMp: this.characterSrv.baseInfo.totalMp + addMp
+      mp: this.characterSrv.baseInfo.mp + addMp
     });
+  }
+
+  onBagTabChange(tabIdx: number) {
+    this.bagItems = this.getBagItems(this.bagTabs[tabIdx]);
   }
 
   getBagItems(tab: string) {

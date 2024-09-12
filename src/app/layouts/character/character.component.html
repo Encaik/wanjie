@@ -1,30 +1,37 @@
 <div class="h-full overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
-  <h5 nz-typography class="underline decoration-sky-500">基本信息</h5>
+  <h5 nz-typography class="underline decoration-sky-500">人物信息</h5>
   <nz-descriptions nzSize="small" [nzColumn]="1">
     <nz-descriptions-item nzTitle="姓名">{{ character.baseInfo.name }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="性别">{{ character.baseInfo.gender }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="年龄">{{ character.baseInfo.age }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="特质">{{ character.baseInfo.ability }}</nz-descriptions-item>
+  </nz-descriptions>
+  <h5 nz-typography class="underline decoration-sky-500">状态信息</h5>
+  <nz-descriptions nzSize="small" [nzColumn]="1">
     <nz-descriptions-item nzTitle="血量">
-      <nz-progress
-        class="flex-1"
-        nzStrokeColor="#52c41a"
-        [nzPercent]="getPercent(character.baseInfo.hp, character.baseInfo.totalHp)"
-        nzSize="small"
-        [nzShowInfo]="false"
-      ></nz-progress
-      >{{ character.baseInfo.hp.toFixed(1) }}/{{ character.baseInfo.totalHp.toFixed(1) }}
+      <div class="w-full flex flex-col">
+        <nz-progress
+          class="flex-1"
+          nzStrokeColor="#52c41a"
+          [nzPercent]="getPercent(character.statusInfo.hp, character.baseInfo.hp)"
+          nzSize="small"
+          [nzShowInfo]="false"
+        ></nz-progress>
+        <div class="self-center">{{ character.statusInfo.hp.toFixed(1) }}/{{ character.baseInfo.hp.toFixed(1) }}</div>
+      </div>
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="灵力">
-      <nz-progress
-        class="flex-1"
-        nzStrokeColor="#1890ff"
-        [nzPercent]="getPercent(character.baseInfo.mp, character.baseInfo.totalMp)"
-        nzSize="small"
-        [nzShowInfo]="false"
-      ></nz-progress
-      >{{ character.baseInfo.mp.toFixed(1) }}/{{ character.baseInfo.totalMp.toFixed(1) }}</nz-descriptions-item
-    >
+      <div class="w-full flex flex-col">
+        <nz-progress
+          class="flex-1"
+          nzStrokeColor="#1890ff"
+          [nzPercent]="getPercent(character.statusInfo.mp, character.baseInfo.mp)"
+          nzSize="small"
+          [nzShowInfo]="false"
+        ></nz-progress>
+        <div class="self-center">{{ character.statusInfo.mp.toFixed(1) }}/{{ character.baseInfo.mp.toFixed(1) }}</div>
+      </div>
+    </nz-descriptions-item>
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">修炼属性</h5>
   <nz-descriptions nzSize="small" [nzColumn]="1">
