@@ -70,11 +70,11 @@ export class CharacterService {
     };
   }
 
-  setCharacter(character: Character) {
-    this.setBaseInfo(character.baseInfo);
-    this.setStatusInfo(character.statusInfo);
-    this.setSkillInfo(character.skillInfo);
-    this.setBattleInfo(character.battleInfo);
+  setCharacter(character: Partial<Character>) {
+    character.baseInfo && this.setBaseInfo(character.baseInfo);
+    character.statusInfo && this.setStatusInfo(character.statusInfo);
+    character.skillInfo && this.setSkillInfo(character.skillInfo);
+    character.battleInfo && this.setBattleInfo(character.battleInfo);
   }
 
   setBaseInfo(baseInfo: Partial<BaseInfo>) {

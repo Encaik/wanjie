@@ -20,6 +20,16 @@ export class EnvService {
     this.weight = env.weight;
   }
 
+  getEnv() {
+    return {
+      name: this.name,
+      type: this.type,
+      levelMap: this.levelMap,
+      maxEnergy: this.maxEnergy,
+      weight: this.weight
+    };
+  }
+
   getEnvType(type: EnvType | null) {
     switch (type) {
       case EnvType.Base:

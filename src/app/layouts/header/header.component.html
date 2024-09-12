@@ -1,14 +1,16 @@
-<div class="p-2 bg-white rounded shadow-md shadow-gray-200">
-  <div nz-row>
-    <div nz-col nzXs="24" nzLg="12">
-      <nz-descriptions nzSize="small" [nzColumn]="3">
-        <nz-descriptions-item nzTitle="世界名称">{{ env.name }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="世界类型">{{ getEnvType(env.type) }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="修炼倍数">{{ env.weight }}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle="等级体系">
-          <app-level-map-view [levelMap]="env.levelMap" [currentLevel]="currentLevel" />
-        </nz-descriptions-item>
-      </nz-descriptions>
-    </div>
+<div class="flex flex-col sm:flex-row justify-between items-center p-2 bg-white rounded shadow-md shadow-gray-200">
+  <div class="w-full sm:w-1/2">
+    <nz-descriptions nzSize="small" [nzColumn]="3">
+      <nz-descriptions-item nzTitle="世界名称">{{ env.name }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="世界类型">{{ getEnvType(env.type) }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="修炼倍数">{{ env.weight }}</nz-descriptions-item>
+      <nz-descriptions-item nzTitle="等级体系">
+        <app-level-map-view [levelMap]="env.levelMap" [currentLevel]="currentLevel" />
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </div>
+  <div class="w-full sm:w-1/4 flex justify-end gap-2">
+    <button nz-button (click)="onSaveClick()">保存</button>
+    <button nz-button (click)="onDeleteClick()">删档</button>
   </div>
 </div>

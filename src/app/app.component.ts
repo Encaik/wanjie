@@ -27,7 +27,13 @@ export class AppComponent implements OnInit {
   segmentedList: string[] = ['修炼', '虚空', '副本'];
 
   ngOnInit() {
-    this.init();
+    this.rtSrv.load().then(data => {
+      if (data) {
+        this.rtSrv.init(data.characterData, data.envData);
+      } else {
+        this.init();
+      }
+    });
   }
 
   init() {
@@ -41,7 +47,12 @@ export class AppComponent implements OnInit {
         nzWidth: '800px'
       })
       .afterClose.subscribe(({ character, env }) => {
-        this.rtSrv.init(character, env);
+        this.rtSrv.init(
+          {
+            baseInfo: character
+          },
+          env
+        );
       });
   }
 }
