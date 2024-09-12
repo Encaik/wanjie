@@ -25,7 +25,7 @@ export class Generate {
     return Array.from({ length }, (_, i) => ({
       name: getCharacterName(),
       gender: Math.random() > 0.5 ? '男' : '女',
-      age: Math.floor(Math.random() * 20) * 2,
+      age: Math.floor(Math.random() * 10) * 2 + 12,
       ability: getCharacterTrait()
     }));
   }
