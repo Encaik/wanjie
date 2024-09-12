@@ -13,7 +13,7 @@
         nzSize="small"
         [nzShowInfo]="false"
       ></nz-progress
-      >{{ character.baseInfo.hp }}/{{ character.baseInfo.totalHp }}
+      >{{ character.baseInfo.hp.toFixed(1) }}/{{ character.baseInfo.totalHp.toFixed(1) }}
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="灵力">
       <nz-progress
@@ -23,7 +23,7 @@
         nzSize="small"
         [nzShowInfo]="false"
       ></nz-progress
-      >{{ character.baseInfo.mp }}/{{ character.baseInfo.totalMp }}</nz-descriptions-item
+      >{{ character.baseInfo.mp.toFixed(1) }}/{{ character.baseInfo.totalMp.toFixed(1) }}</nz-descriptions-item
     >
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">修炼属性</h5>

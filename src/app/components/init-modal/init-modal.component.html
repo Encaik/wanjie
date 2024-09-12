@@ -6,7 +6,7 @@
 <div class="my-4">
   @if (current === 0) {
     <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
-      @for (item of characters; track item.name) {
+      @for (item of characters; track $index) {
         <div nz-card-grid class="flex flex-col justify-center items-center grid-card" (click)="onCharacterClick(item)">
           <nz-descriptions [nzColumn]="1">
             <nz-descriptions-item nzTitle="姓名">{{ item.name }}</nz-descriptions-item>
@@ -20,7 +20,7 @@
   }
   @if (current === 1) {
     <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
-      @for (item of envs; track item.name) {
+      @for (item of envs; track $index) {
         <div
           nz-card-grid
           class="flex flex-col justify-center items-center"

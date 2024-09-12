@@ -5,7 +5,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { LevelMapViewComponent } from '../../components/level-map-view/level-map-view.component';
-import { EnvType } from '../../model';
+import { EnvType } from '../../models';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 

@@ -3,6 +3,7 @@ import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { LogService } from '../../services/log.service';
+import { getTypeDesc } from '../../models';
 
 @Component({
   selector: 'app-sider',
@@ -12,15 +13,18 @@ import { LogService } from '../../services/log.service';
 })
 export class SiderComponent implements OnInit {
   private logSrv = inject(LogService);
+  public getTypeDesc = getTypeDesc;
 
-  logList: string[] = [];
   isScroll: boolean = false;
 
   @ViewChild('log') log!: ElementRef;
 
+  get logList() {
+    return this.logSrv.logList;
+  }
+
   ngOnInit() {
-    this.logSrv.logSubject.subscribe(msg => {
-      this.logList.push(msg);
+    this.logSrv.logSubject.subscribe(log => {
       if (this.isScroll) {
       } else {
         setTimeout(() => {

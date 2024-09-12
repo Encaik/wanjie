@@ -6,7 +6,7 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { BaseInfo, Env, EnvType } from '../../model';
+import { BaseInfo, Env, EnvType } from '../../models';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { Generate } from '../../utils/generate';
