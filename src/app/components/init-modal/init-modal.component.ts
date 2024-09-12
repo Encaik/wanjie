@@ -1,4 +1,4 @@
-import { KeyValuePipe } from '@angular/common';
+import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
@@ -7,17 +7,14 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { BaseInfo, Env, EnvType } from '../../models';
-import { CharacterService } from '../../services/character.service';
-import { EnvService } from '../../services/env.service';
 import { Generate } from '../../utils/generate';
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
 
 @Component({
   selector: 'app-init-modal',
   standalone: true,
-  imports: [NzCardModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent],
-  templateUrl: './init-modal.component.html',
-  styleUrl: './init-modal.component.less'
+  imports: [CommonModule, NzCardModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent],
+  templateUrl: './init-modal.component.html'
 })
 export class InitModalComponent implements OnInit {
   private ref = inject(NzModalRef);
