@@ -1,16 +1,15 @@
-<nz-steps [nzCurrent]="current">
+<nz-steps class="w-1/2 m-auto" [nzCurrent]="current">
   <nz-step nzTitle="选择人物"></nz-step>
   <nz-step nzTitle="选择世界"></nz-step>
 </nz-steps>
 
 <div class="my-4">
   @if (current === 0) {
-    <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
+    <div class="h-full grid grid-cols-2 sm:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
       @for (item of characters; track $index) {
         <div
-          nz-card-grid
-          [ngClass]="[item.gender === '男' ? ' bg-blue-100' : ' bg-red-100']"
-          class="flex flex-col justify-center items-center text-center w-full md:w-1/2 lg:w-1/4"
+          [ngClass]="[item.gender === '男' ? ' border-blue-300 bg-blue-100' : ' border-red-300 bg-red-100']"
+          class="flex flex-col justify-center items-center text-center p-4 rounded cursor-pointer hover:shadow-lg w-full border"
           (click)="onCharacterClick(item)"
         >
           <nz-descriptions [nzColumn]="1">
@@ -21,12 +20,15 @@
           </nz-descriptions>
         </div>
       }
-    </nz-card>
+    </div>
   }
   @if (current === 1) {
-    <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem' }">
+    <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-auto border rounded p-4 bg-slate-100">
       @for (item of envs; track $index) {
-        <div nz-card-grid class="flex flex-col justify-center items-center text-center w-full sm:w-1/2" (click)="onEnvClick(item)">
+        <div
+          class="flex flex-col justify-center items-center text-center p-4 rounded cursor-pointer hover:shadow-lg w-full bg-white"
+          (click)="onEnvClick(item)"
+        >
           <nz-descriptions [nzColumn]="1">
             <nz-descriptions-item nzTitle="名称">{{ item.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="修炼速度">{{ item.weight }}</nz-descriptions-item>
@@ -37,6 +39,6 @@
           </nz-descriptions>
         </div>
       }
-    </nz-card>
+    </div>
   }
 </div>

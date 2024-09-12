@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
         nzClosable: false,
         nzMaskClosable: false,
         nzTitle: '初始化角色',
-        nzWidth: '800px'
+        nzWidth: '1000px',
       })
       .afterClose.subscribe(({ character, env }) => {
         this.rtSrv.init(

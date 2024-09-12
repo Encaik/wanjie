@@ -1,6 +1,5 @@
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
@@ -13,7 +12,7 @@ import { LevelMapViewComponent } from '../level-map-view/level-map-view.componen
 @Component({
   selector: 'app-init-modal',
   standalone: true,
-  imports: [CommonModule, NzCardModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent],
+  imports: [CommonModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent],
   templateUrl: './init-modal.component.html'
 })
 export class InitModalComponent implements OnInit {
