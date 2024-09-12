@@ -6,7 +6,9 @@ import { Log } from '../models';
   providedIn: 'root'
 })
 export class LogService {
+  // 定义一个Subject用于发布日志对象
   logSubject = new Subject<Log>();
+  // 初始化一个空数组用于存储日志对象
   logList: Log[] = [];
 
   log(log: Log) {

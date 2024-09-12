@@ -7,12 +7,17 @@ import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { LogService } from '../../services/log.service';
 import { LogType, LogLevel } from '../../models';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NzButtonModule, NzSpaceModule],
-  templateUrl: './home.component.html'
+  imports: [NzButtonModule, NzSpaceModule, NzTypographyModule, NzDividerModule, NzTabsModule, NzCardModule],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.less'
 })
 export class HomeComponent {
   private characterSrv = inject(CharacterService);
@@ -22,6 +27,7 @@ export class HomeComponent {
   isAutoCultivate = false;
   isUpgrade = false;
   autoCultivateSub: Subscription | null = null;
+  bagTabs: string[] = ['全部', '道具', '装备', '材料'];
 
   onCultivationClick() {
     this.characterSrv.cultivation().then(isUpgrade => {
@@ -87,5 +93,9 @@ export class HomeComponent {
       totalHp: this.characterSrv.baseInfo.totalHp + addHp,
       totalMp: this.characterSrv.baseInfo.totalMp + addMp
     });
+  }
+
+  getBagItems(tab: string) {
+    return Array.from({ length: Math.round(Math.random() * 30) + 48 }, (_, i) => `${tab}${i}`);
   }
 }

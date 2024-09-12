@@ -1,14 +1,4 @@
-<div class="h-full p-2 bg-white rounded shadow-md shadow-gray-200">
-  <div class="flex flex-col h-full">
-    <h5 nz-typography class="underline decoration-sky-500">人生纪要</h5>
-    <div #log class="flex-1 p-4 border-gray-300 border rounded overflow-auto">
-      <nz-timeline>
-        @for (log of logList; track $index) {
-          <nz-timeline-item>
-            <span> 【{{ getTypeDesc(log.type) }}】 {{ log.msg }} </span>
-          </nz-timeline-item>
-        }
-      </nz-timeline>
-    </div>
-  </div>
+<div class="h-full flex flex-col overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
+  <app-log class="flex-1 flex flex-col overflow-auto" />
+  <app-task class="min-h-96 flex flex-col" />
 </div>

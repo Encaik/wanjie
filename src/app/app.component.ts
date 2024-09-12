@@ -8,6 +8,7 @@ import { CharacterComponent } from './layouts/character/character.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SiderComponent } from './layouts/sider/sider.component';
 import { HomeComponent } from './pages/home/home.component';
+import { RuntimeService } from './services/runtime.service';
 
 const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderComponent];
 
@@ -20,6 +21,7 @@ const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderCompon
 })
 export class AppComponent implements OnInit {
   private modal = inject(NzModalService);
+  private rtSrv = inject(RuntimeService);
   title = 'wanjie';
 
   ngOnInit() {
@@ -27,13 +29,17 @@ export class AppComponent implements OnInit {
   }
 
   init() {
-    this.modal.create({
-      nzContent: InitModalComponent,
-      nzFooter: null,
-      nzClosable: false,
-      nzMaskClosable: false,
-      nzTitle: '初始化角色',
-      nzWidth: '800px'
-    });
+    this.modal
+      .create({
+        nzContent: InitModalComponent,
+        nzFooter: null,
+        nzClosable: false,
+        nzMaskClosable: false,
+        nzTitle: '初始化角色',
+        nzWidth: '800px'
+      })
+      .afterClose.subscribe(({ character, env }) => {
+        this.rtSrv.init(character, env);
+      });
   }
 }
