@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
-import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 
 import { InitModalComponent } from './components/init-modal/init-modal.component';
 import { CharacterComponent } from './layouts/character/character.component';
@@ -27,8 +27,10 @@ export class AppComponent implements OnInit {
   private modal = inject(NzModalService);
   private rtSrv = inject(RuntimeService);
   private envSrv = inject(EnvService);
+  private router = inject(Router);
   title = 'wanjie';
   segmentedList: string[] = ['修炼', '虚空', '副本'];
+  segmentedRoutes: string[] = ['home', 'universe', 'secret-area'];
   currentSegmented = 0;
 
   ngOnInit() {
@@ -70,5 +72,6 @@ export class AppComponent implements OnInit {
 
   onSegmentedChange(value: number) {
     this.currentSegmented = value;
+    this.router.navigate([this.segmentedRoutes[value]]);
   }
 }
