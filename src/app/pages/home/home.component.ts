@@ -10,6 +10,7 @@ import { LogType, LogLevel } from '../../models';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { RuntimeService } from '../../services/runtime.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomeComponent {
   private characterSrv = inject(CharacterService);
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
+  private rtSrv = inject(RuntimeService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -29,6 +31,7 @@ export class HomeComponent {
 
   onCultivationClick() {
     this.characterSrv.cultivation().then(isUpgrade => {
+      this.rtSrv.nextTimeTick();
       if (isUpgrade) {
         this.isUpgrade = true;
         this.onAutoCultivationClick(false);
@@ -89,5 +92,6 @@ export class HomeComponent {
       hp: this.characterSrv.baseInfo.hp + addHp,
       mp: this.characterSrv.baseInfo.mp + addMp
     });
+    this.rtSrv.nextTimeTick();
   }
 }

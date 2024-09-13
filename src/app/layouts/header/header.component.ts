@@ -10,17 +10,22 @@ import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { RuntimeService } from '../../services/runtime.service';
+import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NzDescriptionsModule, NzGridModule, KeyValuePipe, NzTagModule, NzButtonModule, LevelMapViewComponent],
+  imports: [NzDescriptionsModule, NzGridModule, KeyValuePipe, TimeFormatPipe, NzTagModule, NzButtonModule, LevelMapViewComponent],
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   public envSrv = inject(EnvService);
   private characterSrv = inject(CharacterService);
   private rtSrv = inject(RuntimeService);
+
+  get timeTick() {
+    return this.rtSrv.timeTick.value;
+  }
 
   get env() {
     return this.envSrv;

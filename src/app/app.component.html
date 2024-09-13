@@ -1,33 +1,18 @@
 <nz-layout class="h-screen w-screen overflow-hidden">
   <nz-content class="w-full h-full grid-content overflow-auto">
     <app-header class="env" />
-    <app-character class="character hidden sm:block overflow-auto" />
-    <div class="main min-w-min overflow-auto hidden sm:block p-2 bg-white rounded shadow-md shadow-gray-200">
+    <app-character class="character overflow-auto" />
+    <div class="main min-w-min overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
       <div class="flex flex-col h-full gap-2">
-        <nz-segmented class="w-full" [nzOptions]="segmentedList" (nzValueChange)="onSegmentedChange($event)"></nz-segmented>
-        @switch (currentSegmented) {
-          @case (0) {
-            <app-home class="flex-1 h-0 overflow-auto" />
-          }
-          @case (1) {
-            <app-universe class="flex-1 h-0" />
-          }
-        }
+        <nz-segmented
+          class="w-full"
+          [ngModel]="currentSegmented"
+          [nzOptions]="segmentedList"
+          (ngModelChange)="onSegmentedChange($event)"
+        ></nz-segmented>
+        <router-outlet></router-outlet>
       </div>
     </div>
     <app-sider class="info hidden sm:block overflow-auto" />
-    <div class="mobile-banner block sm:hidden p-1 bg-white rounded shadow-md shadow-gray-200">
-      <nz-segmented class="w-full" [nzOptions]="segmentedList" (nzValueChange)="onSegmentedChange($event)"></nz-segmented>
-    </div>
-    <div class="mobile-main sm:hidden p-2 bg-white rounded shadow-md shadow-gray-200">
-      @switch (currentSegmented) {
-        @case (0) {
-          <app-home class="h-fit overflow-auto" />
-        }
-        @case (1) {
-          <!-- <app-universe class="flex-1 h-0" /> -->
-        }
-      }
-    </div>
   </nz-content>
 </nz-layout>

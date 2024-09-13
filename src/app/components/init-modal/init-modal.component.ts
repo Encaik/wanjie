@@ -22,12 +22,15 @@ export class InitModalComponent implements OnInit {
   current: number = 0;
   characters: Array<Pick<BaseInfo, 'id' | 'name' | 'gender' | 'age' | 'ability'>> = [];
   envs: Env[] = [];
+  galaxiesId: string | undefined;
   selectCharacter: BaseInfo | undefined;
   selectEnv: Env | undefined;
 
   ngOnInit() {
     this.characters = Generate.characters(8);
-    this.envs = Generate.envs(8);
+    const { envs, galaxiesId } = Generate.envs(8);
+    this.envs = envs;
+    this.galaxiesId = galaxiesId;
   }
 
   onCharacterClick(item: Pick<BaseInfo, 'id' | 'name' | 'gender' | 'age' | 'ability'>) {
@@ -43,7 +46,12 @@ export class InitModalComponent implements OnInit {
     this.selectEnv = item;
     this.ref.destroy({
       character: this.selectCharacter,
-      env: this.selectEnv
+      env: {
+        env: this.selectEnv,
+        envNodes: this.envs,
+        envEdges: [],
+        galaxiesCombos: [{ id: this.galaxiesId }]
+      }
     });
   }
 }

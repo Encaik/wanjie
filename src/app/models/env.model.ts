@@ -5,6 +5,7 @@ export interface Env {
   levelMap: Record<number, string>; // 等级体系
   maxEnergy: number; // 最大能量值
   weight: number; // 权重
+  galaxiesId: string; // 所属星系id
 }
 
 export enum EnvType {

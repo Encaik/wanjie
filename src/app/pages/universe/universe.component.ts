@@ -16,9 +16,10 @@ export class UniverseComponent {
   ngOnInit() {
     const graph = new Graph({
       container: 'universe-container',
+      theme: 'dark',
       node: {
         style: {
-          size: 20,
+          size: d => d['size'] as number,
           labelText: d => d['label'] as string,
           labelBackground: true
         }
@@ -29,22 +30,29 @@ export class UniverseComponent {
         speed: 5,
         animated: true
       },
-      behaviors: ['drag-canvas', 'drag-element']
+      combo: {
+        type: 'circle'
+      },
+      behaviors: ['drag-canvas', 'drag-element'],
+      plugins: [{ type: 'background', background: '#000' }]
     });
     graph.setData({
       nodes: this.envSrv.envNodes.map(node => {
         return {
           id: node.id,
           label: node.name,
-          type: 'circle'
+          size: node.weight * 10,
+          type: 'circle',
+          combo: node.galaxiesId
         };
       }),
-      edges: this.envSrv.envEdges.map(edge => {
-        return {
-          source: edge.source,
-          target: edge.target
-        };
-      })
+      // edges: this.envSrv.envEdges.map(edge => {
+      //   return {
+      //     source: edge.source,
+      //     target: edge.target
+      //   };
+      // })
+      combos: this.envSrv.galaxiesCombos
     });
     graph.render();
   }

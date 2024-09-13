@@ -32,26 +32,25 @@ export class Generate {
     }));
   }
 
-  /**
-   * 生成指定数量的环境设定
-   *
-   * @param length 环境数量
-   * @returns 环境数组，包含每个环境的世界名、等级映射、权重和最大能量值
-   */
   static envs(length: number) {
+    const galaxiesId = generateId();
     // TODO: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
-    return Array.from({ length }, (_, i) => {
-      const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
-      const type: EnvType = Object.values(EnvType)[Math.floor(Math.random() * Object.keys(EnvType).length)];
-      return {
-        id: `env-${uuidv4()}`,
-        name: WORLDS[Math.floor(Math.random() * WORLDS_LEN)],
-        type,
-        levelMap: LEVELMAP[type][0],
-        weight,
-        maxEnergy: Math.floor(9000 + 1000 * Math.random() * weight)
-      };
-    });
+    return {
+      envs: Array.from({ length }, (_, i) => {
+        const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
+        const type: EnvType = Object.values(EnvType)[Math.floor(Math.random() * Object.keys(EnvType).length)];
+        return {
+          id: `env-${uuidv4()}`,
+          name: WORLDS[Math.floor(Math.random() * WORLDS_LEN)],
+          type,
+          galaxiesId,
+          levelMap: LEVELMAP[type][0],
+          weight,
+          maxEnergy: Math.round((Math.random() * 0.4 + 0.8) * weight * 100000)
+        };
+      }),
+      galaxiesId
+    };
   }
 }
 
