@@ -9,8 +9,7 @@ describe('BackpackComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [BackpackComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BackpackComponent);
     component = fixture.componentInstance;

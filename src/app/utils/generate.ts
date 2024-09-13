@@ -1,10 +1,11 @@
+import { v4 as uuidv4 } from 'uuid';
+
+import LEVELMAP from '../assets/data/level-map.json';
 import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
-import WORLDS from '../assets/data/worlds.json';
 import TRAITS from '../assets/data/traits.json';
-import LEVELMAP from '../assets/data/level-map.json';
+import WORLDS from '../assets/data/worlds.json';
 import { EnvType } from '../models';
-import { v4 as uuidv4 } from 'uuid';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;

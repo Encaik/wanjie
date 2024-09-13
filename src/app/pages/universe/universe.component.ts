@@ -1,5 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Graph } from '@antv/g6';
+
 import { EnvService } from '../../services/env.service';
 
 @Component({
@@ -9,7 +10,7 @@ import { EnvService } from '../../services/env.service';
   templateUrl: './universe.component.html',
   styleUrl: './universe.component.less'
 })
-export class UniverseComponent {
+export class UniverseComponent implements OnInit {
   envSrv = inject(EnvService);
   graph: Graph | undefined;
 

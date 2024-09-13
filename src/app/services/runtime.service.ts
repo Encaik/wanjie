@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
-import { CharacterService } from './character.service';
-import { EnvService } from './env.service';
-import { Character, Env } from '../models';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
+
+import { Character, Env } from '../models';
+import { CharacterService } from './character.service';
+import { EnvService } from './env.service';
 
 @Injectable({
   providedIn: 'root'

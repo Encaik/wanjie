@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
@@ -10,7 +10,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
   templateUrl: './backpack.component.html',
   styleUrl: './backpack.component.less'
 })
-export class BackpackComponent {
+export class BackpackComponent implements OnInit {
   bagTabs: string[] = ['全部', '道具', '装备', '材料'];
   bagItems: string[] = [];
 

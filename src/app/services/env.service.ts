@@ -12,8 +12,8 @@ export class EnvService {
   maxEnergy: number = 0;
   weight: number = 1;
   envNodes: Env[] = [];
-  envEdges: { source: string; target: string }[] = [];
-  galaxiesCombos: { id: string; combo?: string }[] = [];
+  envEdges: Array<{ source: string; target: string }> = [];
+  galaxiesCombos: Array<{ id: string; combo?: string }> = [];
 
   addEnvGraph(envList: Env[], galaxiesId: string) {
     this.envNodes.push(...envList);

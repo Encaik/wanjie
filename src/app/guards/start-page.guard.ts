@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+
 import { RuntimeService } from '../services/runtime.service';
 
 export const startPageGuard: CanActivateFn = (route, state) => {
