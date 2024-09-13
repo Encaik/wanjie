@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 import { BackpackComponent } from './backpack.component';
 
@@ -8,7 +9,8 @@ describe('BackpackComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BackpackComponent]
+      imports: [BackpackComponent],
+      providers: [provideAnimationsAsync()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BackpackComponent);
