@@ -2,16 +2,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 
 import { InitModalComponent } from './components/init-modal/init-modal.component';
 import { CharacterComponent } from './layouts/character/character.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SiderComponent } from './layouts/sider/sider.component';
 import { HomeComponent } from './pages/home/home.component';
-import { RuntimeService } from './services/runtime.service';
-import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
 import { UniverseComponent } from './pages/universe/universe.component';
 import { EnvService } from './services/env.service';
+import { RuntimeService } from './services/runtime.service';
 import { Generate } from './utils/generate';
 
 const layouts = [HeaderComponent, CharacterComponent, HomeComponent, SiderComponent, UniverseComponent];
