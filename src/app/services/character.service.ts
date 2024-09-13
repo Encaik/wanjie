@@ -37,15 +37,16 @@ export class CharacterService {
 
   cultivation(): Promise<boolean> {
     const energy = this.getAddEnergy();
+    const levelPrecent = Math.round(this.envSrv.maxEnergy / Object.keys(this.envSrv.levelMap).length);
     const newEnergy = energy + this.skillInfo.energy;
-    const newLevel = Math.floor(newEnergy / (1000 * this.envSrv.weight));
+    const newLevel = Math.floor(newEnergy / levelPrecent);
     if (newLevel > this.skillInfo.level) {
       this.logSrv.log({
         msg: `能量已满，请升级后再继续修炼\n`,
         type: LogType.Character,
         level: LogLevel.Info
       });
-      this.setSkillInfo({ energy: newEnergy - (newEnergy % (1000 * this.envSrv.weight)) });
+      this.setSkillInfo({ energy: newEnergy - (newEnergy % levelPrecent) });
       return Promise.resolve(true);
     }
     this.setSkillInfo({ energy: newEnergy });

@@ -13,31 +13,36 @@ export class EnvService {
   weight: number = 1;
   envNodes: Env[] = [];
   envEdges: { source: string; target: string }[] = [];
+  galaxiesCombos: { id: string; combo?: string }[] = [];
 
-  addEnvGraph(envList: Env[], source?: string) {
-    envList.forEach((env, index) => {
-      this.envNodes.push(env);
-      if (source !== undefined) {
-        this.envEdges.push({ source, target: env.id });
-      }
-    });
+  addEnvGraph(envList: Env[], galaxiesId: string) {
+    this.envNodes.push(...envList);
+    this.galaxiesCombos.push({ id: galaxiesId });
   }
 
-  setEnv(env: Env) {
-    this.name = env.name;
-    this.type = env.type;
-    this.levelMap = env.levelMap;
-    this.maxEnergy = env.maxEnergy;
-    this.weight = env.weight;
+  setEnv(env: any) {
+    this.name = env.env.name;
+    this.type = env.env.type;
+    this.levelMap = env.env.levelMap;
+    this.maxEnergy = env.env.maxEnergy;
+    this.weight = env.env.weight;
+    this.envNodes = env.envNodes || [];
+    this.envEdges = env.envEdges || [];
+    this.galaxiesCombos = env.galaxiesCombos || [];
   }
 
   getEnv() {
     return {
-      name: this.name,
-      type: this.type,
-      levelMap: this.levelMap,
-      maxEnergy: this.maxEnergy,
-      weight: this.weight
+      env: {
+        name: this.name,
+        type: this.type,
+        levelMap: this.levelMap,
+        maxEnergy: this.maxEnergy,
+        weight: this.weight
+      },
+      envNodes: this.envNodes,
+      envEdges: this.envEdges,
+      galaxiesCombos: this.galaxiesCombos
     };
   }
 

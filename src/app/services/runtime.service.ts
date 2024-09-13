@@ -13,15 +13,17 @@ export class RuntimeService {
   private envSrv = inject(EnvService);
   private notice = inject(NzNotificationService);
 
+  isInit: boolean = false;
   timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   nextTimeTick() {
     this.timeTick.next(this.timeTick.value + 1);
   }
 
-  init(character: Partial<Character>, env: Env) {
-    this.characterSrv.setCharacter(character);
-    this.envSrv.setEnv(env);
+  init(characterData: Partial<Character>, envData: any) {
+    this.characterSrv.setCharacter(characterData);
+    this.envSrv.setEnv(envData);
+    this.isInit = true;
   }
 
   save() {

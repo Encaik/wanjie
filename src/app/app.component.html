@@ -4,7 +4,12 @@
     <app-character class="character overflow-auto" />
     <div class="main min-w-min overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
       <div class="flex flex-col h-full gap-2">
-        <nz-segmented class="w-full" [nzOptions]="segmentedList" (nzValueChange)="onSegmentedChange($event)"></nz-segmented>
+        <nz-segmented
+          class="w-full"
+          [ngModel]="currentSegmented"
+          [nzOptions]="segmentedList"
+          (ngModelChange)="onSegmentedChange($event)"
+        ></nz-segmented>
         <router-outlet></router-outlet>
       </div>
     </div>
