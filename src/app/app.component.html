@@ -1,7 +1,7 @@
 <nz-layout class="h-screen w-screen overflow-hidden">
   <nz-content class="w-full h-full grid-content overflow-auto">
     <app-header class="env" />
-    <app-character class="character hidden sm:block overflow-auto" />
+    <app-character class="character overflow-auto" />
     <div class="main min-w-min overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
       <div class="flex flex-col h-full gap-2">
         <nz-segmented class="w-full" [nzOptions]="segmentedList" (nzValueChange)="onSegmentedChange($event)"></nz-segmented>
@@ -9,6 +9,5 @@
       </div>
     </div>
     <app-sider class="info hidden sm:block overflow-auto" />
-    <div class="mobile-banner block sm:hidden p-1 bg-white rounded shadow-md shadow-gray-200"> </div>
   </nz-content>
 </nz-layout>

@@ -19,7 +19,7 @@ export class TimeFormatPipe implements PipeTransform {
     timeTick = Math.floor(timeTick / 12);
     const year = `${timeTick % 100}`.padStart(4, '0');
     timeTick = Math.floor(timeTick / 10000);
-    const era = timeTick % 10000;
-    return `万界历-第${era}纪元-${year}年-${month}月-${this.tenDaysMap[tenDays]}`;
+    const era = (timeTick % 10000) + 1;
+    return `第${era}纪元-${year}年-${month}月-${this.tenDaysMap[tenDays]}`;
   }
 }

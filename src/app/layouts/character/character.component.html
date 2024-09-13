@@ -1,12 +1,12 @@
 <div class="h-full overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
-  <h5 nz-typography class="underline decoration-sky-500">人物信息</h5>
-  <nz-descriptions nzSize="small" [nzColumn]="1">
+  <h5 nz-typography class="underline hidden sm:block decoration-sky-500">人物信息</h5>
+  <nz-descriptions nzSize="small" [nzColumn]="{ xxl: 3, xl: 2, lg: 1, md: 1, sm: 2, xs: 3 }">
     <nz-descriptions-item nzTitle="姓名">{{ character.baseInfo.name }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="性别">{{ character.baseInfo.gender }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="年龄">{{ character.baseInfo.age }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="特质">{{ character.baseInfo.ability }}</nz-descriptions-item>
   </nz-descriptions>
-  <h5 nz-typography class="underline decoration-sky-500">状态信息</h5>
+  <h5 nz-typography class="underline hidden sm:block decoration-sky-500">状态信息</h5>
   <nz-descriptions nzSize="small" [nzColumn]="1">
     <nz-descriptions-item nzTitle="血量">
       <div class="w-full flex flex-col">
@@ -17,7 +17,7 @@
           nzSize="small"
           [nzShowInfo]="false"
         ></nz-progress>
-        <div class="self-center">{{ character.statusInfo.hp.toFixed(1) }}/{{ character.baseInfo.hp.toFixed(1) }}</div>
+        <div class="self-center hidden sm:block">{{ character.statusInfo.hp.toFixed(1) }}/{{ character.baseInfo.hp.toFixed(1) }}</div>
       </div>
     </nz-descriptions-item>
     <nz-descriptions-item nzTitle="灵力">
@@ -29,17 +29,17 @@
           nzSize="small"
           [nzShowInfo]="false"
         ></nz-progress>
-        <div class="self-center">{{ character.statusInfo.mp.toFixed(1) }}/{{ character.baseInfo.mp.toFixed(1) }}</div>
+        <div class="self-center hidden sm:block">{{ character.statusInfo.mp.toFixed(1) }}/{{ character.baseInfo.mp.toFixed(1) }}</div>
       </div>
     </nz-descriptions-item>
   </nz-descriptions>
-  <h5 nz-typography class="underline decoration-sky-500">修炼属性</h5>
-  <nz-descriptions nzSize="small" [nzColumn]="1">
+  <h5 nz-typography class="underline hidden sm:block decoration-sky-500">修炼属性</h5>
+  <nz-descriptions class="hidden sm:block" nzSize="small" [nzColumn]="{ xxl: 3, xl: 2, lg: 1, md: 1, sm: 2, xs: 3 }">
     <nz-descriptions-item nzTitle="能量">{{ character.skillInfo.energy }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="境界">{{ getLevelByEnergy() }}</nz-descriptions-item>
   </nz-descriptions>
-  <h5 nz-typography class="underline decoration-sky-500">战斗属性</h5>
-  <nz-descriptions nzSize="small" [nzColumn]="1">
+  <h5 nz-typography class="underline hidden sm:block decoration-sky-500">战斗属性</h5>
+  <nz-descriptions class="hidden sm:block" nzSize="small" [nzColumn]="{ xxl: 3, xl: 2, lg: 1, md: 1, sm: 2, xs: 3 }">
     <nz-descriptions-item nzTitle="攻击">{{ character.battleInfo.attack }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="防御">{{ character.battleInfo.defence }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="敏捷">{{ character.battleInfo.speed }}</nz-descriptions-item>

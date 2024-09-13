@@ -13,7 +13,7 @@ export class RuntimeService {
   private envSrv = inject(EnvService);
   private notice = inject(NzNotificationService);
 
-  timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(10000 * 12 * 3);
+  timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
   nextTimeTick() {
     this.timeTick.next(this.timeTick.value + 1);
