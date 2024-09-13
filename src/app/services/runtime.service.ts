@@ -3,7 +3,7 @@ import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
 import { Character, Env } from '../models';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
-import { Observable, timer } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,12 @@ export class RuntimeService {
   private characterSrv = inject(CharacterService);
   private envSrv = inject(EnvService);
   private notice = inject(NzNotificationService);
+
+  timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(10000 * 12 * 3);
+
+  nextTimeTick() {
+    this.timeTick.next(this.timeTick.value + 1);
+  }
 
   init(character: Partial<Character>, env: Env) {
     this.characterSrv.setCharacter(character);

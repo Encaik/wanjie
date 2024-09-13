@@ -9,6 +9,11 @@
       </nz-descriptions-item>
     </nz-descriptions>
   </div>
+  <div class="w-full sm:w-1/4">
+    <nz-descriptions nzSize="small" [nzColumn]="1">
+      <nz-descriptions-item nzTitle="当前时间">{{ timeTick | timeFormat }}</nz-descriptions-item>
+    </nz-descriptions>
+  </div>
   <div class="w-full sm:w-1/4 flex justify-end gap-2">
     <button nz-button (click)="onSaveClick()">保存</button>
     <button nz-button (click)="onDeleteClick()">删档</button>

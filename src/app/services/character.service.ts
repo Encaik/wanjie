@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { BaseInfo, BattleInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo } from '../models';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
+import { RuntimeService } from './runtime.service';
 
 @Injectable({
   providedIn: 'root'
