@@ -26,4 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm run test
+    - name: Install Angular CLI
+      run: npm install -g @angular/cli
+    - name: Run Test
+      run: npm run test

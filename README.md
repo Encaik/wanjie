@@ -1,5 +1,7 @@
 # Wanjie
 
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/wanjie?style=for-the-badge)
+
 ## 项目运行
 
 ### 环境准备
@@ -15,7 +17,7 @@ yarn install
 ### 启动项目
 
 ```bash
-yarn run dev
+yarn run start
 ```
 
 ### 常见问题
