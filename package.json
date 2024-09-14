@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "ng test --watch=false --browsers=ChromeHeadless --code-coverage",
+    "test:ui": "ng test",
     "lint": "yarn run lint:ts && yarn run lint:css",
     "lint:ts": "ng lint --fix",
     "lint:css": "stylelint 'src/**/*.+(css|less)' --fix"
