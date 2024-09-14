@@ -5,14 +5,14 @@
 
 <div class="my-4">
   @if (current === 0) {
-    <div class="h-full grid grid-cols-2 sm:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
+    <div class="h-full grid grid-cols-2 md:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
       @for (item of characters; track $index) {
         <div
           [ngClass]="[item.baseInfo.gender === '男' ? ' border-blue-300 bg-blue-100' : ' border-red-300 bg-red-100']"
           class="flex flex-col justify-center items-center text-center p-4 rounded cursor-pointer hover:shadow-lg w-full border"
           (click)="onCharacterClick(item)"
         >
-          <nz-descriptions [nzColumn]="2">
+          <nz-descriptions [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }">
             <nz-descriptions-item nzTitle="姓名" [nzSpan]="2">{{ item.baseInfo.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="性别">{{ item.baseInfo.gender }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="年龄">{{ item.baseInfo.age }}</nz-descriptions-item>
