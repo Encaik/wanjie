@@ -5,7 +5,7 @@ import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
 import TALENTS from '../assets/data/talents.json';
 import WORLDS from '../assets/data/worlds.json';
-import { Character, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
+import { BattleCharacter, Character, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
@@ -42,9 +42,10 @@ export class Generate {
     }));
   }
 
-  static enemys(length: number): Character[] {
+  static enemys(length: number): BattleCharacter[] {
     return Array.from({ length }, (_, i) => ({
       id: `enemy-${uuidv4()}`,
+      isEnemy: true,
       baseInfo: {
         name: getCharacterName(),
         gender: Math.random() > 0.5 ? '男' : '女',
@@ -55,13 +56,6 @@ export class Generate {
         hp: Math.round(Math.random() * 40) + 100,
         mp: Math.round(Math.random() * 40) + 100,
         buffs: []
-      },
-      skillInfo: {
-        hp: Math.round(Math.random() * 40) + 100,
-        mp: Math.round(Math.random() * 40) + 100,
-        attack: Math.round(Math.random() * 40) + 20,
-        defence: Math.round(Math.random() * 40) + 20,
-        speed: Math.round(Math.random() * 40)
       },
       levelInfo: {
         energy: Math.round(Math.random() * 1000),

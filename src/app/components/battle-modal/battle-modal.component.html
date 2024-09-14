@@ -12,6 +12,7 @@
               nzSize="small"
               [nzShowInfo]="false"
             ></nz-progress>
+            <div class="self-center hidden sm:block">{{ leftTotalData.hp.toFixed(1) }}/{{ leftTotalData.totalHp.toFixed(1) }}</div>
           </div>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="总灵力">
@@ -40,6 +41,7 @@
               nzSize="small"
               [nzShowInfo]="false"
             ></nz-progress>
+            <div class="self-center hidden sm:block">{{ rightTotalData.hp.toFixed(1) }}/{{ rightTotalData.totalHp.toFixed(1) }}</div>
           </div>
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle="总灵力">
@@ -58,7 +60,7 @@
   </div>
   <div class="border border-gray-300 rounded overflow-auto h-32 sm:h-96 p-4">
     @for (item of battleLogs; track $index) {
-      <p class="text-sm mb-2">{{ item }}</p>
+      <p class="text-sm mb-2" [innerHTML]="item"></p>
     }
   </div>
 </div>

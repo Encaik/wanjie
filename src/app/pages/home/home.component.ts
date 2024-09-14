@@ -87,7 +87,9 @@ export class HomeComponent {
       nzMaskClosable: false
     });
     modal.afterClose.subscribe(res => {
-      console.log(res);
+      this.characterSrv.setStatusInfo({
+        hp: this.characterSrv.attrInfo.hp
+      });
     });
     const instance = modal.getContentComponent();
     instance.leftCharacters = [this.characterSrv.getCharacter()];
