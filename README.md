@@ -1,6 +1,16 @@
-# Wanjie
+![wanjie](https://socialify.git.ci/Encaik/wanjie/image?font=Raleway&language=1&name=1&owner=1&pattern=Circuit%20Board&stargazers=1&theme=Light)
 
-![Vercel Deploy](https://deploy-badge.vercel.app/vercel/wanjie?style=for-the-badge)
+# 万界文字修仙游戏
+
+![Vercel Deploy](https://deploy-badge.vercel.app/vercel/wanjie)
+[![codecov](https://codecov.io/gh/Encaik/wanjie/graph/badge.svg?token=yC60cdCWP1)](https://codecov.io/gh/Encaik/wanjie)
+[![Angular Auto Test](https://github.com/Encaik/wanjie/actions/workflows/node.js.yml/badge.svg)](https://github.com/Encaik/wanjie/actions/workflows/node.js.yml)
+
+![Alt](https://repobeats.axiom.co/api/embed/077c970f2749f7cefbc252e5d46cf32c750a2298.svg "Repobeats analytics image")
+
+## 测试覆盖率
+
+![img](https://codecov.io/gh/Encaik/wanjie/graphs/tree.svg?token=yC60cdCWP1)
 
 ## 项目运行
 
