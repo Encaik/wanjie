@@ -5,7 +5,7 @@ import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
 import TALENTS from '../assets/data/talents.json';
 import WORLDS from '../assets/data/worlds.json';
-import { CharacterTalent, Env, EnvType, InitCharacter } from '../models';
+import { Character, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
@@ -38,6 +38,43 @@ export class Generate {
         attack: Math.round(Math.random() * 40) + 20,
         defence: Math.round(Math.random() * 40) + 20,
         speed: Math.round(Math.random() * 40)
+      }
+    }));
+  }
+
+  static enemys(length: number): Character[] {
+    return Array.from({ length }, (_, i) => ({
+      id: `enemy-${uuidv4()}`,
+      baseInfo: {
+        name: getCharacterName(),
+        gender: Math.random() > 0.5 ? '男' : '女',
+        age: Math.floor(Math.random() * 10) * 2 + 12,
+        talent: getCharacterTalent(1)
+      },
+      statusInfo: {
+        hp: Math.round(Math.random() * 40) + 100,
+        mp: Math.round(Math.random() * 40) + 100,
+        buffs: []
+      },
+      skillInfo: {
+        hp: Math.round(Math.random() * 40) + 100,
+        mp: Math.round(Math.random() * 40) + 100,
+        attack: Math.round(Math.random() * 40) + 20,
+        defence: Math.round(Math.random() * 40) + 20,
+        speed: Math.round(Math.random() * 40)
+      },
+      levelInfo: {
+        energy: Math.round(Math.random() * 1000),
+        level: 0
+      },
+      attrInfo: {
+        hp: Math.round(Math.random() * 40) + 100,
+        mp: Math.round(Math.random() * 40) + 100,
+        attack: Math.round(Math.random() * 40) + 20,
+        defence: Math.round(Math.random() * 40) + 20,
+        speed: Math.round(Math.random() * 40),
+        critRate: Math.round(Math.random() * 5) + 2,
+        critDamage: Math.round(Math.random() * 20) + 10
       }
     }));
   }

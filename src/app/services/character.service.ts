@@ -62,6 +62,30 @@ export class CharacterService {
     return Promise.resolve(false);
   }
 
+  upgrade() {
+    const level = this.levelInfo.level;
+    this.logSrv.log({
+      msg: `恭喜你，你从${this.envSrv.levelMap[level]}升到了${this.envSrv.levelMap[level + 1]}\n`,
+      type: LogType.Character,
+      level: LogLevel.Info
+    });
+    this.setLevelInfo({
+      level: level + 1
+    });
+    this.logSrv.log({
+      msg: `恭喜你，获得了${this.skillInfo.hp}点生命，${this.skillInfo.mp}点灵力，${this.skillInfo.attack}点攻击，${this.skillInfo.defence}点防御和${this.skillInfo.speed}点敏捷\n`,
+      type: LogType.Character,
+      level: LogLevel.Info
+    });
+    this.setAttrInfo({
+      hp: this.attrInfo.hp + this.skillInfo.hp,
+      mp: this.attrInfo.mp + this.skillInfo.mp,
+      attack: this.attrInfo.attack + this.skillInfo.attack,
+      defence: this.attrInfo.defence + this.skillInfo.defence,
+      speed: this.attrInfo.speed + this.skillInfo.speed
+    });
+  }
+
   getAddEnergy() {
     const energy =
       100 * this.envSrv.weight + Math.round(Math.random() * this.levelInfo.energy * 0.01) + Math.round(Math.random() * 100 - 50);

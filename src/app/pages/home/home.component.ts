@@ -7,23 +7,25 @@ import { interval, Subscription } from 'rxjs';
 
 import { LogType, LogLevel } from '../../models';
 import { CharacterService } from '../../services/character.service';
-import { EnvService } from '../../services/env.service';
 import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
+import { Generate } from '../../utils/generate';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NzButtonModule, NzSpaceModule, NzTypographyModule, NzDividerModule, BackpackComponent],
+  imports: [NzButtonModule, NzSpaceModule, NzModalModule, NzTypographyModule, NzDividerModule, BackpackComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
 export class HomeComponent {
   private characterSrv = inject(CharacterService);
-  private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
   private rtSrv = inject(RuntimeService);
+  private modal = inject(NzModalService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -71,27 +73,24 @@ export class HomeComponent {
 
   onUpgradeClick() {
     if (!this.isUpgrade) return;
+    this.characterSrv.upgrade();
     this.isUpgrade = false;
-    const level = this.characterSrv.levelInfo.level;
-    this.logSrv.log({
-      msg: `恭喜你，你从${this.envSrv.levelMap[level]}升到了${this.envSrv.levelMap[level + 1]}\n`,
-      type: LogType.Character,
-      level: LogLevel.Info
-    });
-    this.characterSrv.setLevelInfo({
-      level: level + 1
-    });
-    const addHp = Math.round(this.envSrv.weight * this.characterSrv.skillInfo.hp);
-    const addMp = Math.round(this.envSrv.weight * this.characterSrv.skillInfo.mp);
-    this.logSrv.log({
-      msg: `恭喜你，你获得了${addHp}点生命和${addMp}点灵力\n`,
-      type: LogType.Character,
-      level: LogLevel.Info
-    });
-    this.characterSrv.setAttrInfo({
-      hp: this.characterSrv.attrInfo.hp + addHp,
-      mp: this.characterSrv.attrInfo.mp + addMp
-    });
     this.rtSrv.nextTimeTick();
+  }
+
+  onBattleClick() {
+    const modal = this.modal.create({
+      nzTitle: '战斗',
+      nzContent: BattleModalComponent,
+      nzClosable: false,
+      nzWidth: '1000px',
+      nzMaskClosable: false
+    });
+    modal.afterClose.subscribe(res => {
+      console.log(res);
+    });
+    const instance = modal.getContentComponent();
+    instance.leftCharacters = [this.characterSrv.getCharacter()];
+    instance.rightCharacters = Generate.enemys(1);
   }
 }

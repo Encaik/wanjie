@@ -1,0 +1,64 @@
+<div class="w-full flex flex-col gap-2">
+  <div class="flex justify-between items-center">
+    <div class="flex-1 flex flex-col justify-start items-center gap-2">
+      <div class="w-12 flex-none">我方</div>
+      <nz-descriptions nzSize="small" [nzColumn]="1">
+        <nz-descriptions-item nzTitle="总血量">
+          <div class="w-full flex flex-col">
+            <nz-progress
+              class="flex-1"
+              nzStrokeColor="#52c41a"
+              [nzPercent]="getPercent(leftTotalData.hp, leftTotalData.totalHp)"
+              nzSize="small"
+              [nzShowInfo]="false"
+            ></nz-progress>
+          </div>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="总灵力">
+          <div class="w-full flex flex-col">
+            <nz-progress
+              class="flex-1"
+              nzStrokeColor="#1890ff"
+              [nzPercent]="getPercent(leftTotalData.mp, leftTotalData.totalMp)"
+              nzSize="small"
+              [nzShowInfo]="false"
+            ></nz-progress>
+          </div>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+    <div class="text-xl font-bold m-12">vs</div>
+    <div class="flex-1 flex flex-col justify-start items-center gap-2">
+      <div class="w-12 flex-none">敌方</div>
+      <nz-descriptions nzSize="small" [nzColumn]="1">
+        <nz-descriptions-item nzTitle="总血量">
+          <div class="w-full flex flex-col">
+            <nz-progress
+              class="flex-1"
+              nzStrokeColor="#52c41a"
+              [nzPercent]="getPercent(rightTotalData.hp, rightTotalData.totalHp)"
+              nzSize="small"
+              [nzShowInfo]="false"
+            ></nz-progress>
+          </div>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="总灵力">
+          <div class="w-full flex flex-col">
+            <nz-progress
+              class="flex-1"
+              nzStrokeColor="#1890ff"
+              [nzPercent]="getPercent(rightTotalData.mp, rightTotalData.totalMp)"
+              nzSize="small"
+              [nzShowInfo]="false"
+            ></nz-progress>
+          </div>
+        </nz-descriptions-item>
+      </nz-descriptions>
+    </div>
+  </div>
+  <div class="border border-gray-300 rounded overflow-auto h-32 sm:h-96 p-4">
+    @for (item of battleLogs; track $index) {
+      <p class="text-sm mb-2">{{ item }}</p>
+    }
+  </div>
+</div>
