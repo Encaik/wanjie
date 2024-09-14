@@ -23,7 +23,7 @@ export class Generate {
    * @returns 角色数组，包含每个角色的名字、性别、年龄和能力特质
    */
   static characters(length: number): InitCharacter[] {
-    // TODO: 完善特质体系及相关逻辑
+    // @todo: 完善特质体系及相关逻辑
     return Array.from({ length }, (_, i) => ({
       id: `character-${uuidv4()}`,
       baseInfo: {
@@ -75,7 +75,7 @@ export class Generate {
 
   static envs(length: number): { envs: Env[]; galaxiesId: string } {
     const galaxiesId = generateId();
-    // TODO: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
+    // @todo: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
     return {
       envs: Array.from({ length }, (_, i) => {
         const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
@@ -98,7 +98,7 @@ export class Generate {
 /**
  * 获取一个随机的角色名字
  * 该函数通过组合姓氏和名字来生成随机角色名字，有一定概率生成双名
- * TODO: 随机生成名字需要根据性别产生名字
+ * @todo: 随机生成名字需要根据性别产生名字
  * @returns {string} 随机生成的角色名字
  */
 function getCharacterName() {
