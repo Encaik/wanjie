@@ -34,6 +34,6 @@ jobs:
       - name: Run Test
         run: npm test
       - name: Codecov
-        uses: codecov/codecov-action@v1.1.1
+        uses: codecov/codecov-action@v4
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
