@@ -32,7 +32,7 @@ export class HeaderComponent {
   }
 
   get currentLevel() {
-    return this.characterSrv.skillInfo.level;
+    return this.characterSrv.levelInfo.level;
   }
 
   onSaveClick() {

@@ -5,11 +5,12 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @Component({
   selector: 'app-character',
   standalone: true,
-  imports: [NzTypographyModule, NzDescriptionsModule, NzProgressModule],
+  imports: [NzTypographyModule, NzDescriptionsModule, NzProgressModule, NzTagModule],
   templateUrl: './character.component.html'
 })
 export class CharacterComponent {
@@ -21,7 +22,7 @@ export class CharacterComponent {
   }
 
   getLevelByEnergy() {
-    return this.envSrv.levelMap[this.character.skillInfo.level];
+    return this.envSrv.levelMap[this.character.levelInfo.level];
   }
 
   getPercent(current: number, total: number) {

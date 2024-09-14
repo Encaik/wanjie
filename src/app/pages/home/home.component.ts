@@ -72,25 +72,25 @@ export class HomeComponent {
   onUpgradeClick() {
     if (!this.isUpgrade) return;
     this.isUpgrade = false;
-    const level = this.characterSrv.skillInfo.level;
+    const level = this.characterSrv.levelInfo.level;
     this.logSrv.log({
       msg: `恭喜你，你从${this.envSrv.levelMap[level]}升到了${this.envSrv.levelMap[level + 1]}\n`,
       type: LogType.Character,
       level: LogLevel.Info
     });
-    this.characterSrv.setSkillInfo({
+    this.characterSrv.setLevelInfo({
       level: level + 1
     });
-    const addHp = 10 * this.envSrv.weight + Math.round(Math.random() * 10);
-    const addMp = 10 * this.envSrv.weight + Math.round(Math.random() * 10);
+    const addHp = Math.round(this.envSrv.weight * this.characterSrv.skillInfo.hp);
+    const addMp = Math.round(this.envSrv.weight * this.characterSrv.skillInfo.mp);
     this.logSrv.log({
-      msg: `恭喜你，你获得了${addHp}点生命值和${addMp}点魔法值\n`,
+      msg: `恭喜你，你获得了${addHp}点生命和${addMp}点灵力\n`,
       type: LogType.Character,
       level: LogLevel.Info
     });
-    this.characterSrv.setBaseInfo({
-      hp: this.characterSrv.baseInfo.hp + addHp,
-      mp: this.characterSrv.baseInfo.mp + addMp
+    this.characterSrv.setAttrInfo({
+      hp: this.characterSrv.attrInfo.hp + addHp,
+      mp: this.characterSrv.attrInfo.mp + addMp
     });
     this.rtSrv.nextTimeTick();
   }

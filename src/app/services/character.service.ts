@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 
-import { BaseInfo, BattleInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo } from '../models';
+import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
-import { RuntimeService } from './runtime.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,50 +11,60 @@ export class CharacterService {
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
 
+  id: string = '';
   baseInfo: BaseInfo = {
-    id: '',
     name: '',
     gender: '',
     age: 0,
-    ability: '',
-    hp: 100,
-    mp: 100
+    talent: []
   };
   statusInfo: StatusInfo = {
     hp: 100,
-    mp: 100
+    mp: 100,
+    buffs: []
   };
-  skillInfo: SkillInfo = {
+  levelInfo: LevelInfo = {
     energy: 0,
     level: 0
   };
-  battleInfo: BattleInfo = {
-    attack: 10,
-    defence: 10,
-    speed: 5
+  skillInfo: SkillInfo = {
+    hp: 0,
+    mp: 0,
+    attack: 0,
+    defence: 0,
+    speed: 0
+  };
+  attrInfo: AttrInfo = {
+    hp: 100,
+    mp: 100,
+    attack: 50,
+    defence: 50,
+    speed: 10,
+    critRate: 5,
+    critDamage: 20
   };
 
   cultivation(): Promise<boolean> {
     const energy = this.getAddEnergy();
     const levelPrecent = Math.round(this.envSrv.maxEnergy / Object.keys(this.envSrv.levelMap).length);
-    const newEnergy = energy + this.skillInfo.energy;
+    const newEnergy = energy + this.levelInfo.energy;
     const newLevel = Math.floor(newEnergy / levelPrecent);
-    if (newLevel > this.skillInfo.level) {
+    if (newLevel > this.levelInfo.level) {
       this.logSrv.log({
         msg: `能量已满，请升级后再继续修炼\n`,
         type: LogType.Character,
         level: LogLevel.Info
       });
-      this.setSkillInfo({ energy: newEnergy - (newEnergy % levelPrecent) });
+      this.setLevelInfo({ energy: newEnergy - (newEnergy % levelPrecent) });
       return Promise.resolve(true);
     }
-    this.setSkillInfo({ energy: newEnergy });
+    this.setLevelInfo({ energy: newEnergy });
     return Promise.resolve(false);
   }
 
   getAddEnergy() {
     const energy =
-      100 * this.envSrv.weight + Math.round(Math.random() * this.skillInfo.energy * 0.01) + Math.round(Math.random() * 100 - 50);
+      100 * this.envSrv.weight + Math.round(Math.random() * this.levelInfo.energy * 0.01) + Math.round(Math.random() * 100 - 50);
     this.logSrv.log({
       msg: `修炼获得${energy}点能量\n`,
       type: LogType.Character,
@@ -64,41 +73,49 @@ export class CharacterService {
     return energy;
   }
 
-  getCharacter() {
+  getCharacter(): Character {
     return {
+      id: this.id,
       baseInfo: this.baseInfo,
       statusInfo: this.statusInfo,
+      levelInfo: this.levelInfo,
       skillInfo: this.skillInfo,
-      battleInfo: this.battleInfo
+      attrInfo: this.attrInfo
     };
   }
 
   setCharacter(character: Partial<Character>) {
+    character.id && (this.id = character.id);
     character.baseInfo && this.setBaseInfo(character.baseInfo);
     character.statusInfo && this.setStatusInfo(character.statusInfo);
+    character.levelInfo && this.setLevelInfo(character.levelInfo);
     character.skillInfo && this.setSkillInfo(character.skillInfo);
-    character.battleInfo && this.setBattleInfo(character.battleInfo);
+    character.attrInfo && this.setAttrInfo(character.attrInfo);
   }
 
   setBaseInfo(baseInfo: Partial<BaseInfo>) {
     this.baseInfo = { ...this.baseInfo, ...baseInfo };
-    if ('hp' in baseInfo && baseInfo.hp) {
-      this.statusInfo.hp = baseInfo.hp;
-    }
-    if ('mp' in baseInfo && baseInfo.mp) {
-      this.statusInfo.mp = baseInfo.mp;
-    }
   }
 
   setStatusInfo(statusInfo: Partial<StatusInfo>) {
     this.statusInfo = { ...this.statusInfo, ...statusInfo };
   }
 
+  setLevelInfo(levelInfo: Partial<LevelInfo>) {
+    this.levelInfo = { ...this.levelInfo, ...levelInfo };
+  }
+
   setSkillInfo(skillInfo: Partial<SkillInfo>) {
     this.skillInfo = { ...this.skillInfo, ...skillInfo };
   }
 
-  setBattleInfo(battleInfo: Partial<BattleInfo>) {
-    this.battleInfo = { ...this.battleInfo, ...battleInfo };
+  setAttrInfo(attrInfo: Partial<AttrInfo>) {
+    this.attrInfo = { ...this.attrInfo, ...attrInfo };
+    if (attrInfo.hp) {
+      this.statusInfo.hp = attrInfo.hp;
+    }
+    if (attrInfo.mp) {
+      this.statusInfo.mp = attrInfo.mp;
+    }
   }
 }

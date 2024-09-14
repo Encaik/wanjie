@@ -3,14 +3,14 @@ import { v4 as uuidv4 } from 'uuid';
 import LEVELMAP from '../assets/data/level-map.json';
 import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
-import TRAITS from '../assets/data/traits.json';
+import TALENTS from '../assets/data/talents.json';
 import WORLDS from '../assets/data/worlds.json';
-import { EnvType } from '../models';
+import { CharacterTalent, Env, EnvType, InitCharacter } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
 const WORLDS_LEN = WORLDS.length;
-const TRAITS_LEN = TRAITS.length;
+const TALENTS_LEN = TALENTS.length;
 
 /**
  * 生成相关数据的静态类
@@ -22,18 +22,27 @@ export class Generate {
    * @param length 角色数量
    * @returns 角色数组，包含每个角色的名字、性别、年龄和能力特质
    */
-  static characters(length: number) {
+  static characters(length: number): InitCharacter[] {
     // TODO: 完善特质体系及相关逻辑
     return Array.from({ length }, (_, i) => ({
       id: `character-${uuidv4()}`,
-      name: getCharacterName(),
-      gender: Math.random() > 0.5 ? '男' : '女',
-      age: Math.floor(Math.random() * 10) * 2 + 12,
-      ability: getCharacterTrait()
+      baseInfo: {
+        name: getCharacterName(),
+        gender: Math.random() > 0.5 ? '男' : '女',
+        age: Math.floor(Math.random() * 10) * 2 + 12,
+        talent: getCharacterTalent(1)
+      },
+      skillInfo: {
+        hp: Math.round(Math.random() * 40) + 100,
+        mp: Math.round(Math.random() * 40) + 100,
+        attack: Math.round(Math.random() * 40) + 20,
+        defence: Math.round(Math.random() * 40) + 20,
+        speed: Math.round(Math.random() * 40)
+      }
     }));
   }
 
-  static envs(length: number) {
+  static envs(length: number): { envs: Env[]; galaxiesId: string } {
     const galaxiesId = generateId();
     // TODO: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
     return {
@@ -78,11 +87,12 @@ function getCharacterName() {
  * 获取一个随机的角色特质
  * @returns {string} 随机生成的角色特质
  */
-function getCharacterTrait() {
-  let trait = '';
-  // 随机选择一个特质
-  trait = TRAITS[Math.floor(Math.random() * TRAITS_LEN)].trait;
-  return trait;
+function getCharacterTalent(length: number): CharacterTalent[] {
+  let talentList: Set<CharacterTalent> = new Set();
+  for (let index = 0; index < length; index++) {
+    talentList.add(TALENTS[Math.floor(Math.random() * TALENTS_LEN)]);
+  }
+  return Array.from(talentList);
 }
 
 export const generateId = () => {

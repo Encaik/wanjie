@@ -51,16 +51,11 @@ export class AppComponent implements OnInit {
         nzFooter: null,
         nzClosable: false,
         nzMaskClosable: false,
-        nzTitle: '初始化角色',
+        nzTitle: '初始化游戏',
         nzWidth: '1000px'
       })
       .afterClose.subscribe(({ character, env }) => {
-        this.rtSrv.init(
-          {
-            baseInfo: character
-          },
-          env
-        );
+        this.rtSrv.init(character, env);
       });
   }
 
