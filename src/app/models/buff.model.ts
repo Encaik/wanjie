@@ -1,4 +1,4 @@
 export interface Buff {
   name: string;
-  attrs: { key: string; value: number }[];
+  attrs: Array<{ key: string; value: number }>;
 }

@@ -1,18 +1,18 @@
 import { Component, inject } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { interval, Subscription } from 'rxjs';
 
+import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
 import { LogType, LogLevel } from '../../models';
 import { CharacterService } from '../../services/character.service';
 import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
-import { BackpackComponent } from './components/backpack/backpack.component';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
 import { Generate } from '../../utils/generate';
+import { BackpackComponent } from './components/backpack/backpack.component';
 
 @Component({
   selector: 'app-home',

@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+
 import { BattleInfo, BattleStatusInfo, Character } from '../../models';
 
 @Component({
@@ -9,7 +10,7 @@ import { BattleInfo, BattleStatusInfo, Character } from '../../models';
   imports: [NzDescriptionsModule, NzProgressModule],
   templateUrl: './battle-modal.component.html'
 })
-export class BattleModalComponent {
+export class BattleModalComponent implements OnInit {
   @Input() leftCharacters: Character[] = [];
   @Input() rightCharacters: Character[] = [];
 

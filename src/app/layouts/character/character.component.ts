@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
-import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @Component({
   selector: 'app-character',
