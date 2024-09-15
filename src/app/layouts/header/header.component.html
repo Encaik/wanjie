@@ -4,15 +4,16 @@
       <nz-descriptions-item nzTitle="世界名称">{{ env.name }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="世界类型">{{ envSrv.getEnvType(env.type) }}</nz-descriptions-item>
       <nz-descriptions-item nzTitle="修炼倍数">{{ env.weight }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="等级体系">
+      <nz-descriptions-item nzTitle="等级体系" [nzSpan]="3">
         <app-level-map-view [levelMap]="env.levelMap" [currentLevel]="currentLevel" />
       </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="地利"></nz-descriptions-item>
     </nz-descriptions>
   </div>
   <div class="w-full sm:w-1/4">
     <nz-descriptions nzSize="small" [nzColumn]="1">
       <nz-descriptions-item nzTitle="万界历">{{ timeTick | timeFormat }}</nz-descriptions-item>
-      <nz-descriptions-item nzTitle="时间特性"></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="天时"></nz-descriptions-item>
     </nz-descriptions>
   </div>
   <div class="w-full sm:w-1/4 flex justify-end gap-2">
