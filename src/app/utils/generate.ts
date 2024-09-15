@@ -5,7 +5,7 @@ import NAMES from '../assets/data/names.json';
 import SURNAMES from '../assets/data/surnames.json';
 import TALENTS from '../assets/data/talents.json';
 import WORLDS from '../assets/data/worlds.json';
-import { BattleCharacter, Character, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
+import { BattleCharacter, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
@@ -21,9 +21,11 @@ export class Generate {
    *
    * @param length 角色数量
    * @returns 角色数组，包含每个角色的名字、性别、年龄和能力特质
+   *
+   * @todo 完善天赋体系及角色升级逻辑
+   * @body 丰富角色属性和计算逻辑，封装一个用于计算属性的工具类
    */
   static characters(length: number): InitCharacter[] {
-    // @todo: 完善特质体系及相关逻辑
     return Array.from({ length }, (_, i) => ({
       id: `character-${uuidv4()}`,
       baseInfo: {
@@ -73,9 +75,23 @@ export class Generate {
     }));
   }
 
+  /**
+   * 生成指定数量的环境对象，并分配到一个星系ID下
+   *
+   * 此方法用于创建一个包含多个环境对象的数组，这些环境对象共享同一个星系ID
+   * 它首先生成一个唯一的星系ID，然后根据指定的长度生成相应数量的环境对象
+   * 每个环境对象都具有随机生成的属性，如类型、等级映射、权重和最大能量等
+   *
+   * @param length 环境对象数组的长度，即要生成的环境对象数量
+   * @returns 返回一个包含两个属性的对象：
+   *          - envs: 一个环境对象数组
+   *          - galaxiesId: 所有环境对象所属的星系ID
+   *
+   * @todo 完善世界等级体系
+   * @body 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
+   */
   static envs(length: number): { envs: Env[]; galaxiesId: string } {
-    const galaxiesId = generateId();
-    // @todo: 等级体系随机选中一套预设，并完善预设等级数量不同时的其他参数
+    const galaxiesId = `galaxie-${uuidv4()}`;
     return {
       envs: Array.from({ length }, (_, i) => {
         const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
@@ -98,10 +114,12 @@ export class Generate {
 /**
  * 获取一个随机的角色名字
  * 该函数通过组合姓氏和名字来生成随机角色名字，有一定概率生成双名
- * @todo: 随机生成名字需要根据性别产生名字
  * @returns {string} 随机生成的角色名字
+ *
+ * @todo 随机生成名字需要根据性别产生名字
+ * @body 将名从原有的数组分为男名数组和女名数组
  */
-function getCharacterName() {
+export function getCharacterName() {
   let name = '';
   // 随机选择一个姓氏
   name += SURNAMES[Math.floor(Math.random() * SURNAMES_LEN)];
@@ -115,17 +133,16 @@ function getCharacterName() {
 }
 
 /**
- * 获取一个随机的角色特质
- * @returns {string} 随机生成的角色特质
+ * 获取一个随机的角色天赋
+ * @returns {string} 随机生成的角色天赋
+ *
+ * @todo 完善天赋生成逻辑
+ * @body 设计天赋生成、使用及计算等功能，并完成开发
  */
-function getCharacterTalent(length: number): CharacterTalent[] {
+export function getCharacterTalent(length: number): CharacterTalent[] {
   let talentList: Set<CharacterTalent> = new Set();
   for (let index = 0; index < length; index++) {
     talentList.add(TALENTS[Math.floor(Math.random() * TALENTS_LEN)]);
   }
   return Array.from(talentList);
 }
-
-export const generateId = () => {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-};

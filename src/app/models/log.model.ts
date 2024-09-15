@@ -25,5 +25,7 @@ export const getTypeDesc = (type: LogType): string => {
       return '人物';
     case LogType.Env:
       return '环境';
+    default:
+      return '其他';
   }
 };
