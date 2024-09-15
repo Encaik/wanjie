@@ -3,7 +3,7 @@
   <nz-timeline>
     @for (log of logList; track $index) {
       <nz-timeline-item>
-        <span> 【{{ getTypeDesc(log.type) }}】 {{ log.msg }} </span>
+        <span> 【{{ LogTypeMap[log.type] }}】 {{ log.msg }} </span>
       </nz-timeline-item>
     }
   </nz-timeline>

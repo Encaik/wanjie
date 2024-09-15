@@ -17,15 +17,8 @@ export enum LogLevel {
   Error
 }
 
-export const getTypeDesc = (type: LogType): string => {
-  switch (type) {
-    case LogType.System:
-      return '系统';
-    case LogType.Character:
-      return '人物';
-    case LogType.Env:
-      return '环境';
-    default:
-      return '其他';
-  }
+export const LogTypeMap = {
+  [LogType.System]: '系统',
+  [LogType.Character]: '人物',
+  [LogType.Env]: '环境'
 };
