@@ -45,25 +45,8 @@ export class Generate {
   }
 
   static enemys(length: number): BattleCharacter[] {
-    return Array.from({ length }, (_, i) => ({
-      id: `enemy-${uuidv4()}`,
-      isEnemy: true,
-      baseInfo: {
-        name: getCharacterName(),
-        gender: Math.random() > 0.5 ? '男' : '女',
-        age: Math.floor(Math.random() * 10) * 2 + 12,
-        talent: getCharacterTalent(1)
-      },
-      statusInfo: {
-        hp: Math.round(Math.random() * 40) + 100,
-        mp: Math.round(Math.random() * 40) + 100,
-        buffs: []
-      },
-      levelInfo: {
-        energy: Math.round(Math.random() * 1000),
-        level: 0
-      },
-      attrInfo: {
+    return Array.from({ length }, (_, i) => {
+      const attrInfo = {
         hp: Math.round(Math.random() * 40) + 100,
         mp: Math.round(Math.random() * 40) + 100,
         attack: Math.round(Math.random() * 40) + 20,
@@ -71,8 +54,28 @@ export class Generate {
         speed: Math.round(Math.random() * 40),
         critRate: Math.round(Math.random() * 5) + 2,
         critDamage: Math.round(Math.random() * 20) + 10
-      }
-    }));
+      };
+      return {
+        id: `enemy-${uuidv4()}`,
+        isEnemy: true,
+        baseInfo: {
+          name: getCharacterName(),
+          gender: Math.random() > 0.5 ? '男' : '女',
+          age: Math.floor(Math.random() * 10) * 2 + 12,
+          talent: getCharacterTalent(1)
+        },
+        statusInfo: {
+          hp: attrInfo.hp,
+          mp: attrInfo.mp,
+          buffs: []
+        },
+        levelInfo: {
+          energy: Math.round(Math.random() * 1000),
+          level: 0
+        },
+        attrInfo
+      };
+    });
   }
 
   /**

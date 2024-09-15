@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
@@ -8,7 +9,7 @@ import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
 @Component({
   selector: 'app-battle-modal',
   standalone: true,
-  imports: [NzDescriptionsModule, NzProgressModule],
+  imports: [CommonModule, NzDescriptionsModule, NzProgressModule],
   templateUrl: './battle-modal.component.html'
 })
 export class BattleModalComponent implements OnInit {
@@ -37,6 +38,7 @@ export class BattleModalComponent implements OnInit {
   timer: Subscription | undefined;
 
   ngOnInit() {
+    this.updateStatusInfo();
     this.updateAttackQueue();
     this.battleStart();
   }
@@ -116,7 +118,11 @@ export class BattleModalComponent implements OnInit {
   }
 
   getPercent(current: number, total: number) {
-    return Math.floor((current / total) * 100);
+    if (total === 0) {
+      return current >= 0 ? 100 : 0;
+    }
+    const percent = Math.round((current / total) * 100);
+    return Math.min(100, Math.max(0, percent));
   }
 
   getName(character: BattleCharacter) {
