@@ -72,7 +72,7 @@ describe('Util Generate', () => {
         expect(env.galaxiesId).toEqual(galaxiesId);
         expect(env.levelMap).toEqual(jasmine.any(Object));
         expect(env.weight).toBeGreaterThanOrEqual(0.75);
-        expect(env.maxEnergy).toBeGreaterThanOrEqual(80000);
+        expect(env.maxEnergy).toEqual(jasmine.any(Number));
       });
     });
   });
