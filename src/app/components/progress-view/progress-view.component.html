@@ -1,0 +1,12 @@
+<div
+  class="p-1 relative flex h-6 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium"
+  [ngClass]="[direction === 'left' ? 'justify-start' : 'justify-end']"
+>
+  <div
+    [ngStyle]="{ width: getPercent(current, total) + '%' }"
+    class="flex items-center justify-center h-full overflow-hidden text-white break-all rounded-full"
+    [ngClass]="[color]"
+  >
+  </div>
+  <div class="self-center absolute w-full text-center">{{ current.toFixed(1) }}/{{ total.toFixed(1) }}</div>
+</div>

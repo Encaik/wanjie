@@ -2,46 +2,14 @@
   <div class="flex justify-between items-center">
     <div class="flex-1 flex flex-col justify-start items-center">
       <div class="w-12 flex-none">我方</div>
-      <div class="justify-start p-1 relative flex h-6 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium">
-        <div
-          [ngStyle]="{ width: getPercent(leftTotalData.hp, leftTotalData.totalHp) + '%' }"
-          class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-green-500 rounded-full"
-        >
-        </div>
-        <div class="self-center absolute w-full text-center">{{ leftTotalData.hp.toFixed(1) }}/{{ leftTotalData.totalHp.toFixed(1) }}</div>
-      </div>
-      <div class="justify-start p-1 relative flex h-6 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium">
-        <div
-          [ngStyle]="{ width: getPercent(leftTotalData.mp, leftTotalData.totalMp) + '%' }"
-          class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-blue-500 rounded-full"
-        >
-        </div>
-        <div class="self-center absolute w-full text-center">{{ leftTotalData.mp.toFixed(1) }}/{{ leftTotalData.totalMp.toFixed(1) }}</div>
-      </div>
+      <app-progress-view [current]="leftTotalData.hp" [total]="leftTotalData.totalHp" />
+      <app-progress-view [current]="leftTotalData.mp" [total]="leftTotalData.totalMp" color="bg-blue-500" />
     </div>
     <div class="text-xl font-bold mx-12">vs</div>
     <div class="flex-1 flex flex-col justify-start items-center">
       <div class="w-12 flex-none">敌方</div>
-      <div class="justify-end p-1 relative flex h-6 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium">
-        <div
-          [ngStyle]="{ width: getPercent(rightTotalData.hp, rightTotalData.totalHp) + '%' }"
-          class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-green-500 rounded-full"
-        >
-        </div>
-        <div class="self-center absolute w-full text-center"
-          >{{ rightTotalData.hp.toFixed(1) }}/{{ rightTotalData.totalHp.toFixed(1) }}</div
-        >
-      </div>
-      <div class="justify-end p-1 relative flex h-6 w-full overflow-hidden rounded-full bg-blue-gray-50 font-sans text-xs font-medium">
-        <div
-          [ngStyle]="{ width: getPercent(rightTotalData.mp, rightTotalData.totalMp) + '%' }"
-          class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-blue-500 rounded-full"
-        >
-        </div>
-        <div class="self-center absolute w-full text-center"
-          >{{ rightTotalData.mp.toFixed(1) }}/{{ rightTotalData.totalMp.toFixed(1) }}</div
-        >
-      </div>
+      <app-progress-view [current]="rightTotalData.hp" [total]="rightTotalData.totalHp" direction="right" />
+      <app-progress-view [current]="rightTotalData.mp" [total]="rightTotalData.totalMp" direction="right" color="bg-blue-500" />
     </div>
   </div>
   <div class="border border-gray-300 rounded overflow-auto h-32 sm:h-96 p-4">

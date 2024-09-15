@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { interval, Subscription, takeWhile } from 'rxjs';
 
 import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
+import { ProgressViewComponent } from '../progress-view/progress-view.component';
 
 @Component({
   selector: 'app-battle-modal',
   standalone: true,
-  imports: [CommonModule, NzDescriptionsModule, NzProgressModule],
+  imports: [CommonModule, NzDescriptionsModule, ProgressViewComponent],
   templateUrl: './battle-modal.component.html'
 })
 export class BattleModalComponent implements OnInit {

@@ -12,29 +12,11 @@
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">状态信息</h5>
   <nz-descriptions nzSize="small" [nzColumn]="1">
-    <nz-descriptions-item nzTitle="当前血量">
-      <div class="w-full flex flex-col">
-        <nz-progress
-          class="flex-1"
-          nzStrokeColor="#52c41a"
-          [nzPercent]="getPercent(character.statusInfo.hp, character.attrInfo.hp)"
-          nzSize="small"
-          [nzShowInfo]="false"
-        ></nz-progress>
-        <div class="self-center hidden sm:block">{{ character.statusInfo.hp.toFixed(1) }}/{{ character.attrInfo.hp.toFixed(1) }}</div>
-      </div>
+    <nz-descriptions-item nzTitle="血量">
+      <app-progress-view [current]="character.statusInfo.hp" [total]="character.attrInfo.hp" />
     </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="当前灵力">
-      <div class="w-full flex flex-col">
-        <nz-progress
-          class="flex-1"
-          nzStrokeColor="#1890ff"
-          [nzPercent]="getPercent(character.statusInfo.mp, character.attrInfo.mp)"
-          nzSize="small"
-          [nzShowInfo]="false"
-        ></nz-progress>
-        <div class="self-center hidden sm:block">{{ character.statusInfo.mp.toFixed(1) }}/{{ character.attrInfo.mp.toFixed(1) }}</div>
-      </div>
+    <nz-descriptions-item nzTitle="灵力">
+      <app-progress-view [current]="character.statusInfo.mp" [total]="character.attrInfo.mp" color="bg-blue-500" />
     </nz-descriptions-item>
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">修炼属性</h5>
