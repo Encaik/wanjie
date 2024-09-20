@@ -93,6 +93,6 @@ export class HomeComponent {
     });
     const instance = modal.getContentComponent();
     instance.leftCharacters = [this.characterSrv.getCharacter()];
-    instance.rightCharacters = Generate.enemys(1);
+    instance.rightCharacters = Generate.enemys(1, this.characterSrv.levelInfo.level);
   }
 }

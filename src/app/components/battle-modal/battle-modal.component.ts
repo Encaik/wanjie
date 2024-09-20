@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { interval, Subscription, takeWhile } from 'rxjs';
 
 import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
+import { EnvService } from '../../services/env.service';
 import { ProgressViewComponent } from '../progress-view/progress-view.component';
 
 @Component({
@@ -13,6 +14,8 @@ import { ProgressViewComponent } from '../progress-view/progress-view.component'
   templateUrl: './battle-modal.component.html'
 })
 export class BattleModalComponent implements OnInit {
+  private envSrv = inject(EnvService);
+
   @Input() leftCharacters: BattleCharacter[] = [];
   @Input() rightCharacters: BattleCharacter[] = [];
 
@@ -89,7 +92,7 @@ export class BattleModalComponent implements OnInit {
 
   battle(currentCharacter: BattleCharacter, targetCharacter: BattleCharacter) {
     this.battleLogs.push(
-      `${this.getName(currentCharacter)} 攻击 ${this.getName(targetCharacter)}, 造成 ${currentCharacter!.attrInfo.attack} 点伤害`
+      `${this.getName(currentCharacter)}(${this.envSrv.levelMap[currentCharacter.levelInfo.level]}) 攻击 ${this.getName(targetCharacter)}(${this.envSrv.levelMap[targetCharacter.levelInfo.level]}), 造成 ${currentCharacter!.attrInfo.attack} 点伤害`
     );
     targetCharacter!.statusInfo.hp -= currentCharacter!.attrInfo.attack;
     if (targetCharacter!.statusInfo.hp <= 0) {

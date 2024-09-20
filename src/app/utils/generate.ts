@@ -44,14 +44,21 @@ export class Generate {
     }));
   }
 
-  static enemys(length: number): BattleCharacter[] {
+  static enemys(length: number, level: number = 0): BattleCharacter[] {
     return Array.from({ length }, (_, i) => {
-      const attrInfo = {
+      const skillInfo = {
         hp: Math.round(Math.random() * 40) + 100,
         mp: Math.round(Math.random() * 40) + 100,
         attack: Math.round(Math.random() * 40) + 20,
         defence: Math.round(Math.random() * 40) + 20,
-        speed: Math.round(Math.random() * 40),
+        speed: Math.round(Math.random() * 40)
+      };
+      const attrInfo = {
+        hp: (1 + level) * skillInfo.hp,
+        mp: (1 + level) * skillInfo.mp,
+        attack: (1 + level) * skillInfo.attack,
+        defence: (1 + level) * skillInfo.defence,
+        speed: (1 + level) * skillInfo.speed,
         critRate: Math.round(Math.random() * 5) + 2,
         critDamage: Math.round(Math.random() * 20) + 10
       };
@@ -70,8 +77,8 @@ export class Generate {
           buffs: []
         },
         levelInfo: {
-          energy: Math.round(Math.random() * 1000),
-          level: 0
+          energy: level * 100,
+          level
         },
         attrInfo
       };
