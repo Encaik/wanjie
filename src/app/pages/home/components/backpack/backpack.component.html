@@ -1,25 +1,25 @@
 <h5 nz-typography class="underline decoration-sky-500">背包</h5>
 <div class="flex-1 h-0">
-  <nz-tabset class="h-full" nzType="card" (nzSelectedIndexChange)="onBagTabChange($event)">
+  <nz-tabset class="h-full" [(nzSelectedIndex)]="tabIdx" nzType="card">
     @for (tab of bagTabs; track $index) {
       <nz-tab [nzTitle]="tab">
         <nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem', overflow: 'auto' }">
-          @for (item of bagItems; track item.id) {
+          @for (bagItem of bagItems; track bagItem.id) {
             <div
               nz-card-grid
               nz-popover
               [nzPopoverContent]="contentTemplate"
               class="flex flex-col justify-center items-center w-1/4 lg:w-1/6 2xl:w-1/12 h-16 p-2 relative"
             >
-              {{ item.name }}
+              {{ bagItem.item.name }}
               <div class="absolute bottom-1 right-1 text-xs text-gray-500">
-                {{ item.count }}
+                {{ bagItem.count }}
               </div>
             </div>
             <ng-template #contentTemplate>
               <div class="flex flex-col p-2 gap-2 justify-center items-center">
-                <span class="text-md font-bold">{{ item.name }}</span>
-                <p class="text-gray-500">{{ item.description }}</p>
+                <span class="text-md font-bold">{{ bagItem.item.name }}</span>
+                <p class="text-gray-500">{{ bagItem.item.description }}</p>
               </div>
             </ng-template>
           }
