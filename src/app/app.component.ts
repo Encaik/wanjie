@@ -27,8 +27,8 @@ export class AppComponent implements OnInit {
   private rtSrv = inject(RuntimeService);
   private router = inject(Router);
   title = 'wanjie';
-  segmentedList: string[] = ['修炼', '虚空', '副本'];
-  segmentedRoutes: string[] = ['/home', '/universe', '/secret-area'];
+  segmentedList: string[] = ['修炼', '功法', '虚空', '副本'];
+  segmentedRoutes: string[] = ['/home', '/method', '/universe', '/challenge'];
   currentSegmented: number = 0;
 
   ngOnInit() {
