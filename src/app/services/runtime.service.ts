@@ -5,6 +5,8 @@ import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { Character, Env } from '../models';
 import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
+import { BackpackService } from './backpack.service';
+import { BagItem } from '../models/item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class RuntimeService {
   private characterSrv = inject(CharacterService);
   private envSrv = inject(EnvService);
   private notice = inject(NzNotificationService);
+  private backpackSrv = inject(BackpackService);
 
   isInit: boolean = false;
   timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -26,28 +29,31 @@ export class RuntimeService {
     }
   }
 
-  init(characterData: Partial<Character>, envData: any) {
+  init(characterData: Partial<Character>, envData: Env, backpackData?: BagItem[]) {
     this.characterSrv.setCharacter(characterData);
     this.envSrv.setEnv(envData);
+    if (backpackData) this.backpackSrv.setItems(backpackData);
     this.isInit = true;
   }
 
   save() {
     const characterData = this.characterSrv.getCharacter();
     const envData = this.envSrv.getEnv();
+    const backpackData = this.backpackSrv.getItems();
     const time = new Date();
     localStorage.setItem(
       'wanjie_data',
       JSON.stringify({
         time: time.getTime(),
         characterData,
-        envData
+        envData,
+        backpackData
       })
     );
     this.notice.success('保存成功', `您的数据已保存,本次保存时间为${time.toLocaleString()}`);
   }
 
-  load(): Promise<{ characterData: Character; envData: Env } | null> {
+  load(): Promise<{ characterData: Character; envData: Env; backpackData: BagItem[] } | null> {
     const data = localStorage.getItem('wanjie_data');
     if (data) {
       const parseData = JSON.parse(data);

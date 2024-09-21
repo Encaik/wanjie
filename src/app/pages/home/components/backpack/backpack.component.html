@@ -17,12 +17,16 @@
               </div>
             </div>
             <ng-template #contentTemplate>
-              <div class="flex flex-col p-2 gap-2 justify-center items-center">
+              <div class="flex flex-col gap-2 justify-center items-center">
                 <span class="text-md font-bold">{{ bagItem.item.name }}</span>
                 <p class="text-gray-500">{{ bagItem.item.description }}</p>
-                @if (bagItem.item.uesable) {
-                  <button nz-button nzType="primary" nzSize="small" (click)="onItemUseClick(bagItem)">使用</button>
-                }
+                <div class="flex gap-2">
+                  @if (bagItem.item.uesable) {
+                    <button nz-button nzType="primary" nzSize="small" (click)="onItemUseClick(bagItem)">使用</button>
+                  }
+                  <button nz-button nzSize="small" (click)="onItemDropClick(bagItem, 1)">丢弃</button>
+                  <button nz-button nzSize="small" (click)="onItemDropClick(bagItem, bagItem.count)">丢弃全部</button>
+                </div>
               </div>
             </ng-template>
           }

@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.rtSrv.load().then(data => {
       if (data) {
-        this.rtSrv.init(data.characterData, data.envData);
+        this.rtSrv.init(data.characterData, data.envData, data.backpackData);
       } else {
         this.init();
       }

@@ -27,19 +27,22 @@ export class BackpackComponent {
     return this.backpackSrv.getItems(this.tabIdx ? ItemTypeValueMap[this.tabIdx] : undefined);
   }
 
-  onItemUseClick(BagItem: BagItem) {
-    this.backpackSrv.useItem(BagItem.item).then(res => {
+  onItemUseClick(bagItem: BagItem) {
+    this.backpackSrv.useItem(bagItem.item).then(res => {
       if (!res) {
-        this.backpackSrv.removeItem(BagItem.item, 1);
+        this.backpackSrv.removeItem(bagItem.item, 1);
       } else {
         console.log(res);
-
-        // this.logSrv.log({
-        //   msg: res,
-        //   type: LogType.Item,
-        //   level: LogLevel.
-        // });
       }
+    });
+  }
+
+  onItemDropClick(bagItem: BagItem, count: number) {
+    this.backpackSrv.removeItem(bagItem.item, count);
+    this.logSrv.log({
+      msg: `丢弃${count}个${bagItem.item.name}`,
+      type: LogType.Item,
+      level: LogLevel.Info
     });
   }
 }

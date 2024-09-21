@@ -12,11 +12,12 @@ export class BackpackService {
   private logSrv = inject(LogService);
   items: Map<Item, number> = new Map();
 
-  constructor() {
-    this.addItem(ItemMap['0'], 1);
-    this.addItem(ItemMap['10000'], 1);
-    this.addItem(ItemMap['20000'], 1);
-    this.addItem(ItemMap['30000'], 1);
+  constructor() {}
+
+  setItems(items: BagItem[]) {
+    items.forEach(item => {
+      this.items.set(item.item, item.count);
+    });
   }
 
   getItems(type?: ItemType): BagItem[] {
@@ -61,6 +62,11 @@ export class BackpackService {
         });
         resolve(null);
       } catch (error) {
+        this.logSrv.log({
+          msg: '物品使用失败',
+          type: LogType.Item,
+          level: LogLevel.Info
+        });
         resolve(error);
       }
     });
