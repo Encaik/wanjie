@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
         nzWidth: '1000px'
       })
       .afterClose.subscribe(({ character, env }) => {
-        this.rtSrv.init({ tick: 0 }, character, env);
+        this.rtSrv.init({ tick: Math.round(Math.random() * 100) }, character, env);
       });
   }
 
