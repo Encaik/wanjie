@@ -63,25 +63,16 @@ export class BagItemViewComponent {
   }
 
   getItemLevelClass(level: ItemLevel) {
-    switch (level) {
-      case ItemLevel.Common:
-        return 'text-black-500';
-      case ItemLevel.Rare:
-        return 'text-green-500';
-      case ItemLevel.Fine:
-        return 'text-blue-500';
-      case ItemLevel.Premium:
-        return 'text-pink-500';
-      case ItemLevel.Exquisite:
-        return 'text-purple-500';
-      case ItemLevel.Extreme:
-        return 'text-yellow-500';
-      case ItemLevel.Divine:
-        return 'text-orange-500';
-      case ItemLevel.Forbidden:
-        return 'text-red-500';
-      default:
-        return '';
-    }
+    const colorMap = {
+      [ItemLevel.Common]: 'text-black-500',
+      [ItemLevel.Rare]: 'text-green-500',
+      [ItemLevel.Fine]: 'text-blue-500',
+      [ItemLevel.Premium]: 'text-pink-500',
+      [ItemLevel.Exquisite]: 'text-purple-500',
+      [ItemLevel.Extreme]: 'text-yellow-500',
+      [ItemLevel.Divine]: 'text-orange-500',
+      [ItemLevel.Forbidden]: 'text-red-500'
+    };
+    return colorMap[level];
   }
 }
