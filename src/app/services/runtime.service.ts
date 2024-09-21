@@ -19,6 +19,11 @@ export class RuntimeService {
 
   nextTimeTick() {
     this.timeTick.next(this.timeTick.value + 1);
+    if (this.timeTick.value % 36 === 0) {
+      this.characterSrv.setBaseInfo({
+        age: this.characterSrv.baseInfo.age + 1
+      });
+    }
   }
 
   init(characterData: Partial<Character>, envData: any) {

@@ -95,12 +95,17 @@ export class HomeComponent {
       nzMaskClosable: false
     });
     modal.afterClose.subscribe((isWin: boolean) => {
-      this.characterSrv.setStatusInfo({
-        hp: this.characterSrv.attrInfo.hp
-      });
       if (isWin) {
+        this.characterSrv.setStatusInfo({
+          hp: this.characterSrv.attrInfo.hp
+        });
         this.enemys = this.enemys.filter(item => item.id !== enemy.id);
         this.enemys.push(...Generate.enemys(1, this.characterSrv.levelInfo.level));
+      } else {
+        this.enemys.forEach(item => {
+          item.statusInfo.hp = item.attrInfo.hp;
+          item.statusInfo.mp = item.attrInfo.mp;
+        });
       }
     });
     const instance = modal.getContentComponent();

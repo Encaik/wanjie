@@ -59,6 +59,14 @@ export class CharacterService {
       return Promise.resolve(true);
     }
     this.setLevelInfo({ energy: newEnergy });
+    if (this.statusInfo.hp < this.attrInfo.hp) {
+      const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
+      this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
+    }
+    if (this.statusInfo.mp < this.attrInfo.mp) {
+      const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
+      this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
+    }
     return Promise.resolve(false);
   }
 

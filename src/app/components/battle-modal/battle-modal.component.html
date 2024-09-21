@@ -20,7 +20,10 @@
 </div>
 <div class="modal-footer">
   <nz-space>
-    <button *nzSpaceItem nz-button nzType="primary" (click)="onConfirmClick()"> 确定 </button>
-    <button *nzSpaceItem nz-button nzType="primary"> 逃跑 </button>
+    @if (isBattleEnd) {
+      <button *nzSpaceItem nz-button nzType="primary" (click)="onConfirmClick()"> 确定 </button>
+    } @else {
+      <button *nzSpaceItem nz-button nzType="primary" (click)="onRunClick()"> 逃跑 </button>
+    }
   </nz-space>
 </div>

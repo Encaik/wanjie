@@ -1,7 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
-import { interval, Subscription, takeWhile } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  delay,
+  EMPTY,
+  filter,
+  finalize,
+  from,
+  interval,
+  map,
+  mergeMap,
+  of,
+  Subject,
+  Subscription,
+  takeWhile,
+  tap,
+  timer
+} from 'rxjs';
 
 import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
 import { EnvService } from '../../services/env.service';
@@ -23,6 +40,8 @@ export class BattleModalComponent implements OnInit {
   @Input() leftCharacters: BattleCharacter[] = [];
   @Input() rightCharacters: BattleCharacter[] = [];
 
+  round$: BehaviorSubject<number> = new BehaviorSubject(0);
+
   leftTotalData: BattleStatusInfo = {
     hp: 0,
     mp: 0,
@@ -38,16 +57,51 @@ export class BattleModalComponent implements OnInit {
     buffs: []
   };
   attackQueue: BattleCharacter[] = [];
-  battleInfo: BattleInfo = {
-    round: 1
-  };
   battleLogs: string[] = [];
-  timer: Subscription | undefined;
+  queue$: Subscription | undefined;
+  isBattleEnd: boolean = false;
 
   ngOnInit() {
     this.updateStatusInfo();
-    this.updateAttackQueue();
     this.battleStart();
+    this.roundProcess();
+  }
+
+  roundProcess() {
+    this.round$.subscribe((roundNum: number) => {
+      if (!roundNum) return;
+      this.battleLogs.push(`第 ${roundNum} 回合：`);
+      this.queue$ = from(this.attackQueue)
+        .pipe(
+          mergeMap(
+            currentCharacter =>
+              timer(500).pipe(
+                map(() => {
+                  if (currentCharacter.statusInfo.hp <= 0) return;
+                  return { currentCharacter, targetCharacter: this.getTargetCharacter(currentCharacter) };
+                })
+              ),
+            1
+          )
+        )
+        .subscribe({
+          next: res => {
+            if (res && res.targetCharacter) this.battle(res.currentCharacter, res.targetCharacter);
+            this.updateStatusInfo();
+          },
+          complete: () => {
+            this.battleEnd().then(nextRound => {
+              if (nextRound) {
+                setTimeout(() => {
+                  this.updateAttackQueue();
+                }, 500);
+              } else {
+                this.isBattleEnd = true;
+              }
+            });
+          }
+        });
+    });
   }
 
   updateStatusInfo() {
@@ -69,32 +123,31 @@ export class BattleModalComponent implements OnInit {
     this.rightTotalData = this.rightCharacters.reduce(reduceFun, { ...initData });
   }
 
+  updateAttackQueue() {
+    this.attackQueue = [...this.leftCharacters, ...this.rightCharacters]
+      .filter(item => item.statusInfo.hp !== 0)
+      .sort((a, b) => b.attrInfo.speed - a.attrInfo.speed);
+    this.round$.next(this.round$.value + 1);
+  }
+
+  getTargetCharacter(currentCharacter: BattleCharacter) {
+    let targetCharacter: BattleCharacter | undefined;
+    if (currentCharacter.isEnemy) {
+      targetCharacter = this.leftCharacters[Math.floor(Math.random() * this.rightCharacters.length)];
+    } else {
+      targetCharacter = this.rightCharacters[Math.floor(Math.random() * this.leftCharacters.length)];
+    }
+    return targetCharacter;
+  }
+
   battleStart() {
-    this.timer = interval(500)
-      .pipe(takeWhile(() => this.attackQueue.length > 0))
-      .subscribe(() => {
-        while (this.attackQueue.length) {
-          const currentCharacter = this.attackQueue.shift();
-          if (!currentCharacter || currentCharacter?.statusInfo.hp === 0) continue;
-          let targetCharacter = undefined;
-          if (this.leftCharacters.findIndex(item => item.id === currentCharacter?.id) > -1) {
-            targetCharacter = this.rightCharacters[Math.floor(Math.random() * this.rightCharacters.length)];
-          } else if (this.rightCharacters.findIndex(item => item.id === currentCharacter?.id) > -1) {
-            targetCharacter = this.leftCharacters[Math.floor(Math.random() * this.leftCharacters.length)];
-          } else {
-            this.timer?.unsubscribe();
-            return;
-          }
-          this.battle(currentCharacter, targetCharacter);
-          this.updateStatusInfo();
-        }
-        this.battleEnd().then(nextRound => {
-          nextRound && this.updateAttackQueue();
-        });
-      });
+    timer(500).subscribe(() => {
+      this.updateAttackQueue();
+    });
   }
 
   battle(currentCharacter: BattleCharacter, targetCharacter: BattleCharacter) {
+    if (this.isBattleEnd) return;
     this.battleLogs.push(
       `${this.getName(currentCharacter)}(${this.envSrv.levelMap[currentCharacter.levelInfo.level]}) 攻击 ${this.getName(targetCharacter)}(${this.envSrv.levelMap[targetCharacter.levelInfo.level]}), 造成 ${currentCharacter!.attrInfo.attack} 点伤害`
     );
@@ -109,7 +162,6 @@ export class BattleModalComponent implements OnInit {
     const leftLivers = this.leftCharacters.filter(i => i.statusInfo.hp !== 0);
     const rightLivers = this.rightCharacters.filter(i => i.statusInfo.hp !== 0);
     if (!leftLivers.length || !rightLivers.length) {
-      this.timer?.unsubscribe();
       this.battleLogs.push(`${leftLivers.length ? '我方' : '敌方'}胜利`);
       return Promise.resolve(false);
     }
@@ -117,19 +169,14 @@ export class BattleModalComponent implements OnInit {
   }
 
   onConfirmClick() {
-    this.rightCharacters.forEach(i => {
-      i.statusInfo.hp = i.attrInfo.hp;
-      i.statusInfo.mp = i.attrInfo.mp;
-    });
-    this.ref.close(this.leftCharacters.filter(i => i.statusInfo.hp !== 0).length);
+    this.queue$?.unsubscribe();
+    this.ref.destroy(this.leftCharacters.filter(i => i.statusInfo.hp !== 0).length);
   }
 
-  updateAttackQueue() {
-    this.battleLogs.push(`第 ${this.battleInfo.round} 回合：`);
-    this.attackQueue = [...this.leftCharacters, ...this.rightCharacters]
-      .filter(item => item.statusInfo.hp !== 0)
-      .sort((a, b) => b.attrInfo.speed - a.attrInfo.speed);
-    this.battleInfo.round++;
+  onRunClick() {
+    this.queue$?.unsubscribe();
+    this.isBattleEnd = true;
+    this.ref.destroy(false);
   }
 
   getPercent(current: number, total: number) {
