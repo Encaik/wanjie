@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BattleModalComponent } from './battle-modal.component';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzModalRefMock } from '../../utils/test';
 
 describe('BattleModalComponent', () => {
   let component: BattleModalComponent;
@@ -8,7 +10,8 @@ describe('BattleModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BattleModalComponent]
+      imports: [BattleModalComponent],
+      providers: [{ provide: NzModalRef, useClass: NzModalRefMock }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(BattleModalComponent);
