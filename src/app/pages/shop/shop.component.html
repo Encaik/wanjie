@@ -1,0 +1,6 @@
+@if (isShopShow) {
+  <h5 nz-typography class="underline decoration-sky-500">商城</h5>
+  <app-item-view [bagItems]="bagItems" bagType="shop" />
+} @else {
+  <nz-empty class="h-full flex flex-col justify-center items-center" nzNotFoundContent="行商已经离开,将在每年1月准时回来"></nz-empty>
+}

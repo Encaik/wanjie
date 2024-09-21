@@ -1,0 +1,33 @@
+<nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '1rem', overflow: 'auto' }">
+  @for (bagItem of bagItems; track bagItem.id) {
+    <div
+      nz-card-grid
+      nz-popover
+      [nzPopoverContent]="contentTemplate"
+      class="flex flex-col justify-center items-center w-1/4 lg:w-1/6 2xl:w-1/12 h-16 p-2 relative"
+    >
+      {{ bagItem.item.name }}
+      <div class="absolute bottom-1 right-1 text-xs text-gray-500">
+        {{ bagItem.count }}
+      </div>
+    </div>
+    <ng-template #contentTemplate>
+      <div class="flex flex-col gap-2 justify-center items-center">
+        <span class="text-md font-bold">{{ bagItem.item.name }}</span>
+        <p class="text-gray-500">{{ bagItem.item.description }}</p>
+        <div class="flex gap-2">
+          @if (bagType === 'character') {
+            @if (bagItem.item.uesable) {
+              <button nz-button nzType="primary" nzSize="small" (click)="onItemUseClick(bagItem)">使用</button>
+            }
+            <button nz-button nzSize="small" (click)="onItemDropClick(bagItem, 1)">丢弃</button>
+            <button nz-button nzSize="small" (click)="onItemDropClick(bagItem, bagItem.count)">丢弃全部</button>
+          } @else if (bagType === 'shop') {
+            <button nz-button nzType="primary" nzSize="small" (click)="onItemBuyClick(bagItem, 1)">购买</button>
+            <button nz-button nzType="primary" nzSize="small" (click)="onItemBuyClick(bagItem, bagItem.count)">购买全部</button>
+          }
+        </div>
+      </div>
+    </ng-template>
+  }
+</nz-card>

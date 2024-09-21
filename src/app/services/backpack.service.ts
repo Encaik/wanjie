@@ -14,6 +14,10 @@ export class BackpackService {
 
   constructor() {}
 
+  getItemCountById(id: string) {
+    return this.items.get(ItemMap[id]) || 0;
+  }
+
   saveItems() {
     const items: { id: string; count: number }[] = [];
     this.items.forEach((count, item) => {

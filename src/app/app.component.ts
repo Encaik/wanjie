@@ -27,14 +27,14 @@ export class AppComponent implements OnInit {
   private rtSrv = inject(RuntimeService);
   private router = inject(Router);
   title = 'wanjie';
-  segmentedList: string[] = ['修炼', '功法', '虚空', '副本'];
-  segmentedRoutes: string[] = ['/home', '/method', '/universe', '/challenge'];
+  segmentedList: string[] = ['修炼', '功法', '虚空', '副本', '行商'];
+  segmentedRoutes: string[] = ['/home', '/method', '/universe', '/challenge', '/shop'];
   currentSegmented: number = 0;
 
   ngOnInit() {
     this.rtSrv.load().then(data => {
       if (data) {
-        this.rtSrv.init(data.characterData, data.envData, data.backpackData);
+        this.rtSrv.init(data.runtimeData, data.characterData, data.envData, data.backpackData);
       } else {
         this.init();
       }
@@ -55,7 +55,7 @@ export class AppComponent implements OnInit {
         nzWidth: '1000px'
       })
       .afterClose.subscribe(({ character, env }) => {
-        this.rtSrv.init(character, env);
+        this.rtSrv.init({ tick: 0 }, character, env);
       });
   }
 

@@ -32,9 +32,10 @@ export class RuntimeService {
     }
   }
 
-  init(characterData: Partial<Character>, envData: Env, backpackData?: BagItem[]) {
+  init(runtimeData: { tick: number }, characterData: Partial<Character>, envData: Env, backpackData?: BagItem[]) {
     this.characterSrv.setCharacter(characterData);
     this.envSrv.setEnv(envData);
+    this.timeTick.next(runtimeData.tick);
     if (backpackData) this.backpackSrv.loadItems(backpackData);
     this.isInit = true;
   }
@@ -49,6 +50,9 @@ export class RuntimeService {
       CryptoJS.AES.encrypt(
         JSON.stringify({
           time: time.getTime(),
+          runtimeData: {
+            tick: this.timeTick.value
+          },
           characterData,
           envData,
           backpackData
@@ -59,7 +63,7 @@ export class RuntimeService {
     this.notice.success('保存成功', `您的数据已保存,本次保存时间为${time.toLocaleString()}`);
   }
 
-  load(): Promise<{ characterData: Character; envData: Env; backpackData: BagItem[] } | null> {
+  load(): Promise<{ runtimeData: { tick: number }; characterData: Character; envData: Env; backpackData: BagItem[] } | null> {
     const data = localStorage.getItem(WANJIE_TOKEN);
     if (data) {
       const parseData = JSON.parse(CryptoJS.AES.decrypt(data, WANJIE_TOKEN).toString(CryptoJS.enc.Utf8));
