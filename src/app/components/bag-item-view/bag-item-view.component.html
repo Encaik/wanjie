@@ -5,6 +5,7 @@
       nz-popover
       [nzPopoverContent]="contentTemplate"
       class="flex flex-col justify-center items-center w-1/4 lg:w-1/6 2xl:w-1/12 h-16 p-2 relative"
+      [ngClass]="[getItemLevelClass(bagItem.item.level)]"
     >
       {{ bagItem.item.name }}
       <div class="absolute bottom-1 right-1 text-xs text-gray-500">
@@ -15,6 +16,10 @@
       <div class="flex flex-col gap-2 justify-center items-center">
         <span class="text-md font-bold">{{ bagItem.item.name }}</span>
         <p class="text-gray-500">{{ bagItem.item.description }}</p>
+        <p>
+          品质:
+          <span [ngClass]="[getItemLevelClass(bagItem.item.level)]">{{ ItemLevelMap[bagItem.item.level] }}</span>
+        </p>
         <div class="flex gap-2">
           @if (bagType === 'character') {
             @if (bagItem.item.uesable) {
