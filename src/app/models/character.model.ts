@@ -38,7 +38,8 @@ export interface SkillInfo {
 }
 
 export interface LevelInfo {
-  energy: number; // 能量
+  exp: number; // 经验
+  power: number; // 战力
   level: number; // 境界（根据当前世界等级动态调整）
 }
 

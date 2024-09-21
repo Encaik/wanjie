@@ -20,7 +20,7 @@ export enum LogLevel {
 
 export const LogTypeMap = {
   [LogType.System]: '系统',
-  [LogType.Character]: '人物',
+  [LogType.Character]: '角色',
   [LogType.Env]: '环境',
   [LogType.Item]: '物品'
 };

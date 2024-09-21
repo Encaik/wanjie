@@ -47,7 +47,7 @@ describe('Util Generate', () => {
         expect(enemy.statusInfo.hp).toBeGreaterThanOrEqual(100);
         expect(enemy.statusInfo.mp).toBeGreaterThanOrEqual(100);
         expect(enemy.statusInfo.buffs).toEqual(jasmine.any(Array));
-        expect(enemy.levelInfo.energy).toBeGreaterThanOrEqual(0);
+        expect(enemy.levelInfo.exp).toBeGreaterThanOrEqual(0);
         expect(enemy.levelInfo.level).toBe(0);
         expect(enemy.attrInfo.hp).toBeGreaterThanOrEqual(100);
         expect(enemy.attrInfo.mp).toBeGreaterThanOrEqual(100);
@@ -72,7 +72,7 @@ describe('Util Generate', () => {
         expect(env.galaxiesId).toEqual(galaxiesId);
         expect(env.levelMap).toEqual(jasmine.any(Object));
         expect(env.weight).toBeGreaterThanOrEqual(0.75);
-        expect(env.maxEnergy).toEqual(jasmine.any(Number));
+        expect(env.maxExp).toEqual(jasmine.any(Number));
       });
     });
   });

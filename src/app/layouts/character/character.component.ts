@@ -22,7 +22,7 @@ export class CharacterComponent {
     return this.characterSrv.getCharacter();
   }
 
-  getLevelByEnergy() {
+  getLevelByExp() {
     return this.envSrv.levelMap[this.character.levelInfo.level];
   }
 

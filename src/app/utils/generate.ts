@@ -77,7 +77,8 @@ export class Generate {
           buffs: []
         },
         levelInfo: {
-          energy: level * 100,
+          exp: level * 100,
+          power: attrInfo.hp + attrInfo.mp + attrInfo.attack + attrInfo.defence + attrInfo.speed,
           level
         },
         attrInfo
@@ -90,7 +91,7 @@ export class Generate {
    *
    * 此方法用于创建一个包含多个环境对象的数组，这些环境对象共享同一个星系ID
    * 它首先生成一个唯一的星系ID，然后根据指定的长度生成相应数量的环境对象
-   * 每个环境对象都具有随机生成的属性，如类型、等级映射、权重和最大能量等
+   * 每个环境对象都具有随机生成的属性，如类型、等级映射、权重和最大经验等
    *
    * @param length 环境对象数组的长度，即要生成的环境对象数量
    * @returns 返回一个包含两个属性的对象：
@@ -113,7 +114,7 @@ export class Generate {
           galaxiesId,
           levelMap: LEVELMAP[type][0],
           weight,
-          maxEnergy: Math.round((Math.random() * 0.4 + 0.8) * weight * 100000)
+          maxExp: Math.round((Math.random() * 0.4 + 0.8) * weight * 100000)
         };
       }),
       galaxiesId

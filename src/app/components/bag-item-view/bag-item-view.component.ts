@@ -39,7 +39,7 @@ export class BagItemViewComponent {
   onItemDropClick(bagItem: BagItem, count: number) {
     this.backpackSrv.removeItem(bagItem.item, count);
     this.logSrv.log({
-      msg: `丢弃${count}个${bagItem.item.name}`,
+      msg: `丢弃${count}个<span class="${this.getItemLevelClass(bagItem.item.level)}">${bagItem.item.name}</span>`,
       type: LogType.Item,
       level: LogLevel.Info
     });
@@ -53,7 +53,7 @@ export class BagItemViewComponent {
       this.backpackSrv.removeItem(ItemMap['1'], cost);
       bagItem.count -= count;
       this.logSrv.log({
-        msg: `花费${cost}个灵石，购买了${count}个${bagItem.item.name}`,
+        msg: `花费${cost}个灵石，购买了${count}个<span class="${this.getItemLevelClass(bagItem.item.level)}">${bagItem.item.name}</span>`,
         type: LogType.Item,
         level: LogLevel.Info
       });

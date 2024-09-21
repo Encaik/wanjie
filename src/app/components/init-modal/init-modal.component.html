@@ -1,5 +1,5 @@
 <nz-steps class="w-full sm:w-1/2 m-auto" [nzCurrent]="current">
-  <nz-step nzTitle="选择人物"></nz-step>
+  <nz-step nzTitle="选择角色"></nz-step>
   <nz-step nzTitle="选择世界"></nz-step>
 </nz-steps>
 
@@ -41,7 +41,7 @@
           <nz-descriptions [nzColumn]="1">
             <nz-descriptions-item nzTitle="名称">{{ item.name }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="修炼速度">{{ item.weight }}</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="最大能量">{{ item.maxEnergy }}</nz-descriptions-item>
+            <nz-descriptions-item nzTitle="最大经验">{{ item.maxExp }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="世界类型">{{ envSrv.getEnvType(item.type) }}</nz-descriptions-item>
             <nz-descriptions-item nzTitle="等级体系">
               <app-level-map-view [levelMap]="item.levelMap" />

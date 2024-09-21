@@ -9,7 +9,7 @@ export class EnvService {
   name: string = '未知世界';
   type: EnvType | null = null;
   levelMap: Record<number, string> = {};
-  maxEnergy: number = 0;
+  maxExp: number = 0;
   weight: number = 1;
   envNodes: Env[] = [];
   envEdges: Array<{ source: string; target: string }> = [];
@@ -24,7 +24,7 @@ export class EnvService {
     this.name = env.env.name;
     this.type = env.env.type;
     this.levelMap = env.env.levelMap;
-    this.maxEnergy = env.env.maxEnergy;
+    this.maxExp = env.env.maxExp;
     this.weight = env.env.weight;
     this.envNodes = env.envNodes || [];
     this.envEdges = env.envEdges || [];
@@ -37,7 +37,7 @@ export class EnvService {
         name: this.name,
         type: this.type,
         levelMap: this.levelMap,
-        maxEnergy: this.maxEnergy,
+        maxExp: this.maxExp,
         weight: this.weight
       },
       envNodes: this.envNodes,

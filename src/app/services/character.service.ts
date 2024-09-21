@@ -24,7 +24,8 @@ export class CharacterService {
     buffs: []
   };
   levelInfo: LevelInfo = {
-    energy: 0,
+    exp: 0,
+    power: 0,
     level: 0
   };
   skillInfo: SkillInfo = {
@@ -45,20 +46,20 @@ export class CharacterService {
   };
 
   cultivation(): Promise<boolean> {
-    const energy = this.getAddEnergy();
-    const levelPrecent = Math.round(this.envSrv.maxEnergy / Object.keys(this.envSrv.levelMap).length);
-    const newEnergy = energy + this.levelInfo.energy;
-    const newLevel = Math.floor(newEnergy / levelPrecent);
+    const exp = this.getAddExp();
+    const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
+    const newExp = exp + this.levelInfo.exp;
+    const newLevel = Math.floor(newExp / levelPrecent);
     if (newLevel > this.levelInfo.level) {
       this.logSrv.log({
-        msg: `能量已满，请升级后再继续修炼\n`,
+        msg: `经验已满，请升级后再继续修炼\n`,
         type: LogType.Character,
         level: LogLevel.Info
       });
-      this.setLevelInfo({ energy: newEnergy - (newEnergy % levelPrecent) });
+      this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
       return Promise.resolve(true);
     }
-    this.setLevelInfo({ energy: newEnergy });
+    this.setLevelInfo({ exp: newExp });
     if (this.statusInfo.hp < this.attrInfo.hp) {
       const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
       this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
@@ -94,15 +95,14 @@ export class CharacterService {
     });
   }
 
-  getAddEnergy() {
-    const energy =
-      100 * this.envSrv.weight + Math.round(Math.random() * this.levelInfo.energy * 0.01) + Math.round(Math.random() * 100 - 50);
+  getAddExp() {
+    const exp = 100 * this.envSrv.weight + Math.round(Math.random() * this.levelInfo.exp * 0.01) + Math.round(Math.random() * 100 - 50);
     this.logSrv.log({
-      msg: `修炼获得${energy}点能量\n`,
+      msg: `修炼获得${exp}点经验\n`,
       type: LogType.Character,
       level: LogLevel.Info
     });
-    return energy;
+    return exp;
   }
 
   getCharacter(): Character {
@@ -117,12 +117,20 @@ export class CharacterService {
   }
 
   setCharacter(character: Partial<Character>) {
+    console.log(character);
+
     character.id && (this.id = character.id);
     character.baseInfo && this.setBaseInfo(character.baseInfo);
     character.statusInfo && this.setStatusInfo(character.statusInfo);
-    character.levelInfo && this.setLevelInfo(character.levelInfo);
     character.skillInfo && this.setSkillInfo(character.skillInfo);
     character.attrInfo && this.setAttrInfo(character.attrInfo);
+    character.levelInfo && this.setLevelInfo(character.levelInfo);
+  }
+
+  updatePower(attrInfo: AttrInfo = this.attrInfo) {
+    this.setLevelInfo({
+      power: attrInfo.hp + attrInfo.mp + attrInfo.attack + attrInfo.defence + attrInfo.speed
+    });
   }
 
   setInfoByPath(path: string[], value: number, type: 'number' | 'percent') {
@@ -155,10 +163,12 @@ export class CharacterService {
 
   setSkillInfo(skillInfo: Partial<SkillInfo>) {
     this.skillInfo = { ...this.skillInfo, ...skillInfo };
+    this.updatePower();
   }
 
   setAttrInfo(attrInfo: Partial<AttrInfo>) {
     this.attrInfo = { ...this.attrInfo, ...attrInfo };
+    this.updatePower();
     if (attrInfo.hp) {
       this.statusInfo.hp = attrInfo.hp;
     }

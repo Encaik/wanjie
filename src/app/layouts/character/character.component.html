@@ -1,5 +1,5 @@
 <div class="h-full overflow-auto p-2 bg-white rounded shadow-md shadow-gray-200">
-  <h5 nz-typography class="underline decoration-sky-500">人物信息</h5>
+  <h5 nz-typography class="underline decoration-sky-500">角色信息</h5>
   <nz-descriptions nzSize="small" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 3 }">
     <nz-descriptions-item nzTitle="姓名" [nzSpan]="2">{{ character.baseInfo.name }}</nz-descriptions-item>
     <nz-descriptions-item nzTitle="性别">{{ character.baseInfo.gender }}</nz-descriptions-item>
@@ -21,8 +21,9 @@
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">修炼属性</h5>
   <nz-descriptions nzSize="small" [nzColumn]="{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 2, xs: 2 }">
-    <nz-descriptions-item nzTitle="能量">{{ character.levelInfo.energy }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="境界">{{ getLevelByEnergy() }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="经验">{{ character.levelInfo.exp }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="战力">{{ character.levelInfo.power }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="境界">{{ getLevelByExp() }}</nz-descriptions-item>
   </nz-descriptions>
   <h5 nz-typography class="underline decoration-sky-500">战斗属性</h5>
   <nz-descriptions nzSize="small" [nzColumn]="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 3 }">

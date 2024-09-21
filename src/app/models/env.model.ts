@@ -3,7 +3,7 @@ export interface Env {
   name: string; // 环境名称
   type: EnvType; // 环境类型
   levelMap: Record<number, string>; // 等级体系
-  maxEnergy: number; // 最大能量值
+  maxExp: number; // 最大经验值
   weight: number; // 权重
   galaxiesId: string; // 所属星系id
 }
