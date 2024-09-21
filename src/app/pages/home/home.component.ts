@@ -7,12 +7,13 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { interval, Subscription } from 'rxjs';
 
 import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
-import { LogType, LogLevel } from '../../models';
+import { LogType, LogLevel, BattleCharacter } from '../../models';
 import { CharacterService } from '../../services/character.service';
 import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-home',
@@ -26,10 +27,16 @@ export class HomeComponent {
   private logSrv = inject(LogService);
   private rtSrv = inject(RuntimeService);
   private modal = inject(NzModalService);
+  public envSrv = inject(EnvService);
 
   isAutoCultivate = false;
   isUpgrade = false;
   autoCultivateSub: Subscription | null = null;
+  enemys: BattleCharacter[] = [];
+
+  ngOnInit() {
+    this.enemys = Generate.enemys(8, this.characterSrv.levelInfo.level);
+  }
 
   onCultivationClick() {
     this.characterSrv.cultivation().then(isUpgrade => {
@@ -78,21 +85,26 @@ export class HomeComponent {
     this.rtSrv.nextTimeTick();
   }
 
-  onBattleClick() {
+  onBattleClick(enemy: BattleCharacter) {
     const modal = this.modal.create({
       nzTitle: '战斗',
       nzContent: BattleModalComponent,
+      nzFooter: null,
       nzClosable: false,
       nzWidth: '1000px',
       nzMaskClosable: false
     });
-    modal.afterClose.subscribe(res => {
+    modal.afterClose.subscribe((isWin: boolean) => {
       this.characterSrv.setStatusInfo({
         hp: this.characterSrv.attrInfo.hp
       });
+      if (isWin) {
+        this.enemys = this.enemys.filter(item => item.id !== enemy.id);
+        this.enemys.push(...Generate.enemys(1, this.characterSrv.levelInfo.level));
+      }
     });
     const instance = modal.getContentComponent();
     instance.leftCharacters = [this.characterSrv.getCharacter()];
-    instance.rightCharacters = Generate.enemys(1, this.characterSrv.levelInfo.level);
+    instance.rightCharacters = [enemy];
   }
 }

@@ -6,15 +6,19 @@ import { interval, Subscription, takeWhile } from 'rxjs';
 import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
 import { EnvService } from '../../services/env.service';
 import { ProgressViewComponent } from '../progress-view/progress-view.component';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-battle-modal',
   standalone: true,
-  imports: [CommonModule, NzDescriptionsModule, ProgressViewComponent],
+  imports: [CommonModule, NzDescriptionsModule, ProgressViewComponent, NzSpaceModule, NzButtonModule],
   templateUrl: './battle-modal.component.html'
 })
 export class BattleModalComponent implements OnInit {
   private envSrv = inject(EnvService);
+  private ref = inject(NzModalRef);
 
   @Input() leftCharacters: BattleCharacter[] = [];
   @Input() rightCharacters: BattleCharacter[] = [];
@@ -110,6 +114,14 @@ export class BattleModalComponent implements OnInit {
       return Promise.resolve(false);
     }
     return Promise.resolve(true);
+  }
+
+  onConfirmClick() {
+    this.rightCharacters.forEach(i => {
+      i.statusInfo.hp = i.attrInfo.hp;
+      i.statusInfo.mp = i.attrInfo.mp;
+    });
+    this.ref.close(this.leftCharacters.filter(i => i.statusInfo.hp !== 0).length);
   }
 
   updateAttackQueue() {
