@@ -14,6 +14,8 @@ import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
 import { EnvService } from '../../services/env.service';
+import { BackpackService } from '../../services/backpack.service';
+import { ItemMap } from '../../models/item.model';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +30,7 @@ export class HomeComponent {
   private rtSrv = inject(RuntimeService);
   private modal = inject(NzModalService);
   public envSrv = inject(EnvService);
+  private backpackSrv = inject(BackpackService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -101,6 +104,13 @@ export class HomeComponent {
         });
         this.enemys = this.enemys.filter(item => item.id !== enemy.id);
         this.enemys.push(...Generate.enemys(1, this.characterSrv.levelInfo.level));
+        const dropItem = ItemMap['40000'];
+        this.backpackSrv.addItem(dropItem, 1);
+        this.logSrv.log({
+          msg: `获得${dropItem.name} * 1`,
+          type: LogType.Item,
+          level: LogLevel.Info
+        });
       } else {
         this.enemys.forEach(item => {
           item.statusInfo.hp = item.attrInfo.hp;

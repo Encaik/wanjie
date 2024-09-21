@@ -125,11 +125,27 @@ export class CharacterService {
     character.attrInfo && this.setAttrInfo(character.attrInfo);
   }
 
+  setInfoByPath(path: string[], value: number, type: 'number' | 'percent') {
+    const currentValue = this.getInfoByPath(path);
+    this.setCharacter({
+      [path[0]]: {
+        [path[1]]: type === 'number' ? currentValue + value : currentValue * (1 + value * 0.01)
+      }
+    });
+  }
+
+  getInfoByPath(path: string[]): number {
+    const character: any = this;
+    return character[path[0]][path[1]];
+  }
+
   setBaseInfo(baseInfo: Partial<BaseInfo>) {
     this.baseInfo = { ...this.baseInfo, ...baseInfo };
   }
 
   setStatusInfo(statusInfo: Partial<StatusInfo>) {
+    if (statusInfo.hp && statusInfo.hp > this.attrInfo.hp) statusInfo.hp = this.attrInfo.hp;
+    if (statusInfo.mp && statusInfo.mp > this.attrInfo.mp) statusInfo.mp = this.attrInfo.mp;
     this.statusInfo = { ...this.statusInfo, ...statusInfo };
   }
 

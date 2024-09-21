@@ -20,6 +20,9 @@
               <div class="flex flex-col p-2 gap-2 justify-center items-center">
                 <span class="text-md font-bold">{{ bagItem.item.name }}</span>
                 <p class="text-gray-500">{{ bagItem.item.description }}</p>
+                @if (bagItem.item.uesable) {
+                  <button nz-button nzType="primary" nzSize="small" (click)="onItemUseClick(bagItem)">使用</button>
+                }
               </div>
             </ng-template>
           }

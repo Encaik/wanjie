@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BagItem, Item, ItemMap, ItemType } from '../models/item.model';
+import { Effect, EffectType, LogLevel, LogType } from '../models';
+import { CharacterService } from './character.service';
+import { LogService } from './log.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackpackService {
+  private characterSrv = inject(CharacterService);
+  private logSrv = inject(LogService);
   items: Map<Item, number> = new Map();
 
   constructor() {
@@ -34,7 +39,41 @@ export class BackpackService {
 
   removeItem(item: Item, count: number) {
     if (this.items.has(item)) {
-      this.items.set(item, this.items.get(item)! - count);
+      const count = this.items.get(item)! - 1;
+      if (count < 1) {
+        this.items.delete(item);
+      } else {
+        this.items.set(item, count);
+      }
+    }
+  }
+
+  useItem(item: Item) {
+    return new Promise(resolve => {
+      try {
+        if (item.effect) {
+          this.useItemEffect(item.effect);
+        }
+        this.logSrv.log({
+          msg: `使用了${item.name}`,
+          type: LogType.Item,
+          level: LogLevel.Info
+        });
+        resolve(null);
+      } catch (error) {
+        resolve(error);
+      }
+    });
+  }
+
+  useItemEffect(effect: Effect) {
+    switch (effect.target) {
+      case EffectType.Character:
+        const attrPath = effect.attr.split('/');
+        this.characterSrv.setInfoByPath(attrPath, effect.value, effect.type);
+        break;
+      default:
+        throw new Error('不支持的作用对象');
     }
   }
 }

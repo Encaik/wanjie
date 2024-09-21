@@ -8,7 +8,8 @@ export interface Log {
 export enum LogType {
   System,
   Character,
-  Env
+  Env,
+  Item
 }
 
 export enum LogLevel {
@@ -20,5 +21,6 @@ export enum LogLevel {
 export const LogTypeMap = {
   [LogType.System]: '系统',
   [LogType.Character]: '人物',
-  [LogType.Env]: '环境'
+  [LogType.Env]: '环境',
+  [LogType.Item]: '物品'
 };
