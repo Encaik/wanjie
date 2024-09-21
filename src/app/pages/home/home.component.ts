@@ -104,12 +104,23 @@ export class HomeComponent {
         });
         this.enemys = this.enemys.filter(item => item.id !== enemy.id);
         this.enemys.push(...Generate.enemys(1, this.characterSrv.levelInfo.level));
-        const dropItem = ItemMap['40000'];
-        this.backpackSrv.addItem(dropItem, 1);
-        this.logSrv.log({
-          msg: `获得${dropItem.name} * 1`,
-          type: LogType.Item,
-          level: LogLevel.Info
+        const dropItem = [
+          {
+            id: '40000',
+            count: 1
+          },
+          {
+            id: '1',
+            count: Math.round(Math.random() * 100)
+          }
+        ];
+        dropItem.forEach(i => {
+          this.backpackSrv.addItem(ItemMap[i.id], i.count);
+          this.logSrv.log({
+            msg: `获得${i.count}个${ItemMap[i.id].name}`,
+            type: LogType.Item,
+            level: LogLevel.Info
+          });
         });
       } else {
         this.enemys.forEach(item => {
@@ -117,6 +128,7 @@ export class HomeComponent {
           item.statusInfo.mp = item.attrInfo.mp;
         });
       }
+      this.rtSrv.save();
     });
     const instance = modal.getContentComponent();
     instance.leftCharacters = [this.characterSrv.getCharacter()];

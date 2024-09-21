@@ -7,6 +7,9 @@ import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
 import { BackpackService } from './backpack.service';
 import { BagItem } from '../models/item.model';
+import * as CryptoJS from 'crypto-js';
+
+const WANJIE_TOKEN = 'wanjie_data';
 
 @Injectable({
   providedIn: 'root'
@@ -32,31 +35,34 @@ export class RuntimeService {
   init(characterData: Partial<Character>, envData: Env, backpackData?: BagItem[]) {
     this.characterSrv.setCharacter(characterData);
     this.envSrv.setEnv(envData);
-    if (backpackData) this.backpackSrv.setItems(backpackData);
+    if (backpackData) this.backpackSrv.loadItems(backpackData);
     this.isInit = true;
   }
 
   save() {
     const characterData = this.characterSrv.getCharacter();
     const envData = this.envSrv.getEnv();
-    const backpackData = this.backpackSrv.getItems();
+    const backpackData = this.backpackSrv.saveItems();
     const time = new Date();
     localStorage.setItem(
-      'wanjie_data',
-      JSON.stringify({
-        time: time.getTime(),
-        characterData,
-        envData,
-        backpackData
-      })
+      WANJIE_TOKEN,
+      CryptoJS.AES.encrypt(
+        JSON.stringify({
+          time: time.getTime(),
+          characterData,
+          envData,
+          backpackData
+        }),
+        WANJIE_TOKEN
+      ).toString()
     );
     this.notice.success('保存成功', `您的数据已保存,本次保存时间为${time.toLocaleString()}`);
   }
 
   load(): Promise<{ characterData: Character; envData: Env; backpackData: BagItem[] } | null> {
-    const data = localStorage.getItem('wanjie_data');
+    const data = localStorage.getItem(WANJIE_TOKEN);
     if (data) {
-      const parseData = JSON.parse(data);
+      const parseData = JSON.parse(CryptoJS.AES.decrypt(data, WANJIE_TOKEN).toString(CryptoJS.enc.Utf8));
       return Promise.resolve(parseData);
     }
     return Promise.resolve(null);

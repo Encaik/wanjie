@@ -19,13 +19,13 @@
     </div>
     <div>
       <h5 nz-typography class="underline decoration-sky-500">云游</h5>
-      <nz-space>
+      <div class="flex flex-wrap gap-2">
         @for (enemy of enemys; track $index) {
-          <button *nzSpaceItem nz-button nzType="primary" (click)="onBattleClick(enemy)">
+          <button nz-button nzType="primary" (click)="onBattleClick(enemy)">
             {{ enemy.baseInfo.name }}({{ envSrv.levelMap[enemy.levelInfo.level] }})
           </button>
         }
-      </nz-space>
+      </div>
     </div>
   </div>
   <app-backpack class="h-72 sm:h-1/3 flex flex-col" />

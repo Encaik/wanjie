@@ -14,9 +14,17 @@ export class BackpackService {
 
   constructor() {}
 
-  setItems(items: BagItem[]) {
+  saveItems() {
+    const items: { id: string; count: number }[] = [];
+    this.items.forEach((count, item) => {
+      items.push({ id: item.id, count });
+    });
+    return items;
+  }
+
+  loadItems(items: BagItem[]) {
     items.forEach(item => {
-      this.items.set(item.item, item.count);
+      this.items.set(ItemMap[item.id], item.count);
     });
   }
 

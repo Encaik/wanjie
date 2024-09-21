@@ -21,21 +21,24 @@ export enum ItemType {
   Weapon = 1, // 武器
   Armor = 2, // 防具
   Props = 3, // 道具
-  Drug = 4 // 药品
+  Drug = 4, // 药品
+  Material = 5 // 材料
 }
 
 export const ItemTypeMap: Record<ItemType, string> = {
   [ItemType.Weapon]: '武器',
   [ItemType.Armor]: '防具',
   [ItemType.Props]: '道具',
-  [ItemType.Drug]: '药品'
+  [ItemType.Drug]: '药品',
+  [ItemType.Material]: '材料'
 };
 
 export const ItemTypeValueMap: Record<number, ItemType> = {
   1: ItemType.Weapon,
   2: ItemType.Armor,
   3: ItemType.Props,
-  4: ItemType.Drug
+  4: ItemType.Drug,
+  5: ItemType.Material
 };
 
 export const ItemMap: Record<string, Item> = {
@@ -46,6 +49,15 @@ export const ItemMap: Record<string, Item> = {
     description: '开发测试',
     uesable: false,
     price: 0
+  },
+  // 特殊物品
+  1: {
+    id: '1',
+    name: '灵石',
+    type: ItemType.Material,
+    description: '万界通用货币，可以兑换各种物品',
+    price: 1,
+    uesable: false
   },
   // 10000 武器
   10000: {
