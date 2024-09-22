@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './method.component.html',
   styleUrl: './method.component.less'
 })
-export class MethodComponent {
-
-}
+export class MethodComponent {}

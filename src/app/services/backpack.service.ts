@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
-import { BagItem, Item, ItemMap, ItemType } from '../models/item.model';
+
 import { Effect, EffectType, LogLevel, LogType } from '../models';
+import { BagItem, Item, ItemMap, ItemType } from '../models/item.model';
 import { CharacterService } from './character.service';
 import { LogService } from './log.service';
 
@@ -19,7 +20,7 @@ export class BackpackService {
   }
 
   saveItems() {
-    const items: { id: string; count: number }[] = [];
+    const items: Array<{ id: string; count: number }> = [];
     this.items.forEach((count, item) => {
       items.push({ id: item.id, count });
     });

@@ -98,7 +98,13 @@ module.exports = {
             pathGroupsExcludedImportTypes: []
           }
         ],
-        '@typescript-eslint/no-this-alias': 'error',
+        '@typescript-eslint/no-this-alias': [
+          'error',
+          {
+            allowDestructuring: false,
+            allowedNames: ['self']
+          }
+        ],
         '@typescript-eslint/member-ordering': 'off',
         'no-irregular-whitespace': 'error',
         'no-multiple-empty-lines': 'error',
@@ -108,7 +114,7 @@ module.exports = {
         'prefer-const': 'off',
         'max-len': 'off',
         'deprecation/deprecation': 'warn',
-        'jsdoc/newline-after-description': 'off',
+        'jsdoc/newline-after-description': 'off'
       }
     },
     {
@@ -122,7 +128,7 @@ module.exports = {
       extends: ['plugin:prettier/recommended'],
       rules: {
         'prettier/prettier': ['error', { parser: 'angular' }],
-        '@angular-eslint/template/eqeqeq': 'off',
+        '@angular-eslint/template/eqeqeq': 'off'
       }
     }
   ]

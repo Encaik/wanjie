@@ -1,13 +1,13 @@
 import { inject, Injectable } from '@angular/core';
+import * as CryptoJS from 'crypto-js';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 
 import { Character, Env } from '../models';
+import { BagItem } from '../models/item.model';
+import { BackpackService } from './backpack.service';
 import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
-import { BackpackService } from './backpack.service';
-import { BagItem } from '../models/item.model';
-import * as CryptoJS from 'crypto-js';
 
 const WANJIE_TOKEN = 'wanjie_data';
 
