@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
@@ -8,14 +8,14 @@ import { interval, Subscription } from 'rxjs';
 
 import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
 import { LogType, LogLevel, BattleCharacter } from '../../models';
+import { ItemMap } from '../../models/item.model';
+import { BackpackService } from '../../services/backpack.service';
 import { CharacterService } from '../../services/character.service';
+import { EnvService } from '../../services/env.service';
 import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
-import { EnvService } from '../../services/env.service';
-import { BackpackService } from '../../services/backpack.service';
-import { ItemMap } from '../../models/item.model';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +24,7 @@ import { ItemMap } from '../../models/item.model';
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   private characterSrv = inject(CharacterService);
   private logSrv = inject(LogService);
   private rtSrv = inject(RuntimeService);

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { BattleModalComponent } from './battle-modal.component';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+
 import { NzModalRefMock } from '../../utils/test';
+import { BattleModalComponent } from './battle-modal.component';
 
 describe('BattleModalComponent', () => {
   let component: BattleModalComponent;

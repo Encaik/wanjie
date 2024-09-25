@@ -141,8 +141,8 @@ export class CharacterService {
   }
 
   getInfoByPath(path: string[]): number {
-    const character: any = this;
-    return character[path[0]][path[1]];
+    const self: any = this;
+    return self[path[0]][path[1]];
   }
 
   setBaseInfo(baseInfo: Partial<BaseInfo>) {

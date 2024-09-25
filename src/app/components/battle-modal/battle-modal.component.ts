@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
 import {
   BehaviorSubject,
   concatMap,
@@ -23,9 +26,6 @@ import {
 import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
 import { EnvService } from '../../services/env.service';
 import { ProgressViewComponent } from '../progress-view/progress-view.component';
-import { NzModalRef } from 'ng-zorro-antd/modal';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
   selector: 'app-battle-modal',

@@ -9,8 +9,7 @@ describe('MethodComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MethodComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MethodComponent);
     component = fixture.componentInstance;
