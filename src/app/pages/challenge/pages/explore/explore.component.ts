@@ -13,7 +13,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 export class ExploreComponent {
   private router = inject(Router);
 
-  mapList = Array.from({ length: 100 }, (_, i) => Array.from({ length: 100 }, (_, j) => `${i}-${j}`));
+  mapList = Array.from({ length: 50 }, (_, i) => Array.from({ length: 50 }, (_, j) => `${i}-${j}`));
 
   onBackClick() {
     this.router.navigate(['/challenge']);
