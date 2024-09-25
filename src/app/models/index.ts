@@ -1,8 +1,10 @@
-export * from './character.model';
-export * from './env.model';
-export * from './log.model';
-export * from './buff.model';
-export * from './battle.model';
-export * from './challenge.model';
-export * from './reward.model';
-export * from './item.model';
+export * from './battle.model'; // 战斗
+export * from './buff.model'; // buff
+export * from './challenge.model'; // 副本
+export * from './character.model'; // 角色
+export * from './env.model'; // 环境
+export * from './item.model'; // 物品
+export * from './log.model'; // 日志
+export * from './reward.model'; // 奖励池
+export * from './runtime.model'; // 运行时
+export * from './task.model'; // 任务

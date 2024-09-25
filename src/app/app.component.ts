@@ -9,6 +9,7 @@ import { InitModalComponent } from './components/init-modal/init-modal.component
 import { CharacterComponent } from './layouts/character/character.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SiderComponent } from './layouts/sider/sider.component';
+import { TASKS } from './models';
 import { HomeComponent } from './pages/home/home.component';
 import { UniverseComponent } from './pages/universe/universe.component';
 import { RuntimeService } from './services/runtime.service';
@@ -34,7 +35,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.rtSrv.load().then(data => {
       if (data) {
-        this.rtSrv.init(data.runtimeData, data.characterData, data.envData, data.backpackData);
+        this.rtSrv.init(data);
       } else {
         this.init();
       }
@@ -60,7 +61,13 @@ export class AppComponent implements OnInit {
         nzWidth: '1000px'
       })
       .afterClose.subscribe(({ character, env }) => {
-        this.rtSrv.init({ tick: Math.round(Math.random() * 100) }, character, env);
+        this.rtSrv.init({
+          runtimeData: { tick: Math.round(Math.random() * 100) },
+          characterData: character,
+          envData: env,
+          backpackData: [],
+          taskData: '1'
+        });
       });
   }
 

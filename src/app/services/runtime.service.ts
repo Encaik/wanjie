@@ -3,11 +3,11 @@ import * as CryptoJS from 'crypto-js';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { BehaviorSubject, Observable, timer } from 'rxjs';
 
-import { Character, Env } from '../models';
-import { BagItem } from '../models/item.model';
+import { StorageData, TASKS } from '../models';
 import { BackpackService } from './backpack.service';
 import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
+import { TaskService } from './task.service';
 
 const WANJIE_TOKEN = 'wanjie_data';
 
@@ -19,6 +19,7 @@ export class RuntimeService {
   private envSrv = inject(EnvService);
   private notice = inject(NzNotificationService);
   private backpackSrv = inject(BackpackService);
+  private taskSrv = inject(TaskService);
 
   isInit: boolean = false;
   timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(0);
@@ -32,11 +33,12 @@ export class RuntimeService {
     }
   }
 
-  init(runtimeData: { tick: number }, characterData: Partial<Character>, envData: Env, backpackData?: BagItem[]) {
-    this.characterSrv.setCharacter(characterData);
-    this.envSrv.setEnv(envData);
-    this.timeTick.next(runtimeData.tick);
-    if (backpackData) this.backpackSrv.loadItems(backpackData);
+  init(storageData: StorageData) {
+    this.characterSrv.setCharacter(storageData.characterData);
+    this.envSrv.setEnv(storageData.envData);
+    this.timeTick.next(storageData.runtimeData.tick);
+    this.backpackSrv.loadItems(storageData.backpackData);
+    this.taskSrv.setCurrentTask(TASKS[storageData.taskData]);
     this.isInit = true;
   }
 
@@ -44,6 +46,7 @@ export class RuntimeService {
     const characterData = this.characterSrv.getCharacter();
     const envData = this.envSrv.getEnv();
     const backpackData = this.backpackSrv.saveItems();
+    const taskData = this.taskSrv.getCurrentTask()?.id;
     const time = new Date();
     localStorage.setItem(
       WANJIE_TOKEN,
@@ -55,7 +58,8 @@ export class RuntimeService {
           },
           characterData,
           envData,
-          backpackData
+          backpackData,
+          taskData
         }),
         WANJIE_TOKEN
       ).toString()
@@ -63,7 +67,7 @@ export class RuntimeService {
     this.notice.success('保存成功', `您的数据已保存,本次保存时间为${time.toLocaleString()}`);
   }
 
-  load(): Promise<{ runtimeData: { tick: number }; characterData: Character; envData: Env; backpackData: BagItem[] } | null> {
+  load(): Promise<StorageData | null> {
     const data = localStorage.getItem(WANJIE_TOKEN);
     if (data) {
       const parseData = JSON.parse(CryptoJS.AES.decrypt(data, WANJIE_TOKEN).toString(CryptoJS.enc.Utf8));
