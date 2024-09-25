@@ -9,8 +9,7 @@ describe('RewardItemViewComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RewardItemViewComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RewardItemViewComponent);
     component = fixture.componentInstance;

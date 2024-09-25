@@ -9,8 +9,7 @@ describe('QuickExploreComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [QuickExploreComponent]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(QuickExploreComponent);
     component = fixture.componentInstance;

@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { getItemLevelClass, Item, ItemLevelMap, ItemMap, RewardPool } from '../../models';
-import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
+import { getItemLevelClass, Item, ItemLevelMap, ItemMap, RewardPool } from '../../models';
 
 @Component({
   selector: 'app-reward-item-view',
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './reward-item-view.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RewardItemViewComponent {
+export class RewardItemViewComponent implements OnInit {
   @Input() reward: RewardPool = [];
 
   rewardItems: Item[] = [];
