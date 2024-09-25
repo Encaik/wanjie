@@ -1,0 +1,11 @@
+<nz-card class="h-full overflow-auto" [nzBodyStyle]="{ height: '100%', padding: '0', overflow: 'auto' }">
+  @for (reward of rewardItems; track reward.id) {
+    <div
+      nz-card-grid
+      class="flex flex-col justify-center items-center w-1/4 lg:w-1/6 2xl:w-1/12 h-12 p-2 relative"
+      [ngClass]="[getItemLevelClass(reward.level)]"
+    >
+      {{ reward.name }}
+    </div>
+  }
+</nz-card>

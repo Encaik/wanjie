@@ -117,8 +117,6 @@ export class CharacterService {
   }
 
   setCharacter(character: Partial<Character>) {
-    console.log(character);
-
     character.id && (this.id = character.id);
     character.baseInfo && this.setBaseInfo(character.baseInfo);
     character.statusInfo && this.setStatusInfo(character.statusInfo);

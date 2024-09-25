@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
@@ -39,8 +39,13 @@ export class AppComponent implements OnInit {
         this.init();
       }
     });
-    setTimeout(() => {
-      this.currentSegmented = this.segmentedRoutes.indexOf(this.router.url);
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.currentSegmented =
+          this.segmentedRoutes.findIndex(route => {
+            return event.url.includes(route);
+          }) || 0;
+      }
     });
   }
 

@@ -64,6 +64,20 @@ export const ItemLevelMap: Record<ItemLevel, string> = {
   [ItemLevel.Forbidden]: '禁忌'
 };
 
+export function getItemLevelClass(level: ItemLevel) {
+  const colorMap = {
+    [ItemLevel.Common]: 'text-black-500',
+    [ItemLevel.Rare]: 'text-green-500',
+    [ItemLevel.Fine]: 'text-blue-500',
+    [ItemLevel.Premium]: 'text-pink-500',
+    [ItemLevel.Exquisite]: 'text-purple-500',
+    [ItemLevel.Extreme]: 'text-yellow-500',
+    [ItemLevel.Divine]: 'text-orange-500',
+    [ItemLevel.Forbidden]: 'text-red-500'
+  };
+  return colorMap[level];
+}
+
 export const ItemMap: Record<string, Item> = {
   0: {
     id: '0',

@@ -1,0 +1,15 @@
+<div class="flex flex-col h-full">
+  <div class="flex justify-between items-center mb-2">
+    <h5 nz-typography class="underline decoration-sky-500">探索</h5>
+    <button nz-button (click)="onBackClick()">返回</button>
+  </div>
+  <table class="w-full aspect-square table-fixed">
+    @for (map of mapList; track $index) {
+      <tr>
+        @for (item of map; track $index) {
+          <td class="border border-gray-300 aspect-square"> </td>
+        }
+      </tr>
+    }
+  </table>
+</div>
