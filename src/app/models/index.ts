@@ -7,4 +7,5 @@ export * from './item.model'; // 物品
 export * from './log.model'; // 日志
 export * from './reward.model'; // 奖励池
 export * from './runtime.model'; // 运行时
+export * from './statistics.model'; // 统计
 export * from './task.model'; // 任务

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 
-import { Task, TASKS } from '../models';
+import { StatisticsEventType, Task, TASKS } from '../models';
+import { StatisticsService } from './statistics.service';
 
 @Injectable({
   providedIn: 'root'
