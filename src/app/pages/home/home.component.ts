@@ -2,9 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
-import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { interval, Subscription } from 'rxjs';
 
 import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
 import { LogType, LogLevel, BattleCharacter } from '../../models';
@@ -20,7 +18,7 @@ import { BackpackComponent } from './components/backpack/backpack.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NzButtonModule, NzSpaceModule, NzModalModule, NzTypographyModule, NzDividerModule, BackpackComponent],
+  imports: [NzButtonModule, NzModalModule, NzTypographyModule, NzDividerModule, BackpackComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.less'
 })
@@ -34,7 +32,7 @@ export class HomeComponent implements OnInit {
 
   isAutoCultivate = false;
   isUpgrade = false;
-  autoCultivateSub: Subscription | null = null;
+  isLocked = false;
   enemys: BattleCharacter[] = [];
 
   ngOnInit() {
@@ -42,6 +40,7 @@ export class HomeComponent implements OnInit {
   }
 
   onCultivationClick() {
+    this.isLocked = true;
     this.characterSrv.cultivation().then(isUpgrade => {
       this.rtSrv.nextTimeTick();
       if (isUpgrade) {
@@ -49,6 +48,10 @@ export class HomeComponent implements OnInit {
         this.onAutoCultivationClick(false);
       }
     });
+    setTimeout(() => {
+      this.isLocked = false;
+      if (this.isAutoCultivate) this.onCultivationClick();
+    }, 1000);
   }
 
   onAutoCultivationClick(status?: boolean) {
@@ -68,16 +71,13 @@ export class HomeComponent implements OnInit {
         type: LogType.Character,
         level: LogLevel.Info
       });
-      this.autoCultivateSub = interval(500).subscribe(() => {
-        this.onCultivationClick();
-      });
+      this.onCultivationClick();
     } else {
       this.logSrv.log({
         msg: '自动修炼关闭\n',
         type: LogType.Character,
         level: LogLevel.Info
       });
-      this.autoCultivateSub?.unsubscribe();
     }
   }
 
