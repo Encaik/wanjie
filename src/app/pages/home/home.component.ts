@@ -6,16 +6,16 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
 import { LogType, LogLevel, BattleCharacter } from '../../models';
+import { CharacterEventOperate, EventType } from '../../models/event.model';
 import { ItemMap } from '../../models/item.model';
 import { BackpackService } from '../../services/backpack.service';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
+import { EventService } from '../../services/event.service';
 import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
-import { EventService } from '../../services/event.service';
-import { CharacterEventOperate, EventType } from '../../models/event.model';
 
 @Component({
   selector: 'app-home',
@@ -51,8 +51,6 @@ export class HomeComponent implements OnInit {
         data: null
       })
       .then(isUpgrade => {
-        console.log(isUpgrade);
-
         this.rtSrv.nextTimeTick();
         if (isUpgrade) {
           this.isUpgrade = true;

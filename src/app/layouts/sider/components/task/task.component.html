@@ -11,11 +11,17 @@
             <span class="mr-2">{{ ItemMap[reward.id].name }} * {{ reward.count }}</span>
           }
         </p>
+        <p>
+          任务目标：
+          @for (condition of currentTask.conditions; track $index) {
+            <span class="mr-2">{{ condition.title }}({{ condition.current }}/{{ condition.goal }})</span>
+          }
+        </p>
         <p>完成情况：{{ currentTask.isCompleted ? '已完成' : '未完成' }}</p>
       </div>
       <div>
         @if (currentTask.isCompleted) {
-          <!-- <button nz-button (click)="onGetRewardClick()">获得奖励</button> -->
+          <button nz-button (click)="onGetRewardClick()">获得奖励</button>
         }
       </div>
     </div>
