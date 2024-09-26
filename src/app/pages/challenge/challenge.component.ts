@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { Challenge, RewardPoolMap } from '../../models';
-import { NzCardModule } from 'ng-zorro-antd/card';
-import { RewardItemViewComponent } from '../../components/reward-item-view/reward-item-view.component';
-import { EnvService } from '../../services/env.service';
-import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NzButtonModule } from 'ng-zorro-antd/button';
 import { Router } from '@angular/router';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzTagModule } from 'ng-zorro-antd/tag';
+
+import { RewardItemViewComponent } from '../../components/reward-item-view/reward-item-view.component';
+import { Challenge, RewardPoolMap } from '../../models';
+import { EnvService } from '../../services/env.service';
 
 @Component({
   selector: 'app-challenge',

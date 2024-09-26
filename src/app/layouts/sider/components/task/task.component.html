@@ -1,2 +1,27 @@
 <h5 nz-typography class="underline decoration-sky-500">任务面板</h5>
-<div class="flex-1 p-4 border-gray-300 border rounded overflow-auto"> </div>
+<div class="flex-1 p-4 border-gray-300 border rounded overflow-auto">
+  @if (currentTask) {
+    <div class="h-full flex flex-col justify-between items-center">
+      <div class="gap-2 w-full">
+        <h5 nz-typography>{{ currentTask.title }}</h5>
+        <p>任务描述：{{ currentTask.description }}</p>
+        <p>
+          任务奖励：
+          @for (reward of currentTask.rewards; track $index) {
+            <span class="mr-2">{{ ItemMap[reward.id].name }} * {{ reward.count }}</span>
+          }
+        </p>
+        <p>完成情况：{{ currentTask.isCompleted ? '已完成' : '未完成' }}</p>
+      </div>
+      <div>
+        @if (currentTask.isCompleted) {
+          <button nz-button (click)="onGetRewardClick()">获得奖励</button>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="w-full h-full flex justify-center items-center">
+      <nz-empty nzNotFoundContent="当前无任务"></nz-empty>
+    </div>
+  }
+</div>

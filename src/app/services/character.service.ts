@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 
-import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
+import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo, StatisticsEventType } from '../models';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
+import { StatisticsService } from './statistics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { LogService } from './log.service';
 export class CharacterService {
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
+  private statisticsSrv = inject(StatisticsService);
 
   id: string = '';
   baseInfo: BaseInfo = {
@@ -46,6 +48,11 @@ export class CharacterService {
   };
 
   cultivation(): Promise<boolean> {
+    this.statisticsSrv.update({
+      type: StatisticsEventType.Character,
+      field: 'cultivationCount',
+      count: 1
+    });
     const exp = this.getAddExp();
     const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
     const newExp = exp + this.levelInfo.exp;
