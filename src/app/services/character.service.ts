@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 
-import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo, StatisticsEventType } from '../models';
+import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
-import { StatisticsService } from './statistics.service';
+import { CharacterEventOperate, Event } from '../models/event.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,6 @@ import { StatisticsService } from './statistics.service';
 export class CharacterService {
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
-  private statisticsSrv = inject(StatisticsService);
 
   id: string = '';
   baseInfo: BaseInfo = {
@@ -48,34 +47,31 @@ export class CharacterService {
   };
 
   cultivation(): Promise<boolean> {
-    this.statisticsSrv.update({
-      type: StatisticsEventType.Character,
-      field: 'cultivationCount',
-      count: 1
+    return new Promise(resolve => {
+      const exp = this.getAddExp();
+      const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
+      const newExp = exp + this.levelInfo.exp;
+      const newLevel = Math.floor(newExp / levelPrecent);
+      if (newLevel > this.levelInfo.level) {
+        this.logSrv.log({
+          msg: `经验已满，请升级后再继续修炼\n`,
+          type: LogType.Character,
+          level: LogLevel.Info
+        });
+        this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
+        resolve(true);
+      }
+      this.setLevelInfo({ exp: newExp });
+      if (this.statusInfo.hp < this.attrInfo.hp) {
+        const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
+        this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
+      }
+      if (this.statusInfo.mp < this.attrInfo.mp) {
+        const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
+        this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
+      }
+      resolve(false);
     });
-    const exp = this.getAddExp();
-    const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
-    const newExp = exp + this.levelInfo.exp;
-    const newLevel = Math.floor(newExp / levelPrecent);
-    if (newLevel > this.levelInfo.level) {
-      this.logSrv.log({
-        msg: `经验已满，请升级后再继续修炼\n`,
-        type: LogType.Character,
-        level: LogLevel.Info
-      });
-      this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
-      return Promise.resolve(true);
-    }
-    this.setLevelInfo({ exp: newExp });
-    if (this.statusInfo.hp < this.attrInfo.hp) {
-      const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
-      this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
-    }
-    if (this.statusInfo.mp < this.attrInfo.mp) {
-      const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
-      this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
-    }
-    return Promise.resolve(false);
   }
 
   upgrade() {
@@ -130,6 +126,15 @@ export class CharacterService {
     character.skillInfo && this.setSkillInfo(character.skillInfo);
     character.attrInfo && this.setAttrInfo(character.attrInfo);
     character.levelInfo && this.setLevelInfo(character.levelInfo);
+  }
+
+  eventDetail(event: Event): Promise<boolean | undefined> {
+    switch (event.operate) {
+      case CharacterEventOperate.Cultivation:
+        return this.cultivation();
+      default:
+        return Promise.resolve(undefined);
+    }
   }
 
   updatePower(attrInfo: AttrInfo = this.attrInfo) {

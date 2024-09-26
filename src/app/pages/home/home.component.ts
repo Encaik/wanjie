@@ -14,6 +14,8 @@ import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { EventService } from '../../services/event.service';
+import { CharacterEventOperate, EventType } from '../../models/event.model';
 
 @Component({
   selector: 'app-home',
@@ -29,6 +31,7 @@ export class HomeComponent implements OnInit {
   private modal = inject(NzModalService);
   public envSrv = inject(EnvService);
   private backpackSrv = inject(BackpackService);
+  private eventSrv = inject(EventService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -41,13 +44,21 @@ export class HomeComponent implements OnInit {
 
   onCultivationClick() {
     this.isLocked = true;
-    this.characterSrv.cultivation().then(isUpgrade => {
-      this.rtSrv.nextTimeTick();
-      if (isUpgrade) {
-        this.isUpgrade = true;
-        this.onAutoCultivationClick(false);
-      }
-    });
+    this.eventSrv
+      .sendEvent({
+        type: EventType.Character,
+        operate: CharacterEventOperate.Cultivation,
+        data: null
+      })
+      .then(isUpgrade => {
+        console.log(isUpgrade);
+
+        this.rtSrv.nextTimeTick();
+        if (isUpgrade) {
+          this.isUpgrade = true;
+          this.onAutoCultivationClick(false);
+        }
+      });
     setTimeout(() => {
       this.isLocked = false;
       if (this.isAutoCultivate) this.onCultivationClick();

@@ -1,8 +1,3 @@
-import { inject } from '@angular/core';
-
-import { StatisticsService } from '../services/statistics.service';
-import { StatisticsEvent, StatisticsEventType } from './statistics.model';
-
 export interface Task {
   id: number;
   nextId: number;
@@ -10,7 +5,7 @@ export interface Task {
   description: string;
   rewards: TaskReward[];
   isCompleted: boolean;
-  conditions: StatisticsEvent[];
+  conditions: any[];
 }
 
 export interface TaskReward {
@@ -31,13 +26,7 @@ export const TASKS: Record<string, Task> = {
       }
     ],
     isCompleted: false,
-    conditions: [
-      {
-        type: StatisticsEventType.Character,
-        field: 'cultivationCount',
-        count: 1
-      }
-    ]
+    conditions: []
   },
   2: {
     id: 2,
