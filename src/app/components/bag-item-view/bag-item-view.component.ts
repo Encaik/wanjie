@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
+import { LogType, LogLevel, EventType, ItemEventOperate, EventRes, BagItem, getItemLevelClass, ItemLevelMap, ItemMap } from '@models';
+import { BackpackService, EventService, LogService } from '@services';
+import { getItemSpan } from '@utils/html';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
-
-import { LogType, LogLevel, EventType, ItemEventOperate, EventRes } from '@models';
-import { BagItem, getItemLevelClass, ItemLevelMap, ItemMap } from '@models';
-import { BackpackService, EventService, LogService } from '@services';
-import { getItemSpan } from '@utils/html';
 import { of, switchMap } from 'rxjs';
 
 @Component({

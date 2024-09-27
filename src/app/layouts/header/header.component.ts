@@ -1,13 +1,12 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { LevelMapViewComponent } from '@components/level-map-view/level-map-view.component';
+import { TimeFormatPipe } from '@pipes/time-format.pipe';
+import { EnvService, CharacterService, TimeTickService, RuntimeService } from '@services';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-
-import { LevelMapViewComponent } from '@components/level-map-view/level-map-view.component';
-import { TimeFormatPipe } from '@pipes/time-format.pipe';
-import { EnvService, CharacterService, TimeTickService, RuntimeService } from '@services';
 
 @Component({
   selector: 'app-header',

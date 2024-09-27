@@ -1,13 +1,13 @@
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { Env, InitCharacter } from '@models';
+import { EnvService } from '@services';
+import { Generate } from '@utils/generate';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { Env, InitCharacter } from '@models';
-import { EnvService } from '@services';
-import { Generate } from '@utils/generate';
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
 
 @Component({

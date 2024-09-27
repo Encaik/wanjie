@@ -1,11 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { ProgressViewComponent } from '@components/progress-view/progress-view.component';
+import { CharacterService, EnvService, TimeTickService } from '@services';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
-import { ProgressViewComponent } from '@components/progress-view/progress-view.component';
-import { CharacterService, EnvService, TimeTickService } from '@services';
 
 @Component({
   selector: 'app-character',

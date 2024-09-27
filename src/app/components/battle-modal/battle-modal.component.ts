@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, OnInit } from '@angular/core';
+import { BattleCharacter, BattleStatusInfo } from '@models';
+import { EnvService } from '@services';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { BehaviorSubject, from, map, mergeMap, Subscription, timer } from 'rxjs';
 
-import { BattleCharacter, BattleStatusInfo } from '@models';
-import { EnvService } from '@services';
 import { ProgressViewComponent } from '../progress-view/progress-view.component';
 
 @Component({

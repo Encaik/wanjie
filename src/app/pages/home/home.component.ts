@@ -1,13 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType, EventRes } from '@models';
+import { CharacterService, LogService, RuntimeService, BattleService, EnvService, BackpackService, EventService } from '@services';
+import { Generate } from '@utils/generate';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType, EventRes } from '@models';
-import { Generate } from '@utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
-import { CharacterService, LogService, RuntimeService, BattleService, EnvService, BackpackService, EventService } from '@services';
 
 @Component({
   selector: 'app-home',

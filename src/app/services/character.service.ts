@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { delay, Observable, of } from 'rxjs';
 
 import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
 import { CharacterEventOperate, Event, EventRes } from '../models/event.model';
@@ -7,7 +8,6 @@ import { EnvService } from './env.service';
 import { LogService } from './log.service';
 import { RuntimeService } from './runtime.service';
 import { TimeTickService } from './time-tick.service';
-import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'

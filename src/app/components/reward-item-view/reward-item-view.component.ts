@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { NzCardModule } from 'ng-zorro-antd/card';
-
 import { getItemLevelClass, Item, ItemLevelMap, ItemMap, RewardPool } from '@models';
+import { NzCardModule } from 'ng-zorro-antd/card';
 
 @Component({
   selector: 'app-reward-item-view',

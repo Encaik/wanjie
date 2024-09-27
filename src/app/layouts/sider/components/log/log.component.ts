@@ -1,9 +1,8 @@
 import { Component, ElementRef, inject, ViewChild, OnInit } from '@angular/core';
-import { NzTimelineModule } from 'ng-zorro-antd/timeline';
-import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
 import { LogTypeMap } from '@models';
 import { LogService } from '@services';
+import { NzTimelineModule } from 'ng-zorro-antd/timeline';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 @Component({
   selector: 'app-log',

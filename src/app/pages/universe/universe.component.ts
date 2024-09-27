@@ -1,6 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Graph } from '@antv/g6';
-
 import { EnvService } from '@services';
 
 @Component({

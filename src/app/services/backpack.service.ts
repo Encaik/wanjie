@@ -1,5 +1,4 @@
 import { inject, Injectable } from '@angular/core';
-
 import {
   Effect,
   EffectType,

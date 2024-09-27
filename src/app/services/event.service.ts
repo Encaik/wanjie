@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 
 import { Event, EventRes, EventType } from '../models/event.model';
+import { BackpackService } from './backpack.service';
 import { CharacterService } from './character.service';
 import { TaskService } from './task.service';
-import { BackpackService } from './backpack.service';
 
 @Injectable({
   providedIn: 'root'

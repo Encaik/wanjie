@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { BattleService } from './battle.service';
-import { NzModalService } from 'ng-zorro-antd/modal';
 
 describe('BattleService', () => {
   let service: BattleService;

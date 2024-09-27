@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NzModalRefMock } from '@utils/test';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
-import { NzModalRefMock } from '@utils/test';
 import { InitModalComponent } from './init-modal.component';
 
 describe('InitModalComponent', () => {

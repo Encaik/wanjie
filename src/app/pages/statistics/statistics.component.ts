@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { StatisticsService } from '@storages/statistics.service';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-
-import { StatisticsService } from '@storages/statistics.service';
 
 @Component({
   selector: 'app-statistics',
