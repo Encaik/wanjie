@@ -102,11 +102,7 @@ export class BagItemViewComponent {
                 }
               });
             } else {
-              return of({
-                status: 'fail',
-                msg: '物品添加失败',
-                data: null
-              });
+              return of(addRes);
             }
           })
         )

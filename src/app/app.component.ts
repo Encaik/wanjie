@@ -71,6 +71,7 @@ export class AppComponent implements OnInit {
   }
 
   onSegmentedChange(value: number) {
+    if (this.currentSegmented === value) return;
     this.currentSegmented = value;
     this.router.navigate([this.segmentedRoutes[value]]);
   }
