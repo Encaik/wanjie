@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
 import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
-import { CharacterEventOperate, Event } from '../models/event.model';
+import { CharacterEventOperate, Event, EventRes } from '../models/event.model';
 import { StatisticsService } from '../storages/statistics.service';
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
@@ -54,21 +54,28 @@ export class CharacterService {
 
   canUpgrade: boolean = false;
 
-  eventDetail(event: Event): Observable<any> {
+  eventDetail(event: Event): Observable<EventRes> {
     this.timeTickSrv.nextTimeTick();
     switch (event.operate) {
       case CharacterEventOperate.Cultivation:
         this.statisticsSrv.characterStatistics.cultivationCount++;
-        return this.cultivation();
+        return of({
+          status: 'success',
+          msg: '',
+          data: this.cultivation()
+        } as EventRes).pipe(delay(1000));
       case CharacterEventOperate.Upgrade:
-        this.upgrade();
-        return of(true);
+        return of({
+          status: 'success',
+          msg: '',
+          data: this.upgrade()
+        });
       default:
-        return of();
+        throw new Error('不支持的角色事件操作');
     }
   }
 
-  cultivation(): Observable<boolean> {
+  cultivation(): boolean {
     const exp = this.getAddExp();
     const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
     const newExp = exp + this.levelInfo.exp;
@@ -91,7 +98,7 @@ export class CharacterService {
       const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
       this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
     }
-    return of(this.canUpgrade).pipe(delay(1000));
+    return this.canUpgrade;
   }
 
   upgrade() {

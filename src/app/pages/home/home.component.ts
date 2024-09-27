@@ -4,7 +4,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType } from '@models';
+import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType, EventRes } from '@models';
 import { Generate } from '@utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
 import { CharacterService, LogService, RuntimeService, BattleService, EnvService, BackpackService, EventService } from '@services';
@@ -45,13 +45,21 @@ export class HomeComponent implements OnInit {
         operate: CharacterEventOperate.Cultivation,
         data: null
       })
-      ?.subscribe(isUpgrade => {
-        this.isLocked = false;
-        if (isUpgrade) {
-          this.isUpgrade = true;
-          this.onAutoCultivationClick(false);
+      .subscribe((res: EventRes) => {
+        if (res.status === 'success') {
+          this.isLocked = false;
+          if (res.data) {
+            this.isUpgrade = true;
+            this.onAutoCultivationClick(false);
+          }
+          if (this.isAutoCultivate) this.onCultivationClick();
+        } else {
+          this.logSrv.log({
+            msg: '修炼失败',
+            type: LogType.Character,
+            level: LogLevel.Info
+          });
         }
-        if (this.isAutoCultivate) this.onCultivationClick();
       });
   }
 
@@ -90,8 +98,10 @@ export class HomeComponent implements OnInit {
         operate: CharacterEventOperate.Upgrade,
         data: null
       })
-      ?.subscribe(() => {
-        this.isUpgrade = false;
+      .subscribe((res: EventRes) => {
+        if (res.status === 'success') {
+          this.isUpgrade = false;
+        }
       });
   }
 

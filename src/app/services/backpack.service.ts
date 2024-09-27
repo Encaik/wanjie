@@ -1,6 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 
-import { Effect, EffectType, Event, LogLevel, LogType, RewardItem, BagItem, Item, ItemMap, ItemType, ItemEventOperate } from '@models';
+import {
+  Effect,
+  EffectType,
+  Event,
+  LogLevel,
+  LogType,
+  RewardItem,
+  BagItem,
+  Item,
+  ItemMap,
+  ItemType,
+  ItemEventOperate,
+  EventRes
+} from '@models';
 import { CharacterService, LogService } from '@services';
 import { getItemSpan } from '@utils/html';
 import { Observable, of } from 'rxjs';
@@ -13,16 +26,24 @@ export class BackpackService {
   private logSrv = inject(LogService);
   items: Map<Item, number> = new Map();
 
-  eventDetail(event: Event): Observable<any> | void {
+  eventDetail(event: Event): Observable<EventRes> {
     switch (event.operate) {
       case ItemEventOperate.Add:
-        return this.addItem(event.data.item, event.data.count);
+        return of({
+          status: 'success',
+          msg: '',
+          data: this.addItem(event.data.item, event.data.count)
+        });
       case ItemEventOperate.Drop:
-        return this.removeItem(event.data.item, event.data.count);
+        return of({
+          status: 'success',
+          msg: '',
+          data: this.removeItem(event.data.item, event.data.count)
+        });
       case ItemEventOperate.Use:
         return this.useItem(event.data.item);
       default:
-        return;
+        throw new Error('不支持的物品事件操作');
     }
   }
 
@@ -87,7 +108,7 @@ export class BackpackService {
     }
   }
 
-  useItem(item: Item): Observable<boolean> {
+  useItem(item: Item): Observable<EventRes> {
     try {
       if (item.effect) {
         this.useItemEffect(item.effect);
@@ -97,14 +118,22 @@ export class BackpackService {
         type: LogType.Item,
         level: LogLevel.Info
       });
-      return of(true);
+      return of({
+        status: 'success',
+        msg: '',
+        data: true
+      });
     } catch (error) {
       this.logSrv.log({
         msg: '物品使用失败',
         type: LogType.Item,
         level: LogLevel.Info
       });
-      return of(false);
+      return of({
+        status: 'fail',
+        msg: '',
+        data: false
+      });
     }
   }
 

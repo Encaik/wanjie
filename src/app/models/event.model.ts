@@ -4,6 +4,12 @@ export interface Event {
   data: any;
 }
 
+export interface EventRes<T = any> {
+  status: 'success' | 'fail';
+  msg: string;
+  data: T;
+}
+
 export enum EventType {
   Character,
   Env,
