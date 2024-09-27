@@ -5,10 +5,9 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
-import { LogType, LogLevel } from '../../models';
-import { BagItem, getItemLevelClass, ItemLevelMap, ItemMap } from '../../models/item.model';
-import { BackpackService } from '../../services/backpack.service';
-import { LogService } from '../../services/log.service';
+import { LogType, LogLevel } from '@models';
+import { BagItem, getItemLevelClass, ItemLevelMap, ItemMap } from '@models';
+import { BackpackService, LogService } from '@services';
 
 @Component({
   selector: 'app-item-view',

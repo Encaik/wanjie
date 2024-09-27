@@ -4,27 +4,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import {
-  BehaviorSubject,
-  concatMap,
-  delay,
-  EMPTY,
-  filter,
-  finalize,
-  from,
-  interval,
-  map,
-  mergeMap,
-  of,
-  Subject,
-  Subscription,
-  takeWhile,
-  tap,
-  timer
-} from 'rxjs';
+import { BehaviorSubject, from, map, mergeMap, Subscription, timer } from 'rxjs';
 
-import { BattleCharacter, BattleInfo, BattleStatusInfo } from '../../models';
-import { EnvService } from '../../services/env.service';
+import { BattleCharacter, BattleStatusInfo } from '@models';
+import { EnvService } from '@services';
 import { ProgressViewComponent } from '../progress-view/progress-view.component';
 
 @Component({

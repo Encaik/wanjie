@@ -1,23 +1,13 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
-import { LogType, LogLevel, BattleCharacter, RewardItem } from '../../models';
-import { CharacterEventOperate, EventType } from '../../models/event.model';
-import { ItemMap } from '../../models/item.model';
-import { BackpackService } from '../../services/backpack.service';
-import { BattleService } from '../../services/battle.service';
-import { CharacterService } from '../../services/character.service';
-import { EnvService } from '../../services/env.service';
-import { EventService } from '../../services/event.service';
-import { LogService } from '../../services/log.service';
-import { RuntimeService } from '../../services/runtime.service';
-import { Generate } from '../../utils/generate';
+import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType } from '@models';
+import { Generate } from '@utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
-import { take } from 'rxjs';
+import { CharacterService, LogService, RuntimeService, BattleService, EnvService, BackpackService, EventService } from '@services';
 
 @Component({
   selector: 'app-home',

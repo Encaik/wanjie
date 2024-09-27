@@ -5,9 +5,9 @@ import { NzModalRef } from 'ng-zorro-antd/modal';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { Env, InitCharacter } from '../../models';
-import { EnvService } from '../../services/env.service';
-import { Generate } from '../../utils/generate';
+import { Env, InitCharacter } from '@models';
+import { EnvService } from '@services';
+import { Generate } from '@utils/generate';
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
 
 @Component({

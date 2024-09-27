@@ -5,13 +5,9 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { LevelMapViewComponent } from '../../components/level-map-view/level-map-view.component';
-import { EnvType } from '../../models';
-import { TimeFormatPipe } from '../../pipes/time-format.pipe';
-import { CharacterService } from '../../services/character.service';
-import { EnvService } from '../../services/env.service';
-import { RuntimeService } from '../../services/runtime.service';
-import { TimeTickService } from '../../services/time-tick.service';
+import { LevelMapViewComponent } from '@components/level-map-view/level-map-view.component';
+import { TimeFormatPipe } from '@pipes/time-format.pipe';
+import { EnvService, CharacterService, TimeTickService, RuntimeService } from '@services';
 
 @Component({
   selector: 'app-header',

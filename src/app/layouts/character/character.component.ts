@@ -4,10 +4,8 @@ import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { ProgressViewComponent } from '../../components/progress-view/progress-view.component';
-import { CharacterService } from '../../services/character.service';
-import { EnvService } from '../../services/env.service';
-import { TimeTickService } from '../../services/time-tick.service';
+import { ProgressViewComponent } from '@components/progress-view/progress-view.component';
+import { CharacterService, EnvService, TimeTickService } from '@services';
 
 @Component({
   selector: 'app-character',

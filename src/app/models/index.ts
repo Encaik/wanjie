@@ -3,6 +3,7 @@ export * from './buff.model'; // buff
 export * from './challenge.model'; // 副本
 export * from './character.model'; // 角色
 export * from './env.model'; // 环境
+export * from './event.model'; // 事件
 export * from './item.model'; // 物品
 export * from './log.model'; // 日志
 export * from './reward.model'; // 奖励池

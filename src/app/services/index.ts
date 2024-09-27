@@ -1,0 +1,9 @@
+export * from './backpack.service'; // 背包管理
+export * from './battle.service'; // 战斗管理
+export * from './character.service'; // 角色管理
+export * from './env.service'; // 环境管理
+export * from './event.service'; // 事件管理
+export * from './log.service'; // 日志管理
+export * from './runtime.service'; // 运行时管理
+export * from './task.service'; // 任务管理
+export * from './time-tick.service'; // 时间管理

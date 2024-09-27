@@ -3,10 +3,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { Task, ItemMap, getItemLevelClass, LogLevel, LogType } from '../../../../models';
-import { BackpackService } from '../../../../services/backpack.service';
-import { LogService } from '../../../../services/log.service';
-import { TaskService } from '../../../../services/task.service';
+import { Task, ItemMap } from '@models';
+import { BackpackService, TaskService } from '@services';
 
 @Component({
   selector: 'app-task',
@@ -17,7 +15,6 @@ import { TaskService } from '../../../../services/task.service';
 export class TaskComponent implements OnInit {
   private taskSrv = inject(TaskService);
   private backpackSrv = inject(BackpackService);
-  private logSrv = inject(LogService);
   currentTask: Task | undefined;
   ItemMap = ItemMap;
 

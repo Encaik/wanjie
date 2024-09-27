@@ -4,9 +4,9 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
-import { RewardItemViewComponent } from '../../components/reward-item-view/reward-item-view.component';
-import { Challenge, RewardPoolMap } from '../../models';
-import { EnvService } from '../../services/env.service';
+import { RewardItemViewComponent } from '@components/reward-item-view/reward-item-view.component';
+import { Challenge, RewardPoolMap } from '@models';
+import { EnvService } from '@services';
 
 @Component({
   selector: 'app-challenge',

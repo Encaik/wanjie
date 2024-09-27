@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
-import { BagItemViewComponent } from '../../../../components/bag-item-view/bag-item-view.component';
-import { BagItem, ItemTypeMap, ItemTypeValueMap } from '../../../../models/item.model';
-import { BackpackService } from '../../../../services/backpack.service';
+import { BagItemViewComponent } from '@components/bag-item-view/bag-item-view.component';
+import { BagItem, ItemTypeMap, ItemTypeValueMap } from '@models';
+import { BackpackService } from '@services';
 
 @Component({
   selector: 'app-backpack',
