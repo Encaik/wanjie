@@ -1,10 +1,7 @@
 import { inject, Injectable } from '@angular/core';
+import { Event, EventRes, EventType } from '@models';
+import { BackpackService, CharacterService, RuntimeService, TaskService } from '@services';
 import { Observable, of, Subject } from 'rxjs';
-
-import { Event, EventRes, EventType } from '../models/event.model';
-import { BackpackService } from './backpack.service';
-import { CharacterService } from './character.service';
-import { TaskService } from './task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +13,7 @@ export class EventService {
   private taskSrv = inject(TaskService);
   private characterSrv = inject(CharacterService);
   private backpackService = inject(BackpackService);
+  private rtSrv = inject(RuntimeService);
 
   sendEvent(event: Event): Observable<EventRes> {
     try {
@@ -26,6 +24,8 @@ export class EventService {
           return this.characterSrv.eventDetail(event);
         case EventType.Item:
           return this.backpackService.eventDetail(event);
+        case EventType.System:
+          return this.rtSrv.eventDetail(event);
         default:
           throw new Error('不支持的事件类型');
       }

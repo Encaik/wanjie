@@ -2,22 +2,28 @@
 <div class="flex-1 p-4 border-gray-300 border rounded overflow-auto">
   @if (currentTask) {
     <div class="h-full flex flex-col justify-between items-center">
-      <div class="gap-2 w-full">
+      <div class="flex flex-col gap-4 w-full">
         <h5 nz-typography>{{ currentTask.title }}</h5>
-        <p>任务描述：{{ currentTask.description }}</p>
         <p>
-          任务奖励：
+          <span class="font-bold">任务描述：</span>
+          {{ currentTask.description }}
+        </p>
+        <p>
+          <span class="font-bold">任务奖励：</span>
           @for (reward of currentTask.rewards; track $index) {
             <span class="mr-2">{{ ItemMap[reward.id].name }} * {{ reward.count }}</span>
           }
         </p>
         <p>
-          任务目标：
+          <span class="font-bold">任务目标：</span>
           @for (condition of currentTask.conditions; track $index) {
             <span class="mr-2">{{ condition.title }}({{ condition.current }}/{{ condition.goal }})</span>
           }
         </p>
-        <p>完成情况：{{ currentTask.isCompleted ? '已完成' : '未完成' }}</p>
+        <p>
+          <span class="font-bold">完成情况：</span>
+          {{ currentTask.isCompleted ? '已完成' : '未完成' }}
+        </p>
       </div>
       <div>
         @if (currentTask.isCompleted) {

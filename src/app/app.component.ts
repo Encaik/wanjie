@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { EventType, SystemEventOperate } from '@models';
+import { EventService } from '@services';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
@@ -26,19 +28,26 @@ export class AppComponent implements OnInit {
   private modal = inject(NzModalService);
   private rtSrv = inject(RuntimeService);
   private router = inject(Router);
+  private event = inject(EventService);
   title = 'wanjie';
   segmentedList: string[] = ['修炼', '功法', '虚空', '副本', '行商', '统计'];
   segmentedRoutes: string[] = ['/home', '/method', '/universe', '/challenge', '/shop', '/statistics'];
   currentSegmented: number = 0;
 
   ngOnInit() {
-    this.rtSrv.load().then(data => {
-      if (data) {
-        this.rtSrv.init(data);
-      } else {
-        this.init();
-      }
-    });
+    this.event
+      .sendEvent({
+        type: EventType.System,
+        operate: SystemEventOperate.Load,
+        data: null
+      })
+      .subscribe(res => {
+        if (res.status === 'success') {
+          this.rtSrv.init(res.data);
+        } else {
+          this.init();
+        }
+      });
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.currentSegmented =

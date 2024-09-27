@@ -12,14 +12,11 @@ export interface EventRes<T = any> {
 
 export enum EventType {
   Character,
-  Env,
-  Task,
-  Battle,
-  Buff,
-  Item
+  Item,
+  System
 }
 
-export type EventOperate = CharacterEventOperate | ItemEventOperate;
+export type EventOperate = CharacterEventOperate | ItemEventOperate | SystemEventOperate;
 
 export enum CharacterEventOperate {
   Cultivation,
@@ -31,4 +28,10 @@ export enum ItemEventOperate {
   Drop,
   Reward,
   Use
+}
+
+export enum SystemEventOperate {
+  Save,
+  Load,
+  Delete
 }

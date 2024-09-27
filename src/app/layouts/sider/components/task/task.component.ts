@@ -18,6 +18,7 @@ export class TaskComponent implements OnInit {
   ItemMap = ItemMap;
 
   ngOnInit(): void {
+    this.currentTask = this.taskSrv.currentTask;
     this.taskSrv.task$.subscribe(task => (this.currentTask = task));
   }
 

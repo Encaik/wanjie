@@ -1,11 +1,13 @@
 import { KeyValuePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { LevelMapViewComponent } from '@components/level-map-view/level-map-view.component';
+import { EventType, SystemEventOperate } from '@models';
 import { TimeFormatPipe } from '@pipes/time-format.pipe';
-import { EnvService, CharacterService, TimeTickService, RuntimeService } from '@services';
+import { EnvService, CharacterService, TimeTickService, EventService } from '@services';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @Component({
@@ -18,7 +20,8 @@ export class HeaderComponent {
   public envSrv = inject(EnvService);
   private characterSrv = inject(CharacterService);
   private timeTickSrv = inject(TimeTickService);
-  private rtSrv = inject(RuntimeService);
+  private event = inject(EventService);
+  private notice = inject(NzNotificationService);
 
   get timeTick() {
     return this.timeTickSrv.getTimeTick();
@@ -33,12 +36,33 @@ export class HeaderComponent {
   }
 
   onSaveClick() {
-    this.rtSrv.save();
+    this.event
+      .sendEvent({
+        operate: SystemEventOperate.Save,
+        type: EventType.System,
+        data: null
+      })
+      .subscribe(res => {
+        if (res.status === 'success') {
+          this.notice.success('保存成功', res.msg);
+        }
+      });
   }
 
   onDeleteClick() {
-    this.rtSrv.delete().subscribe(() => {
-      window.location.reload();
-    });
+    this.event
+      .sendEvent({
+        operate: SystemEventOperate.Delete,
+        type: EventType.System,
+        data: null
+      })
+      .subscribe(res => {
+        if (res.status === 'success') {
+          this.notice.success('删档成功', res.msg);
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
+      });
   }
 }

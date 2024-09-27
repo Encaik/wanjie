@@ -8,4 +8,5 @@ export interface StorageData {
   envData: Env; // 环境信息
   backpackData: BagItem[]; // 背包信息
   taskData: string; // 任务信息
+  statisticsData?: any;
 }

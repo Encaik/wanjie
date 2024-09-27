@@ -10,4 +10,14 @@ export class StatisticsService {
   public characterStatistics: CharacterStatistics = {
     cultivationCount: 0
   };
+
+  getStatistics(): any {
+    return {
+      characterStatistics: this.characterStatistics
+    };
+  }
+
+  setStatistics(statistics: any) {
+    this.characterStatistics = statistics.characterStatistics;
+  }
 }
