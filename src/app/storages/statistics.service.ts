@@ -7,7 +7,7 @@ import { CharacterStatistics } from '../models';
   providedIn: 'root'
 })
 export class StatisticsService {
-  static characterStatistics: CharacterStatistics = {
+  public characterStatistics: CharacterStatistics = {
     cultivationCount: 0
   };
 }

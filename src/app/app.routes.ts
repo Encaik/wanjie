@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MethodComponent } from './pages/method/method.component';
 import { ShopComponent } from './pages/shop/shop.component';
 import { UniverseComponent } from './pages/universe/universe.component';
+import { StatisticsComponent } from './pages/statistics/statistics.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -16,7 +17,8 @@ export const routes: Routes = [
       { path: 'method', component: MethodComponent },
       { path: 'universe', component: UniverseComponent },
       { path: 'challenge', loadChildren: () => import('./pages/challenge/routes').then(m => m.routes) },
-      { path: 'shop', component: ShopComponent }
+      { path: 'shop', component: ShopComponent },
+      { path: 'statistics', component: StatisticsComponent }
     ]
   }
 ];

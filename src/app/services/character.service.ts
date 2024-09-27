@@ -4,6 +4,7 @@ import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInf
 import { EnvService } from './env.service';
 import { LogService } from './log.service';
 import { CharacterEventOperate, Event } from '../models/event.model';
+import { StatisticsService } from '../storages/statistics.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { CharacterEventOperate, Event } from '../models/event.model';
 export class CharacterService {
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
+  private statisticsSrv = inject(StatisticsService);
 
   id: string = '';
   baseInfo: BaseInfo = {
@@ -131,6 +133,7 @@ export class CharacterService {
   eventDetail(event: Event): Promise<boolean | undefined> {
     switch (event.operate) {
       case CharacterEventOperate.Cultivation:
+        this.statisticsSrv.characterStatistics.cultivationCount++;
         return this.cultivation();
       default:
         return Promise.resolve(undefined);
