@@ -162,14 +162,6 @@ export class BattleModalComponent implements OnInit {
     this.ref.destroy(false);
   }
 
-  getPercent(current: number, total: number) {
-    if (total === 0) {
-      return current >= 0 ? 100 : 0;
-    }
-    const percent = Math.round((current / total) * 100);
-    return Math.min(100, Math.max(0, percent));
-  }
-
   getName(character: BattleCharacter) {
     return `<span class='${character?.isEnemy ? 'text-red-500' : 'text-green-500'}'>${character?.baseInfo.name}</span>`;
   }

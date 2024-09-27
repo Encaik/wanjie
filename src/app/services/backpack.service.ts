@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 
-import { Effect, EffectType, LogLevel, LogType, RewardItem } from '../models';
-import { BagItem, getItemLevelClass, Item, ItemMap, ItemType } from '../models/item.model';
-import { CharacterService } from './character.service';
-import { LogService } from './log.service';
+import { Effect, EffectType, Event, LogLevel, LogType, RewardItem, BagItem, Item, ItemMap, ItemType, ItemEventOperate } from '@models';
+import { CharacterService, LogService } from '@services';
+import { getItemSpan } from '@utils/html';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,18 @@ export class BackpackService {
   private logSrv = inject(LogService);
   items: Map<Item, number> = new Map();
 
-  constructor() {}
+  eventDetail(event: Event): Observable<any> | void {
+    switch (event.operate) {
+      case ItemEventOperate.Add:
+        return this.addItem(event.data.item, event.data.count);
+      case ItemEventOperate.Drop:
+        return this.removeItem(event.data.item, event.data.count);
+      case ItemEventOperate.Use:
+        return this.useItem(event.data.item);
+      default:
+        return;
+    }
+  }
 
   getItemCountById(id: string) {
     return this.items.get(ItemMap[id]) || 0;
@@ -56,7 +67,7 @@ export class BackpackService {
     rewardItems.forEach(i => {
       const item = ItemMap[i.id];
       this.addItem(item, i.count);
-      msg += `<span class="${getItemLevelClass(item.level)}">${item.name}</span> * ${i.count} `;
+      msg += `${getItemSpan(item.level, item.name)} * ${i.count} `;
     });
     this.logSrv.log({
       msg: `获得物品: ${msg}`,
@@ -76,27 +87,25 @@ export class BackpackService {
     }
   }
 
-  useItem(item: Item) {
-    return new Promise(resolve => {
-      try {
-        if (item.effect) {
-          this.useItemEffect(item.effect);
-        }
-        this.logSrv.log({
-          msg: `使用了${item.name}`,
-          type: LogType.Item,
-          level: LogLevel.Info
-        });
-        resolve(null);
-      } catch (error) {
-        this.logSrv.log({
-          msg: '物品使用失败',
-          type: LogType.Item,
-          level: LogLevel.Info
-        });
-        resolve(error);
+  useItem(item: Item): Observable<boolean> {
+    try {
+      if (item.effect) {
+        this.useItemEffect(item.effect);
       }
-    });
+      this.logSrv.log({
+        msg: `使用了${getItemSpan(item.level, item.name)}`,
+        type: LogType.Item,
+        level: LogLevel.Info
+      });
+      return of(true);
+    } catch (error) {
+      this.logSrv.log({
+        msg: '物品使用失败',
+        type: LogType.Item,
+        level: LogLevel.Info
+      });
+      return of(false);
+    }
   }
 
   useItemEffect(effect: Effect) {

@@ -54,6 +54,20 @@ export class CharacterService {
 
   canUpgrade: boolean = false;
 
+  eventDetail(event: Event): Observable<any> {
+    this.timeTickSrv.nextTimeTick();
+    switch (event.operate) {
+      case CharacterEventOperate.Cultivation:
+        this.statisticsSrv.characterStatistics.cultivationCount++;
+        return this.cultivation();
+      case CharacterEventOperate.Upgrade:
+        this.upgrade();
+        return of(true);
+      default:
+        return of();
+    }
+  }
+
   cultivation(): Observable<boolean> {
     const exp = this.getAddExp();
     const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
@@ -133,20 +147,6 @@ export class CharacterService {
     character.skillInfo && this.setSkillInfo(character.skillInfo);
     character.attrInfo && this.setAttrInfo(character.attrInfo);
     character.levelInfo && this.setLevelInfo(character.levelInfo);
-  }
-
-  eventDetail(event: Event): Observable<any> {
-    this.timeTickSrv.nextTimeTick();
-    switch (event.operate) {
-      case CharacterEventOperate.Cultivation:
-        this.statisticsSrv.characterStatistics.cultivationCount++;
-        return this.cultivation();
-      case CharacterEventOperate.Upgrade:
-        this.upgrade();
-        return of(true);
-      default:
-        return of();
-    }
   }
 
   updatePower(attrInfo: AttrInfo = this.attrInfo) {

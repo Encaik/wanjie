@@ -5,9 +5,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzMessageModule, NzMessageService } from 'ng-zorro-antd/message';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 
-import { LogType, LogLevel } from '@models';
+import { LogType, LogLevel, EventType, ItemEventOperate } from '@models';
 import { BagItem, getItemLevelClass, ItemLevelMap, ItemMap } from '@models';
-import { BackpackService, LogService } from '@services';
+import { BackpackService, EventService, LogService } from '@services';
+import { getItemSpan } from '@utils/html';
 
 @Component({
   selector: 'app-item-view',
@@ -20,6 +21,7 @@ export class BagItemViewComponent {
   private backpackSrv = inject(BackpackService);
   private logSrv = inject(LogService);
   private msg = inject(NzMessageService);
+  private event = inject(EventService);
 
   @Input() bagItems: BagItem[] = [];
   @Input() bagType: 'character' | 'shop' = 'character';
@@ -28,19 +30,42 @@ export class BagItemViewComponent {
   getItemLevelClass = getItemLevelClass;
 
   onItemUseClick(bagItem: BagItem) {
-    this.backpackSrv.useItem(bagItem.item).then(res => {
-      if (!res) {
-        this.backpackSrv.removeItem(bagItem.item, 1);
-      } else {
-        console.log(res);
-      }
-    });
+    this.event
+      .sendEvent({
+        type: EventType.Item,
+        operate: ItemEventOperate.Use,
+        data: {
+          item: bagItem.item,
+          count: 1
+        }
+      })
+      ?.subscribe(res => {
+        if (res) {
+          this.event.sendEvent({
+            type: EventType.Item,
+            operate: ItemEventOperate.Drop,
+            data: {
+              item: bagItem.item,
+              count: 1
+            }
+          });
+        } else {
+          console.log(res);
+        }
+      });
   }
 
   onItemDropClick(bagItem: BagItem, count: number) {
-    this.backpackSrv.removeItem(bagItem.item, count);
+    this.event.sendEvent({
+      type: EventType.Item,
+      operate: ItemEventOperate.Drop,
+      data: {
+        item: bagItem.item,
+        count
+      }
+    });
     this.logSrv.log({
-      msg: `丢弃${count}个<span class="${getItemLevelClass(bagItem.item.level)}">${bagItem.item.name}</span>`,
+      msg: `丢弃${count}个${getItemSpan(bagItem.item.level, bagItem.item.name)}`,
       type: LogType.Item,
       level: LogLevel.Info
     });
@@ -50,11 +75,25 @@ export class BagItemViewComponent {
     const cost = bagItem.item.price * count;
     const money = this.backpackSrv.getItemCountById('1');
     if (money > cost) {
-      this.backpackSrv.addItem(bagItem.item, count);
-      this.backpackSrv.removeItem(ItemMap['1'], cost);
+      this.event.sendEvent({
+        type: EventType.Item,
+        operate: ItemEventOperate.Add,
+        data: {
+          item: bagItem.item,
+          count
+        }
+      });
+      this.event.sendEvent({
+        type: EventType.Item,
+        operate: ItemEventOperate.Drop,
+        data: {
+          item: ItemMap['1'],
+          count: cost
+        }
+      });
       bagItem.count -= count;
       this.logSrv.log({
-        msg: `花费${cost}个灵石，购买了${count}个<span class="${getItemLevelClass(bagItem.item.level)}">${bagItem.item.name}</span>`,
+        msg: `花费${cost}个灵石，购买了${count}个${getItemSpan(bagItem.item.level, bagItem.item.name)}`,
         type: LogType.Item,
         level: LogLevel.Info
       });

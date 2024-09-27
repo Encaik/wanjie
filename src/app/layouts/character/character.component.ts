@@ -35,8 +35,4 @@ export class CharacterComponent implements OnInit {
   getLevelByExp() {
     return this.envSrv.levelMap[this.character.levelInfo.level];
   }
-
-  getPercent(current: number, total: number) {
-    return Math.floor((current / total) * 100);
-  }
 }

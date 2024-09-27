@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
   private battleSrv = inject(BattleService);
   public envSrv = inject(EnvService);
   private backpackSrv = inject(BackpackService);
-  private eventSrv = inject(EventService);
+  private event = inject(EventService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -39,13 +39,13 @@ export class HomeComponent implements OnInit {
 
   onCultivationClick() {
     this.isLocked = true;
-    this.eventSrv
+    this.event
       .sendEvent({
         type: EventType.Character,
         operate: CharacterEventOperate.Cultivation,
         data: null
       })
-      .subscribe(isUpgrade => {
+      ?.subscribe(isUpgrade => {
         this.isLocked = false;
         if (isUpgrade) {
           this.isUpgrade = true;
@@ -84,13 +84,13 @@ export class HomeComponent implements OnInit {
 
   onUpgradeClick() {
     if (!this.isUpgrade) return;
-    this.eventSrv
+    this.event
       .sendEvent({
         type: EventType.Character,
         operate: CharacterEventOperate.Upgrade,
         data: null
       })
-      .subscribe(() => {
+      ?.subscribe(() => {
         this.isUpgrade = false;
       });
   }

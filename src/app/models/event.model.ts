@@ -5,12 +5,24 @@ export interface Event {
 }
 
 export enum EventType {
-  Character
+  Character,
+  Env,
+  Task,
+  Battle,
+  Buff,
+  Item
 }
 
-export type EventOperate = CharacterEventOperate;
+export type EventOperate = CharacterEventOperate | ItemEventOperate;
 
 export enum CharacterEventOperate {
   Cultivation,
   Upgrade
+}
+
+export enum ItemEventOperate {
+  Add,
+  Drop,
+  Reward,
+  Use
 }
