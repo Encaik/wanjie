@@ -114,7 +114,8 @@ export class Generate {
           galaxiesId,
           levelMap: LEVELMAP[type][0],
           weight,
-          maxExp: Math.round((Math.random() * 0.4 + 0.8) * weight * 100000)
+          // TODO: 测试用数据，调低了最大经验
+          maxExp: Math.round((Math.random() * 0.4 + 0.8) * weight * 10000)
         };
       }),
       galaxiesId

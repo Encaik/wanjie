@@ -8,6 +8,7 @@ import { BackpackService } from './backpack.service';
 import { CharacterService } from './character.service';
 import { EnvService } from './env.service';
 import { TaskService } from './task.service';
+import { TimeTickService } from './time-tick.service';
 
 const WANJIE_TOKEN = 'wanjie_data';
 
@@ -20,23 +21,14 @@ export class RuntimeService {
   private notice = inject(NzNotificationService);
   private backpackSrv = inject(BackpackService);
   private taskSrv = inject(TaskService);
+  private timeTickSrv = inject(TimeTickService);
 
   isInit: boolean = false;
-  timeTick: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-
-  nextTimeTick() {
-    this.timeTick.next(this.timeTick.value + 1);
-    if (this.timeTick.value % 36 === 0) {
-      this.characterSrv.setBaseInfo({
-        age: this.characterSrv.baseInfo.age + 1
-      });
-    }
-  }
 
   init(storageData: StorageData) {
     this.characterSrv.setCharacter(storageData.characterData);
     this.envSrv.setEnv(storageData.envData);
-    this.timeTick.next(storageData.runtimeData.tick);
+    this.timeTickSrv.setTimeTick(storageData.timeTickData);
     this.backpackSrv.loadItems(storageData.backpackData);
     this.taskSrv.setCurrentTask(TASKS[storageData.taskData]);
     this.isInit = true;
@@ -47,15 +39,14 @@ export class RuntimeService {
     const envData = this.envSrv.getEnv();
     const backpackData = this.backpackSrv.saveItems();
     const taskData = this.taskSrv.getCurrentTask()?.id;
+    const timeTickData = this.timeTickSrv.getTimeTick();
     const time = new Date();
     localStorage.setItem(
       WANJIE_TOKEN,
       CryptoJS.AES.encrypt(
         JSON.stringify({
           time: time.getTime(),
-          runtimeData: {
-            tick: this.timeTick.value
-          },
+          timeTickData,
           characterData,
           envData,
           backpackData,

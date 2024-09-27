@@ -5,6 +5,8 @@ import { EnvService } from './env.service';
 import { LogService } from './log.service';
 import { CharacterEventOperate, Event } from '../models/event.model';
 import { StatisticsService } from '../storages/statistics.service';
+import { RuntimeService } from './runtime.service';
+import { TimeTickService } from './time-tick.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,7 @@ export class CharacterService {
   private envSrv = inject(EnvService);
   private logSrv = inject(LogService);
   private statisticsSrv = inject(StatisticsService);
+  private timeTickSrv = inject(TimeTickService);
 
   id: string = '';
   baseInfo: BaseInfo = {
@@ -48,6 +51,8 @@ export class CharacterService {
     critDamage: 20
   };
 
+  canUpgrade: boolean = false;
+
   cultivation(): Promise<boolean> {
     return new Promise(resolve => {
       const exp = this.getAddExp();
@@ -61,7 +66,7 @@ export class CharacterService {
           level: LogLevel.Info
         });
         this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
-        resolve(true);
+        this.canUpgrade = true;
       }
       this.setLevelInfo({ exp: newExp });
       if (this.statusInfo.hp < this.attrInfo.hp) {
@@ -72,7 +77,7 @@ export class CharacterService {
         const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
         this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
       }
-      resolve(false);
+      resolve(this.canUpgrade);
     });
   }
 
@@ -98,10 +103,11 @@ export class CharacterService {
       defence: this.attrInfo.defence + this.skillInfo.defence,
       speed: this.attrInfo.speed + this.skillInfo.speed
     });
+    this.canUpgrade = false;
   }
 
   getAddExp() {
-    const exp = 100 * this.envSrv.weight + Math.round(Math.random() * this.levelInfo.exp * 0.01) + Math.round(Math.random() * 100 - 50);
+    const exp = Math.round(100 * this.envSrv.weight + Math.random() * this.levelInfo.exp * 0.01 + (Math.random() * 100 - 50));
     this.logSrv.log({
       msg: `修炼获得${exp}点经验\n`,
       type: LogType.Character,
@@ -130,13 +136,17 @@ export class CharacterService {
     character.levelInfo && this.setLevelInfo(character.levelInfo);
   }
 
-  eventDetail(event: Event): Promise<boolean | undefined> {
+  eventDetail(event: Event): Promise<any> {
+    this.timeTickSrv.nextTimeTick();
     switch (event.operate) {
       case CharacterEventOperate.Cultivation:
         this.statisticsSrv.characterStatistics.cultivationCount++;
         return this.cultivation();
+      case CharacterEventOperate.Upgrade:
+        this.upgrade();
+        return Promise.resolve();
       default:
-        return Promise.resolve(undefined);
+        return Promise.reject();
     }
   }
 

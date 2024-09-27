@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
       })
       .afterClose.subscribe(({ character, env }) => {
         this.rtSrv.init({
-          runtimeData: { tick: Math.round(Math.random() * 100) },
+          timeTickData: 0, //Math.round(Math.random() * 100),
           characterData: character,
           envData: env,
           backpackData: [],

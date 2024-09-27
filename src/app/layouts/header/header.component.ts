@@ -11,6 +11,7 @@ import { TimeFormatPipe } from '../../pipes/time-format.pipe';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { RuntimeService } from '../../services/runtime.service';
+import { TimeTickService } from '../../services/time-tick.service';
 
 @Component({
   selector: 'app-header',
@@ -21,10 +22,11 @@ import { RuntimeService } from '../../services/runtime.service';
 export class HeaderComponent {
   public envSrv = inject(EnvService);
   private characterSrv = inject(CharacterService);
+  private timeTickSrv = inject(TimeTickService);
   private rtSrv = inject(RuntimeService);
 
   get timeTick() {
-    return this.rtSrv.timeTick.value;
+    return this.timeTickSrv.getTimeTick();
   }
 
   get env() {

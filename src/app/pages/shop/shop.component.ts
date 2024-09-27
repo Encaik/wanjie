@@ -4,7 +4,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { BagItemViewComponent } from '../../components/bag-item-view/bag-item-view.component';
 import { BagItem, ItemMap } from '../../models/item.model';
-import { RuntimeService } from '../../services/runtime.service';
+import { TimeTickService } from '../../services/time-tick.service';
 
 @Component({
   selector: 'app-shop',
@@ -14,12 +14,12 @@ import { RuntimeService } from '../../services/runtime.service';
   styleUrl: './shop.component.less'
 })
 export class ShopComponent implements OnInit {
-  private rtSrv = inject(RuntimeService);
+  private timeTickSrv = inject(TimeTickService);
 
   bagItems: BagItem[] = [];
 
   get isShopShow() {
-    return this.rtSrv.timeTick.value % 36 < 3;
+    return this.timeTickSrv.getTimeTick() % 36 < 3;
   }
 
   ngOnInit() {

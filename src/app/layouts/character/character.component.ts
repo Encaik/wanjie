@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzProgressModule } from 'ng-zorro-antd/progress';
 import { NzTagModule } from 'ng-zorro-antd/tag';
@@ -7,6 +7,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { ProgressViewComponent } from '../../components/progress-view/progress-view.component';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
+import { TimeTickService } from '../../services/time-tick.service';
 
 @Component({
   selector: 'app-character',
@@ -14,12 +15,23 @@ import { EnvService } from '../../services/env.service';
   imports: [NzTypographyModule, NzDescriptionsModule, NzProgressModule, NzTagModule, ProgressViewComponent],
   templateUrl: './character.component.html'
 })
-export class CharacterComponent {
+export class CharacterComponent implements OnInit {
   private characterSrv = inject(CharacterService);
   private envSrv = inject(EnvService);
+  private timeTickSrv = inject(TimeTickService);
 
   get character() {
     return this.characterSrv.getCharacter();
+  }
+
+  ngOnInit() {
+    this.timeTickSrv.timeTick$.subscribe(timeTick => {
+      if (timeTick % 36 === 0) {
+        this.characterSrv.setBaseInfo({
+          age: this.characterSrv.baseInfo.age + 1
+        });
+      }
+    });
   }
 
   getLevelByExp() {

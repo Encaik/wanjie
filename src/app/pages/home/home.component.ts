@@ -39,7 +39,10 @@ export class HomeComponent implements OnInit {
   enemys: BattleCharacter[] = [];
 
   ngOnInit() {
+    // TODO: 初始化8个敌人，用来测试战斗
     this.enemys = Generate.enemys(8, this.characterSrv.levelInfo.level);
+    // 初始化升级状态
+    this.isUpgrade = this.characterSrv.canUpgrade;
   }
 
   onCultivationClick() {
@@ -51,7 +54,6 @@ export class HomeComponent implements OnInit {
         data: null
       })
       .then(isUpgrade => {
-        this.rtSrv.nextTimeTick();
         if (isUpgrade) {
           this.isUpgrade = true;
           this.onAutoCultivationClick(false);
@@ -92,9 +94,15 @@ export class HomeComponent implements OnInit {
 
   onUpgradeClick() {
     if (!this.isUpgrade) return;
-    this.characterSrv.upgrade();
-    this.isUpgrade = false;
-    this.rtSrv.nextTimeTick();
+    this.eventSrv
+      .sendEvent({
+        type: EventType.Character,
+        operate: CharacterEventOperate.Upgrade,
+        data: null
+      })
+      .then(() => {
+        this.isUpgrade = false;
+      });
   }
 
   onBattleClick(enemy: BattleCharacter) {

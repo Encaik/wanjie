@@ -9,7 +9,7 @@ import { Event } from '../models/event.model';
 })
 export class TaskService {
   currentTask: Task | undefined;
-  taskSub: Subject<Task> = new Subject();
+  taskSub: Subject<Task | undefined> = new Subject();
   task$ = this.taskSub.asObservable();
 
   update(event: Event) {
@@ -32,12 +32,11 @@ export class TaskService {
   }
 
   complatedTask(task: Task): void {
-    const nextTask = TASKS[task.nextId] || undefined;
-    if (!nextTask) return;
+    const nextTask = task.nextId ? TASKS[task.nextId] : undefined;
     this.setCurrentTask(nextTask);
   }
 
-  setCurrentTask(task: Task) {
+  setCurrentTask(task: Task | undefined) {
     this.currentTask = task;
     this.taskSub.next(task);
   }
