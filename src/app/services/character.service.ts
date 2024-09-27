@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 
 import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
-import { EnvService } from './env.service';
-import { LogService } from './log.service';
 import { CharacterEventOperate, Event } from '../models/event.model';
 import { StatisticsService } from '../storages/statistics.service';
+import { EnvService } from './env.service';
+import { LogService } from './log.service';
 import { RuntimeService } from './runtime.service';
 import { TimeTickService } from './time-tick.service';
 

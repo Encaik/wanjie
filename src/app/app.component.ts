@@ -9,7 +9,6 @@ import { InitModalComponent } from './components/init-modal/init-modal.component
 import { CharacterComponent } from './layouts/character/character.component';
 import { HeaderComponent } from './layouts/header/header.component';
 import { SiderComponent } from './layouts/sider/sider.component';
-import { TASKS } from './models';
 import { HomeComponent } from './pages/home/home.component';
 import { UniverseComponent } from './pages/universe/universe.component';
 import { RuntimeService } from './services/runtime.service';

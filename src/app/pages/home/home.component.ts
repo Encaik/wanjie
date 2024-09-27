@@ -9,6 +9,7 @@ import { LogType, LogLevel, BattleCharacter } from '../../models';
 import { CharacterEventOperate, EventType } from '../../models/event.model';
 import { ItemMap } from '../../models/item.model';
 import { BackpackService } from '../../services/backpack.service';
+import { BattleService } from '../../services/battle.service';
 import { CharacterService } from '../../services/character.service';
 import { EnvService } from '../../services/env.service';
 import { EventService } from '../../services/event.service';
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   private characterSrv = inject(CharacterService);
   private logSrv = inject(LogService);
   private rtSrv = inject(RuntimeService);
-  private modal = inject(NzModalService);
+  private battleSrv = inject(BattleService);
   public envSrv = inject(EnvService);
   private backpackSrv = inject(BackpackService);
   private eventSrv = inject(EventService);
@@ -106,14 +107,7 @@ export class HomeComponent implements OnInit {
   }
 
   onBattleClick(enemy: BattleCharacter) {
-    const modal = this.modal.create({
-      nzTitle: '战斗',
-      nzContent: BattleModalComponent,
-      nzFooter: null,
-      nzClosable: false,
-      nzWidth: '1000px',
-      nzMaskClosable: false
-    });
+    const modal = this.battleSrv.createBattleModal();
     modal.afterClose.subscribe((isWin: boolean) => {
       if (isWin) {
         this.characterSrv.setStatusInfo({

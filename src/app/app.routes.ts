@@ -4,8 +4,8 @@ import { startPageGuard } from './guards/start-page.guard';
 import { HomeComponent } from './pages/home/home.component';
 import { MethodComponent } from './pages/method/method.component';
 import { ShopComponent } from './pages/shop/shop.component';
-import { UniverseComponent } from './pages/universe/universe.component';
 import { StatisticsComponent } from './pages/statistics/statistics.component';
+import { UniverseComponent } from './pages/universe/universe.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

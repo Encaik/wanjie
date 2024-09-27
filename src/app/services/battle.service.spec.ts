@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TimeTickService } from './time-tick.service';
+import { BattleService } from './battle.service';
 
-describe('TimeTickService', () => {
-  let service: TimeTickService;
+describe('BattleService', () => {
+  let service: BattleService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TimeTickService);
+    service = TestBed.inject(BattleService);
   });
 
   it('should be created', () => {
