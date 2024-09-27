@@ -66,7 +66,7 @@ export const ItemLevelMap: Record<ItemLevel, string> = {
 
 export function getItemLevelClass(level: ItemLevel) {
   const colorMap = {
-    [ItemLevel.Common]: 'text-black-500',
+    [ItemLevel.Common]: 'text-gray-500',
     [ItemLevel.Rare]: 'text-green-500',
     [ItemLevel.Fine]: 'text-blue-500',
     [ItemLevel.Premium]: 'text-pink-500',

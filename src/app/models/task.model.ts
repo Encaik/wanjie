@@ -1,11 +1,12 @@
 import { CharacterEventOperate, EventType, Event } from './event.model';
+import { RewardItem } from './reward.model';
 
 export interface Task {
   id: number;
   nextId: number | null;
   title: string;
   description: string;
-  rewards: TaskReward[];
+  rewards: RewardItem[];
   isCompleted: boolean;
   conditions: TaskCondition[];
 }
@@ -15,11 +16,6 @@ export interface TaskCondition {
   event: Event;
   current: number;
   goal: number;
-}
-
-export interface TaskReward {
-  id: string;
-  count: number;
 }
 
 export const TASKS: Record<string, Task> = {

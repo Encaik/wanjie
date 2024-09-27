@@ -27,17 +27,7 @@ export class TaskComponent implements OnInit {
 
   onGetRewardClick() {
     if (!this.currentTask) return;
-    let msg: string = '';
-    this.currentTask.rewards.forEach(reward => {
-      const item = ItemMap[reward.id];
-      this.backpackSrv.addItem(item, reward.count);
-      msg += `<span class="${getItemLevelClass(item.level)}">${item.name}</span> * ${reward.count} `;
-    });
-    this.logSrv.log({
-      msg: `完成任务，获得奖励:${msg}`,
-      type: LogType.Item,
-      level: LogLevel.Info
-    });
+    this.backpackSrv.addRewardItems(this.currentTask.rewards);
     this.currentTask && this.taskSrv.complatedTask(this.currentTask);
   }
 }

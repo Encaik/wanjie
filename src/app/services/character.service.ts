@@ -7,6 +7,7 @@ import { EnvService } from './env.service';
 import { LogService } from './log.service';
 import { RuntimeService } from './runtime.service';
 import { TimeTickService } from './time-tick.service';
+import { delay, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -53,32 +54,30 @@ export class CharacterService {
 
   canUpgrade: boolean = false;
 
-  cultivation(): Promise<boolean> {
-    return new Promise(resolve => {
-      const exp = this.getAddExp();
-      const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
-      const newExp = exp + this.levelInfo.exp;
-      const newLevel = Math.floor(newExp / levelPrecent);
-      if (newLevel > this.levelInfo.level) {
-        this.logSrv.log({
-          msg: `经验已满，请升级后再继续修炼\n`,
-          type: LogType.Character,
-          level: LogLevel.Info
-        });
-        this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
-        this.canUpgrade = true;
-      }
-      this.setLevelInfo({ exp: newExp });
-      if (this.statusInfo.hp < this.attrInfo.hp) {
-        const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
-        this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
-      }
-      if (this.statusInfo.mp < this.attrInfo.mp) {
-        const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
-        this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
-      }
-      resolve(this.canUpgrade);
-    });
+  cultivation(): Observable<boolean> {
+    const exp = this.getAddExp();
+    const levelPrecent = Math.round(this.envSrv.maxExp / Object.keys(this.envSrv.levelMap).length);
+    const newExp = exp + this.levelInfo.exp;
+    const newLevel = Math.floor(newExp / levelPrecent);
+    if (newLevel > this.levelInfo.level) {
+      this.logSrv.log({
+        msg: `经验已满，请升级后再继续修炼\n`,
+        type: LogType.Character,
+        level: LogLevel.Info
+      });
+      this.setLevelInfo({ exp: newExp - (newExp % levelPrecent) });
+      this.canUpgrade = true;
+    }
+    this.setLevelInfo({ exp: newExp });
+    if (this.statusInfo.hp < this.attrInfo.hp) {
+      const hp = this.statusInfo.hp + Math.round(this.attrInfo.hp / 20);
+      this.setStatusInfo({ hp: hp > this.attrInfo.hp ? this.attrInfo.hp : hp });
+    }
+    if (this.statusInfo.mp < this.attrInfo.mp) {
+      const mp = this.statusInfo.mp + Math.round(this.attrInfo.mp / 20);
+      this.setStatusInfo({ mp: mp > this.attrInfo.mp ? this.attrInfo.mp : mp });
+    }
+    return of(this.canUpgrade).pipe(delay(1000));
   }
 
   upgrade() {
@@ -136,7 +135,7 @@ export class CharacterService {
     character.levelInfo && this.setLevelInfo(character.levelInfo);
   }
 
-  eventDetail(event: Event): Promise<any> {
+  eventDetail(event: Event): Observable<any> {
     this.timeTickSrv.nextTimeTick();
     switch (event.operate) {
       case CharacterEventOperate.Cultivation:
@@ -144,9 +143,9 @@ export class CharacterService {
         return this.cultivation();
       case CharacterEventOperate.Upgrade:
         this.upgrade();
-        return Promise.resolve();
+        return of(true);
       default:
-        return Promise.reject();
+        return of();
     }
   }
 

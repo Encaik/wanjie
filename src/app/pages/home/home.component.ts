@@ -5,7 +5,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { BattleModalComponent } from '../../components/battle-modal/battle-modal.component';
-import { LogType, LogLevel, BattleCharacter } from '../../models';
+import { LogType, LogLevel, BattleCharacter, RewardItem } from '../../models';
 import { CharacterEventOperate, EventType } from '../../models/event.model';
 import { ItemMap } from '../../models/item.model';
 import { BackpackService } from '../../services/backpack.service';
@@ -17,6 +17,7 @@ import { LogService } from '../../services/log.service';
 import { RuntimeService } from '../../services/runtime.service';
 import { Generate } from '../../utils/generate';
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -54,16 +55,14 @@ export class HomeComponent implements OnInit {
         operate: CharacterEventOperate.Cultivation,
         data: null
       })
-      .then(isUpgrade => {
+      .subscribe(isUpgrade => {
+        this.isLocked = false;
         if (isUpgrade) {
           this.isUpgrade = true;
           this.onAutoCultivationClick(false);
         }
+        if (this.isAutoCultivate) this.onCultivationClick();
       });
-    setTimeout(() => {
-      this.isLocked = false;
-      if (this.isAutoCultivate) this.onCultivationClick();
-    }, 1000);
   }
 
   onAutoCultivationClick(status?: boolean) {
@@ -101,7 +100,7 @@ export class HomeComponent implements OnInit {
         operate: CharacterEventOperate.Upgrade,
         data: null
       })
-      .then(() => {
+      .subscribe(() => {
         this.isUpgrade = false;
       });
   }
@@ -115,7 +114,7 @@ export class HomeComponent implements OnInit {
         });
         this.enemys = this.enemys.filter(item => item.id !== enemy.id);
         this.enemys.push(...Generate.enemys(1, this.characterSrv.levelInfo.level));
-        const dropItem = [
+        this.backpackSrv.addRewardItems([
           {
             id: '40000',
             count: 1
@@ -124,15 +123,7 @@ export class HomeComponent implements OnInit {
             id: '1',
             count: Math.round(Math.random() * 100)
           }
-        ];
-        dropItem.forEach(i => {
-          this.backpackSrv.addItem(ItemMap[i.id], i.count);
-          this.logSrv.log({
-            msg: `获得${i.count}个${ItemMap[i.id].name}`,
-            type: LogType.Item,
-            level: LogLevel.Info
-          });
-        });
+        ]);
       } else {
         this.enemys.forEach(item => {
           item.statusInfo.hp = item.attrInfo.hp;

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 
 import { Event, EventType } from '../models/event.model';
 import { CharacterService } from './character.service';
@@ -15,18 +15,14 @@ export class EventService {
   private taskSrv = inject(TaskService);
   private characterSrv = inject(CharacterService);
 
-  sendEvent(event: Event): Promise<any> {
+  sendEvent(event: Event): Observable<any> {
     this.event.next(event);
     this.taskSrv.update(event);
-    return new Promise(resolve => {
-      switch (event.type) {
-        case EventType.Character:
-          resolve(this.characterSrv.eventDetail(event));
-          break;
-        default:
-          resolve(undefined);
-          break;
-      }
-    });
+    switch (event.type) {
+      case EventType.Character:
+        return this.characterSrv.eventDetail(event);
+      default:
+        return of();
+    }
   }
 }

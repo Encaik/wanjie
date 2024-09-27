@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
-import { Effect, EffectType, LogLevel, LogType } from '../models';
-import { BagItem, Item, ItemMap, ItemType } from '../models/item.model';
+import { Effect, EffectType, LogLevel, LogType, RewardItem } from '../models';
+import { BagItem, getItemLevelClass, Item, ItemMap, ItemType } from '../models/item.model';
 import { CharacterService } from './character.service';
 import { LogService } from './log.service';
 
@@ -49,6 +49,20 @@ export class BackpackService {
     } else {
       this.items.set(item, count);
     }
+  }
+
+  addRewardItems(rewardItems: RewardItem[]) {
+    let msg: string = '';
+    rewardItems.forEach(i => {
+      const item = ItemMap[i.id];
+      this.addItem(item, i.count);
+      msg += `<span class="${getItemLevelClass(item.level)}">${item.name}</span> * ${i.count} `;
+    });
+    this.logSrv.log({
+      msg: `获得物品: ${msg}`,
+      type: LogType.Item,
+      level: LogLevel.Info
+    });
   }
 
   removeItem(item: Item, count: number) {
