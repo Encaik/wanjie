@@ -3,7 +3,7 @@ import { EventRes, StorageData, SystemEventOperate, TASKS, Event } from '@models
 import { BackpackService, CharacterService, EnvService, TaskService, TimeTickService } from '@services';
 import { StatisticsService } from '@storages/statistics.service';
 import * as CryptoJS from 'crypto-js';
-import { Observable, of, timer } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 const WANJIE_TOKEN = 'wanjie_data';
 
@@ -18,6 +18,7 @@ export class RuntimeService {
   private timeTickSrv = inject(TimeTickService);
   private statisticsSrv = inject(StatisticsService);
 
+  lastSaveTime: Date | undefined;
   isInit: boolean = false;
 
   eventDetail(event: Event): Observable<EventRes> {
@@ -42,6 +43,9 @@ export class RuntimeService {
     if (storageData.statisticsData) {
       this.statisticsSrv.setStatistics(storageData.statisticsData);
     }
+    if (storageData.lastSaveTime) {
+      this.lastSaveTime = new Date(storageData.lastSaveTime);
+    }
     this.isInit = true;
   }
 
@@ -52,12 +56,12 @@ export class RuntimeService {
     const taskData = this.taskSrv.getCurrentTask()?.id;
     const timeTickData = this.timeTickSrv.getTimeTick();
     const statisticsData = this.statisticsSrv.getStatistics();
-    const time = new Date();
+    this.lastSaveTime = new Date();
     localStorage.setItem(
       WANJIE_TOKEN,
       CryptoJS.AES.encrypt(
         JSON.stringify({
-          time: time.getTime(),
+          lastSaveTime: this.lastSaveTime.getTime(),
           timeTickData,
           characterData,
           envData,
@@ -70,8 +74,8 @@ export class RuntimeService {
     );
     return of({
       status: 'success',
-      msg: `您的数据已保存,本次保存时间为${time.toLocaleString()}`,
-      data: time
+      msg: `您的数据已保存,本次保存时间为${this.lastSaveTime.toLocaleString()}`,
+      data: this.lastSaveTime
     });
   }
 

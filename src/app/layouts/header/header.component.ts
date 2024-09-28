@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { LevelMapViewComponent } from '@components/level-map-view/level-map-view.component';
 import { EventType, SystemEventOperate } from '@models';
 import { TimeFormatPipe } from '@pipes/time-format.pipe';
-import { EnvService, CharacterService, TimeTickService, EventService } from '@services';
+import { EnvService, CharacterService, TimeTickService, EventService, RuntimeService } from '@services';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -22,6 +22,11 @@ export class HeaderComponent {
   private timeTickSrv = inject(TimeTickService);
   private event = inject(EventService);
   private notice = inject(NzNotificationService);
+  private rtSrv = inject(RuntimeService);
+
+  get lastSaveTime() {
+    return this.rtSrv.lastSaveTime;
+  }
 
   get timeTick() {
     return this.timeTickSrv.getTimeTick();

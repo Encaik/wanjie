@@ -21,8 +21,11 @@
       <nz-descriptions-item nzTitle="天时"></nz-descriptions-item>
     </nz-descriptions>
   </div>
-  <div class="w-full sm:w-1/4 flex justify-end gap-2">
-    <button nz-button (click)="onSaveClick()">保存</button>
-    <button nz-button (click)="onDeleteClick()">删档</button>
+  <div class="w-full sm:w-1/4 flex flex-col gap-2 justify-center">
+    <div> 上次保存时间:{{ lastSaveTime?.toLocaleString() || '未保存过游戏' }} </div>
+    <div class="flex gap-2">
+      <button nz-button (click)="onSaveClick()">保存</button>
+      <button nz-button (click)="onDeleteClick()">删档</button>
+    </div>
   </div>
 </div>

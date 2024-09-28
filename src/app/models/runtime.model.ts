@@ -3,6 +3,7 @@ import { Env } from './env.model';
 import { BagItem } from './item.model';
 
 export interface StorageData {
+  lastSaveTime?: number;
   timeTickData: number; // 时间刻
   characterData: Character; // 角色信息
   envData: Env; // 环境信息
