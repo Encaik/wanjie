@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Env, EnvType } from '../models';
+import { Env, EnvType, MethodSuit } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ export class EnvService {
   levelMap: Record<number, string> = {};
   maxExp: number = 0;
   weight: number = 1;
+  methodSuits: MethodSuit[] = [];
   envNodes: Env[] = [];
   envEdges: Array<{ source: string; target: string }> = [];
   galaxiesCombos: Array<{ id: string; combo?: string }> = [];
@@ -26,6 +27,7 @@ export class EnvService {
     this.levelMap = env.env.levelMap;
     this.maxExp = env.env.maxExp;
     this.weight = env.env.weight;
+    this.methodSuits = env.env.methodSuits || [];
     this.envNodes = env.envNodes || [];
     this.envEdges = env.envEdges || [];
     this.galaxiesCombos = env.galaxiesCombos || [];

@@ -46,6 +46,11 @@
             <nz-descriptions-item nzTitle="等级体系">
               <app-level-map-view [levelMap]="item.levelMap" />
             </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="功法体系">
+              @for (item of item.methodSuits; track $index) {
+                <nz-tag>{{ item.name }}</nz-tag>
+              }
+            </nz-descriptions-item>
           </nz-descriptions>
         </div>
       }

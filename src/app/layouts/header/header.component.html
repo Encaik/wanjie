@@ -8,6 +8,11 @@
         <app-level-map-view [levelMap]="env.levelMap" [currentLevel]="currentLevel" />
       </nz-descriptions-item>
       <nz-descriptions-item nzTitle="地利"></nz-descriptions-item>
+      <nz-descriptions-item nzTitle="功法体系">
+        @for (item of env.methodSuits; track $index) {
+          <nz-tag>{{ item.name }}</nz-tag>
+        }
+      </nz-descriptions-item>
     </nz-descriptions>
   </div>
   <div class="w-full sm:w-1/4">
