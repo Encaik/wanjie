@@ -23,11 +23,11 @@ describe('Util Generate', () => {
         expect(character.baseInfo.gender).toMatch(/^(男|女)$/);
         expect(character.baseInfo.age).toBeGreaterThanOrEqual(12);
         expect(character.baseInfo.talent).toEqual(jasmine.any(Array));
-        expect(character.skillInfo.hp).toBeGreaterThanOrEqual(100);
-        expect(character.skillInfo.mp).toBeGreaterThanOrEqual(100);
-        expect(character.skillInfo.attack).toBeGreaterThanOrEqual(20);
-        expect(character.skillInfo.defence).toBeGreaterThanOrEqual(20);
-        expect(character.skillInfo.speed).toBeGreaterThanOrEqual(0);
+        expect(character.innateInfo.hp).toBeGreaterThanOrEqual(100);
+        expect(character.innateInfo.mp).toBeGreaterThanOrEqual(100);
+        expect(character.innateInfo.attack).toBeGreaterThanOrEqual(20);
+        expect(character.innateInfo.defence).toBeGreaterThanOrEqual(20);
+        expect(character.innateInfo.speed).toBeGreaterThanOrEqual(0);
       });
     });
   });

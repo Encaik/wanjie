@@ -1,1 +1,7 @@
-<p>method works!</p>
+@for (item of mothodConfig.methods; track $index) {
+  <nz-card>
+    <div class="flex flex-col gap-2">
+      {{ item }}
+    </div>
+  </nz-card>
+}

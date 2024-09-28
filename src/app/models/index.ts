@@ -6,6 +6,7 @@ export * from './env.model'; // 环境
 export * from './event.model'; // 事件
 export * from './item.model'; // 物品
 export * from './log.model'; // 日志
+export * from './method.model'; // 功法
 export * from './reward.model'; // 奖励池
 export * from './runtime.model'; // 运行时
 export * from './statistics.model'; // 统计

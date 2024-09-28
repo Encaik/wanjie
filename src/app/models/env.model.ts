@@ -1,3 +1,5 @@
+import { MethodSuit } from './method.model';
+
 export interface Env {
   id: string;
   name: string; // 环境名称
@@ -6,6 +8,7 @@ export interface Env {
   maxExp: number; // 最大经验值
   weight: number; // 权重
   galaxiesId: string; // 所属星系id
+  methodSuits: MethodSuit[];
 }
 
 export enum EnvType {

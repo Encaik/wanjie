@@ -6,4 +6,4 @@ export interface BattleInfo {
   round: number;
 }
 
-export type BattleCharacter = Omit<Character, 'skillInfo'> & { isEnemy?: boolean };
+export type BattleCharacter = Omit<Character, 'innateInfo'> & { isEnemy?: boolean };

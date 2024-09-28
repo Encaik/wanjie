@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
 
-import { BaseInfo, Character, LogLevel, LogType, SkillInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
+import { BaseInfo, Character, LogLevel, LogType, InnateInfo, StatusInfo, LevelInfo, AttrInfo } from '../models';
 import { CharacterEventOperate, Event, EventRes } from '../models/event.model';
 import { StatisticsService } from '../storages/statistics.service';
 import { EnvService } from './env.service';
@@ -35,7 +35,7 @@ export class CharacterService {
     power: 0,
     level: 0
   };
-  skillInfo: SkillInfo = {
+  innateInfo: InnateInfo = {
     hp: 0,
     mp: 0,
     attack: 0,
@@ -112,16 +112,16 @@ export class CharacterService {
       level: level + 1
     });
     this.logSrv.log({
-      msg: `恭喜你，获得了${this.skillInfo.hp}点生命，${this.skillInfo.mp}点灵力，${this.skillInfo.attack}点攻击，${this.skillInfo.defence}点防御和${this.skillInfo.speed}点敏捷\n`,
+      msg: `恭喜你，获得了${this.innateInfo.hp}点生命，${this.innateInfo.mp}点灵力，${this.innateInfo.attack}点攻击，${this.innateInfo.defence}点防御和${this.innateInfo.speed}点敏捷\n`,
       type: LogType.Character,
       level: LogLevel.Info
     });
     this.setAttrInfo({
-      hp: this.attrInfo.hp + this.skillInfo.hp,
-      mp: this.attrInfo.mp + this.skillInfo.mp,
-      attack: this.attrInfo.attack + this.skillInfo.attack,
-      defence: this.attrInfo.defence + this.skillInfo.defence,
-      speed: this.attrInfo.speed + this.skillInfo.speed
+      hp: this.attrInfo.hp + this.innateInfo.hp,
+      mp: this.attrInfo.mp + this.innateInfo.mp,
+      attack: this.attrInfo.attack + this.innateInfo.attack,
+      defence: this.attrInfo.defence + this.innateInfo.defence,
+      speed: this.attrInfo.speed + this.innateInfo.speed
     });
     this.canUpgrade = false;
   }
@@ -142,7 +142,7 @@ export class CharacterService {
       baseInfo: this.baseInfo,
       statusInfo: this.statusInfo,
       levelInfo: this.levelInfo,
-      skillInfo: this.skillInfo,
+      innateInfo: this.innateInfo,
       attrInfo: this.attrInfo
     };
   }
@@ -151,7 +151,7 @@ export class CharacterService {
     character.id && (this.id = character.id);
     character.baseInfo && this.setBaseInfo(character.baseInfo);
     character.statusInfo && this.setStatusInfo(character.statusInfo);
-    character.skillInfo && this.setSkillInfo(character.skillInfo);
+    character.innateInfo && this.setInnateInfo(character.innateInfo);
     character.attrInfo && this.setAttrInfo(character.attrInfo);
     character.levelInfo && this.setLevelInfo(character.levelInfo);
   }
@@ -190,8 +190,8 @@ export class CharacterService {
     this.levelInfo = { ...this.levelInfo, ...levelInfo };
   }
 
-  setSkillInfo(skillInfo: Partial<SkillInfo>) {
-    this.skillInfo = { ...this.skillInfo, ...skillInfo };
+  setInnateInfo(innateInfo: Partial<InnateInfo>) {
+    this.innateInfo = { ...this.innateInfo, ...innateInfo };
     this.updatePower();
   }
 

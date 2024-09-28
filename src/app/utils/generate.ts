@@ -1,15 +1,14 @@
+import LEVELMAP from '@assets/data/level-map.json';
+import METHODS_SUITS from '@assets/data/method-suit.json';
+import NAMES from '@assets/data/names.json';
+import SURNAMES from '@assets/data/surnames.json';
+import TALENTS from '@assets/data/talents.json';
+import WORLDS from '@assets/data/worlds.json';
+import { BattleCharacter, CharacterTalent, Env, EnvType, InitCharacter, MethodSuit } from '@models';
 import { v4 as uuidv4 } from 'uuid';
-
-import LEVELMAP from '../assets/data/level-map.json';
-import NAMES from '../assets/data/names.json';
-import SURNAMES from '../assets/data/surnames.json';
-import TALENTS from '../assets/data/talents.json';
-import WORLDS from '../assets/data/worlds.json';
-import { BattleCharacter, CharacterTalent, Env, EnvType, InitCharacter } from '../models';
 
 const SURNAMES_LEN = SURNAMES.length;
 const NAMES_LEN = NAMES.length;
-const WORLDS_LEN = WORLDS.length;
 const TALENTS_LEN = TALENTS.length;
 
 /**
@@ -34,7 +33,7 @@ export class Generate {
         age: Math.floor(Math.random() * 10) * 2 + 12,
         talent: getCharacterTalent(1)
       },
-      skillInfo: {
+      innateInfo: {
         hp: Math.round(Math.random() * 40) + 100,
         mp: Math.round(Math.random() * 40) + 100,
         attack: Math.round(Math.random() * 40) + 20,
@@ -46,7 +45,7 @@ export class Generate {
 
   static enemys(length: number, level: number = 0): BattleCharacter[] {
     return Array.from({ length }, (_, i) => {
-      const skillInfo = {
+      const innateInfo = {
         hp: Math.round(Math.random() * 40) + 100,
         mp: Math.round(Math.random() * 40) + 100,
         attack: Math.round(Math.random() * 40) + 20,
@@ -54,11 +53,11 @@ export class Generate {
         speed: Math.round(Math.random() * 40)
       };
       const attrInfo = {
-        hp: (1 + level) * skillInfo.hp,
-        mp: (1 + level) * skillInfo.mp,
-        attack: (1 + level) * skillInfo.attack,
-        defence: (1 + level) * skillInfo.defence,
-        speed: (1 + level) * skillInfo.speed,
+        hp: (1 + level) * innateInfo.hp,
+        mp: (1 + level) * innateInfo.mp,
+        attack: (1 + level) * innateInfo.attack,
+        defence: (1 + level) * innateInfo.defence,
+        speed: (1 + level) * innateInfo.speed,
         critRate: Math.round(Math.random() * 5) + 2,
         critDamage: Math.round(Math.random() * 20) + 10
       };
@@ -107,19 +106,32 @@ export class Generate {
       envs: Array.from({ length }, (_, i) => {
         const weight: number = Number((Math.random() * 0.5 + 0.75).toFixed(2));
         const type: EnvType = Object.values(EnvType)[Math.floor(Math.random() * Object.keys(EnvType).length)];
+        const WORLDS_NAMES = WORLDS[type];
+        const WORLDS_LEN = WORLDS_NAMES.length;
         return {
           id: `env-${uuidv4()}`,
-          name: WORLDS[Math.floor(Math.random() * WORLDS_LEN)],
+          name: WORLDS_NAMES[Math.floor(Math.random() * WORLDS_LEN)],
           type,
           galaxiesId,
           levelMap: LEVELMAP[type][0],
           weight,
           // TODO: 测试用数据，调低了最大经验
-          maxExp: Math.round((Math.random() * 0.4 + 0.8) * weight * 10000)
+          maxExp: Math.round((Math.random() * 0.4 + 0.8) * weight * 10000),
+          methodSuits: this.methods(2, type)
         };
       }),
       galaxiesId
     };
+  }
+
+  static methods(length: number, type: EnvType): MethodSuit[] {
+    const METHODS_SUITS_NAMES = METHODS_SUITS[type];
+    const METHODS_SUITS_LEN = METHODS_SUITS_NAMES.length;
+    return Array.from({ length }, (_, i) => {
+      return {
+        name: METHODS_SUITS_NAMES[Math.floor(Math.random() * METHODS_SUITS_LEN)]
+      };
+    });
   }
 }
 

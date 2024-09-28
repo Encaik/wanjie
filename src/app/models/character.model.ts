@@ -4,7 +4,7 @@ export interface Character {
   id: string;
   baseInfo: BaseInfo; // 基本信息
   statusInfo: StatusInfo; // 状态信息
-  skillInfo: SkillInfo; // 技能点信息
+  innateInfo: InnateInfo; // 技能点信息
   levelInfo: LevelInfo; // 等级信息
   attrInfo: AttrInfo; // 属性信息
 }
@@ -29,7 +29,7 @@ export interface StatusInfo {
   buffs: Buff[]; // 当前获得的状态
 }
 
-export interface SkillInfo {
+export interface InnateInfo {
   hp: number; // 基础生命
   mp: number; // 基础灵力
   attack: number; // 攻击力
