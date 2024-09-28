@@ -37,9 +37,9 @@ export class AppComponent implements OnInit {
   private kimi = inject(KimiService);
 
   ngOnInit() {
-    // this.kimi.getCharacterList(5).subscribe(res => {
-    //   console.log(res);
-    // });
+    this.kimi.getCharacterList(5).subscribe(res => {
+      console.log(res);
+    });
     this.event
       .sendEvent({
         type: EventType.System,
