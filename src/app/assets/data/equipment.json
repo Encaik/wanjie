@@ -1,0 +1,92 @@
+{
+    "weapons": {
+        "Common": [
+          {
+            "name": "小匕首",
+            "damage": 25,
+            "description": "一把小巧且快速的近战武器。"
+          }
+        ],
+        "Rare": [
+          {
+            "name": "十字弓",
+            "damage": 35,
+            "description": "可以射出箭矢的远程武器。"
+          }
+        ],
+        "Epic": [
+          {
+            "name": "达摩克利剑",
+            "damage": 50,
+            "description": "一把用于近战的锋利刀刃。"
+          }
+        ],
+        "Legendary": [
+          {
+            "name": "法杖",
+            "damage": 70,
+            "description": "用于施放法术的魔法武器。"
+          }
+        ]
+    },
+    "armor": {
+        "Common": [
+            {
+                "name": "靴子",
+                "defense": 15,
+                "description": "保护双脚并提高移动能力。"
+            }
+          ],
+          "Rare": [
+            {
+                "name": "头盔",
+                "defense": 20,
+                "description": "保护头部免受伤害。"
+            }
+          ],
+          "Epic": [
+            {
+                "name": "护胫",
+                "defense": 30,
+                "description": "保护双腿和下半身。"
+            }
+          ],
+          "Legendary": [
+            {
+                "name": "胸甲",
+                "defense": 50,
+                "description": "坚固的护甲，保护躯干。"
+            }
+          ]
+        },
+    "accessories":{
+        "Common": [
+            {
+                "name": "法力手镯",
+                "effect": "+10 法力值",
+                "description": "提升法力的手镯。"
+            }
+        ],
+        "Rare": [
+            {
+                "name": "敏捷腰带",
+                "effect": "+10 敏捷",
+                "description": "提升敏捷和速度的腰带。"
+            }
+        ],
+        "Epic": [
+            {
+                "name": "力量之戒",
+                "effect": "+10 力量",
+                "description": "增加佩戴者力量的戒指。"
+            }
+        ],
+        "Legendary": [
+            {
+                "name": "防护护符",
+                "effect": "+35 防御",
+                "description": "提升防御力的魔法护符。"
+            }
+        ]
+    }
+}
