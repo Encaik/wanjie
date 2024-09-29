@@ -2,10 +2,12 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { environment } from 'environments/environment';
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
-  if (req.url.startsWith('/api')) {
-    const newUrl = `${environment.apiUrl}${req.url}`;
-    const modifiedReq = req.clone({ url: newUrl });
-    return next(modifiedReq);
+  // 统一加上服务端前缀
+  let url = req.url;
+  if (!url.startsWith('https://') && !url.startsWith('http://')) {
+    const { apiUrl } = environment;
+    url = apiUrl + (apiUrl.endsWith('/') && url.startsWith('/') ? url.substring(1) : url);
   }
-  return next(req);
+  const newReq = req.clone({ url });
+  return next(newReq);
 };
