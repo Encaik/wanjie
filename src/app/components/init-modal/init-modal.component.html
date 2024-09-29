@@ -1,6 +1,7 @@
 <nz-steps class="w-full sm:w-1/2 m-auto" [nzCurrent]="current">
   <nz-step nzTitle="选择角色"></nz-step>
   <nz-step nzTitle="选择世界"></nz-step>
+  <nz-step nzTitle="前情提要"></nz-step>
 </nz-steps>
 
 <div class="my-4 relative">
@@ -56,6 +57,11 @@
           </div>
         }
       </div>
+    }
+  </nz-spin>
+  <nz-spin [nzSpinning]="!story">
+    @if (current === 2) {
+      <p>{{ story }}</p>
     }
   </nz-spin>
 </div>

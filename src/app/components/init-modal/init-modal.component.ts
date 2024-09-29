@@ -14,7 +14,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 @Component({
   selector: 'app-init-modal',
   standalone: true,
-  imports: [CommonModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent,NzSpinModule ],
+  imports: [CommonModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent, NzSpinModule],
   templateUrl: './init-modal.component.html'
 })
 export class InitModalComponent implements OnInit {
@@ -27,6 +27,7 @@ export class InitModalComponent implements OnInit {
   galaxiesId: string | undefined;
   selectCharacter: InitCharacter | undefined;
   selectEnv: Env | undefined;
+  story: string = '';
 
   ngOnInit() {
     this.getCharacterList(8);
@@ -36,14 +37,20 @@ export class InitModalComponent implements OnInit {
   getCharacterList(length: number) {
     this.generateSrv.getCharacterList(length).subscribe(res => {
       this.characters = res;
-    })
+    });
   }
 
   getEnvList(length: number) {
-    this.generateSrv.getEnvList(length).subscribe(({envs,galaxiesId}) => {
+    this.generateSrv.getEnvList(length).subscribe(({ envs, galaxiesId }) => {
       this.envs = envs;
       this.galaxiesId = galaxiesId;
-    })
+    });
+  }
+
+  getStory(character: InitCharacter, env: Env) {
+    this.generateSrv.getStory(character, env).subscribe(res => {
+      this.story = res;
+    });
   }
 
   onCharacterClick(item: InitCharacter) {
@@ -52,7 +59,13 @@ export class InitModalComponent implements OnInit {
   }
 
   onEnvClick(item: Env) {
+    // this.current = 2;
     this.selectEnv = item;
+    // this.getStory(this.selectCharacter!, this.selectEnv!);
+    this.onSubmitClick();
+  }
+
+  onSubmitClick() {
     this.ref.destroy({
       character: this.selectCharacter,
       env: {
