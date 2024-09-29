@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { KimiService } from './kimi.service';
+import { GenerateService } from './generate.service';
 
-describe('KimiService', () => {
-  let service: KimiService;
+describe('GenerateService', () => {
+  let service: GenerateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(KimiService);
+    service = TestBed.inject(GenerateService);
   });
 
   it('should be created', () => {

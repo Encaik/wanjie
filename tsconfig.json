@@ -49,6 +49,9 @@
       "@services": [
         "app/services/index"
       ],
+      "@shared": [
+        "app/shared/index"
+      ],
       "@storages/*": [
         "app/storages/*"
       ],

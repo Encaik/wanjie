@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { EventType, SystemEventOperate } from '@models';
-import { EventService, KimiService } from '@services';
+import { EventService } from '@services';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzSegmentedModule } from 'ng-zorro-antd/segmented';
@@ -34,12 +34,7 @@ export class AppComponent implements OnInit {
   segmentedRoutes: string[] = ['/home', '/method', '/universe', '/challenge', '/shop', '/statistics'];
   currentSegmented: number = 0;
 
-  private kimi = inject(KimiService);
-
   ngOnInit() {
-    this.kimi.getCharacterList(5).subscribe(res => {
-      console.log(res);
-    });
     this.event
       .sendEvent({
         type: EventType.System,

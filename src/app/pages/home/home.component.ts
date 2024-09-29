@@ -8,6 +8,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { BackpackComponent } from './components/backpack/backpack.component';
+import { GenerateService } from '@shared';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   public envSrv = inject(EnvService);
   private backpackSrv = inject(BackpackService);
   private event = inject(EventService);
+  private generateSrv = inject(GenerateService);
 
   isAutoCultivate = false;
   isUpgrade = false;
@@ -32,9 +34,15 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     // TODO: 初始化8个敌人，用来测试战斗
-    this.enemys = Generate.enemys(8, this.characterSrv.levelInfo.level);
+    this.getEnemyList();
     // 初始化升级状态
     this.isUpgrade = this.characterSrv.canUpgrade;
+  }
+
+  getEnemyList(){
+    this.generateSrv.getEnemyList(8,this.characterSrv.levelInfo.level).subscribe(res=>{
+      this.enemys = res
+    })
   }
 
   onCultivationClick() {
