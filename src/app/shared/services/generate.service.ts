@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { Res, ResStatus } from '../models/http.model';
 import { BattleCharacter, Env, InitCharacter } from '@models';
+import { map, Observable } from 'rxjs';
+
+import { Res, ResStatus } from '../models/http.model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,7 @@ export class GenerateService {
   getStory(character: InitCharacter, env: Env): Observable<string> {
     return this.http.post<Res<string>>('/api/generate/story', { character, env }).pipe(
       map(res => {
-        return res.status === ResStatus.Success ? res.data : '';
+        return res.status === ResStatus.Success ? res.data : '故事生成失败';
       })
     );
   }

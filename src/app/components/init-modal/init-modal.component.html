@@ -5,8 +5,8 @@
 </nz-steps>
 
 <div class="my-4 relative">
-  <nz-spin [nzSpinning]="!characters.length || !envs.length">
-    @if (current === 0) {
+  @if (current === 0) {
+    <nz-spin [nzSpinning]="!characters.length">
       <div class="h-full grid grid-cols-2 md:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
         @for (item of characters; track $index) {
           <div
@@ -32,8 +32,10 @@
           </div>
         }
       </div>
-    }
-    @if (current === 1) {
+    </nz-spin>
+  }
+  @if (current === 1) {
+    <nz-spin [nzSpinning]="!envs.length">
       <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-auto border rounded p-4 bg-slate-100">
         @for (item of envs; track $index) {
           <div
@@ -57,11 +59,14 @@
           </div>
         }
       </div>
-    }
-  </nz-spin>
-  <nz-spin [nzSpinning]="!story">
-    @if (current === 2) {
-      <p>{{ story }}</p>
-    }
-  </nz-spin>
+    </nz-spin>
+  }
+  @if (current === 2) {
+    <nz-spin [nzSpinning]="!story">
+      <div class="flex flex-col gap-2 justify-center align-middle border rounded p-4 bg-slate-100">
+        <p class="min-h-96 whitespace-pre-wrap text-lg">{{ story }}</p>
+        <button class="mt-2" nz-button nzSize="large" nzType="primary" (click)="onSubmitClick()">开始旅程</button>
+      </div>
+    </nz-spin>
+  }
 </div>
