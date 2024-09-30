@@ -66,7 +66,7 @@ export class GenerateService {
     if (!environment.aiEnable) return of('开发环境，跳过故事生成');
     return this.http.post<Res<string>>('/api/generate/story', { character, env }).pipe(
       map(res => {
-        return res.status === ResStatus.Success ? res.data : '';
+        return res.status === ResStatus.Success ? res.data : '故事生成失败';
       })
     );
   }

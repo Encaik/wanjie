@@ -5,9 +5,9 @@
 </nz-steps>
 
 <div class="my-4 relative">
-  <nz-spin [nzSpinning]="!characters.length || !envs.length">
-    @if (current === 0) {
-      <div class="h-full grid grid-cols-2 md:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
+  @if (current === 0) {
+    <nz-spin [nzSpinning]="!characters.length">
+      <div class="h-full min-h-96 grid grid-cols-2 md:grid-cols-4 gap-4 overflow-auto border rounded p-4 bg-slate-100">
         @for (item of characters; track $index) {
           <div
             [ngClass]="[item.baseInfo.gender === '男' ? ' border-blue-300 bg-blue-100' : ' border-red-300 bg-red-100']"
@@ -32,9 +32,11 @@
           </div>
         }
       </div>
-    }
-    @if (current === 1) {
-      <div class="h-full grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-auto border rounded p-4 bg-slate-100">
+    </nz-spin>
+  }
+  @if (current === 1) {
+    <nz-spin [nzSpinning]="!envs.length">
+      <div class="h-full min-h-96 grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-auto border rounded p-4 bg-slate-100">
         @for (item of envs; track $index) {
           <div
             class="flex flex-col justify-center items-center text-center p-4 rounded cursor-pointer hover:shadow-lg w-full bg-white"
@@ -57,11 +59,14 @@
           </div>
         }
       </div>
-    }
-  </nz-spin>
-  <nz-spin [nzSpinning]="!story">
-    @if (current === 2) {
-      <p>{{ story }}</p>
-    }
-  </nz-spin>
+    </nz-spin>
+  }
+  @if (current === 2) {
+    <nz-spin [nzSpinning]="!story">
+      <div class="flex flex-col gap-2 justify-center align-middle border rounded p-4 bg-slate-100">
+        <p class="min-h-96 whitespace-pre-wrap text-lg">{{ story }}</p>
+        <button class="mt-2" nz-button nzSize="large" nzType="primary" (click)="onSubmitClick()">开始旅程</button>
+      </div>
+    </nz-spin>
+  }
 </div>

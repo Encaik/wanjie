@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { LogType, LogLevel, BattleCharacter, CharacterEventOperate, EventType, EventRes } from '@models';
 import { CharacterService, LogService, RuntimeService, BattleService, EnvService, BackpackService, EventService } from '@services';
+import { GenerateService } from '@shared';
 import { Generate } from '@utils/generate';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
@@ -8,7 +9,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 
 import { BackpackComponent } from './components/backpack/backpack.component';
-import { GenerateService } from '@shared';
 
 @Component({
   selector: 'app-home',
@@ -39,10 +39,10 @@ export class HomeComponent implements OnInit {
     this.isUpgrade = this.characterSrv.canUpgrade;
   }
 
-  getEnemyList(){
-    this.generateSrv.getEnemyList(8,this.characterSrv.levelInfo.level).subscribe(res=>{
-      this.enemys = res
-    })
+  getEnemyList() {
+    this.generateSrv.getEnemyList(8, this.characterSrv.levelInfo.level).subscribe(res => {
+      this.enemys = res;
+    });
   }
 
   onCultivationClick() {

@@ -2,19 +2,29 @@ import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Env, InitCharacter } from '@models';
 import { EnvService } from '@services';
+import { GenerateService } from '@shared';
+import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 
 import { LevelMapViewComponent } from '../level-map-view/level-map-view.component';
-import { GenerateService } from '@shared';
-import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @Component({
   selector: 'app-init-modal',
   standalone: true,
-  imports: [CommonModule, NzDescriptionsModule, NzStepsModule, NzTagModule, KeyValuePipe, LevelMapViewComponent, NzSpinModule],
+  imports: [
+    CommonModule,
+    NzButtonModule,
+    NzDescriptionsModule,
+    NzStepsModule,
+    NzTagModule,
+    KeyValuePipe,
+    LevelMapViewComponent,
+    NzSpinModule
+  ],
   templateUrl: './init-modal.component.html'
 })
 export class InitModalComponent implements OnInit {
@@ -59,10 +69,10 @@ export class InitModalComponent implements OnInit {
   }
 
   onEnvClick(item: Env) {
-    // this.current = 2;
+    this.current = 2;
     this.selectEnv = item;
-    // this.getStory(this.selectCharacter!, this.selectEnv!);
-    this.onSubmitClick();
+    this.getStory(this.selectCharacter!, this.selectEnv!);
+    // this.onSubmitClick();
   }
 
   onSubmitClick() {
