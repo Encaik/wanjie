@@ -3,6 +3,7 @@ import { NzModalRefMock } from '@utils/test';
 import { NzModalRef } from 'ng-zorro-antd/modal';
 
 import { InitModalComponent } from './init-modal.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('InitModalComponent', () => {
   let component: InitModalComponent;
@@ -11,7 +12,7 @@ describe('InitModalComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InitModalComponent],
-      providers: [{ provide: NzModalRef, useClass: NzModalRefMock }]
+      providers: [{ provide: NzModalRef, useClass: NzModalRefMock }, provideHttpClient()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(InitModalComponent);
